@@ -66,3 +66,8 @@ the ADC and DAC sampling clocks, the DATA_CLK signal (see
 the Digital Data Interface section), and all data framing signals.
 This PLL is programmed from 700 MHz to 1400 MHz based on
 the data rate and sample rate requirements of the system. 
+
+
+## FPGA - AD9361
+
+![clock connections](images/clock-connections-fpga.png)
