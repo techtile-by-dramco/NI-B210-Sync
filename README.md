@@ -29,6 +29,8 @@ Sync input:
 
 The REFIN is connected to the [ADF4001](https://www.analog.com/en/products/adf4001.html) (200MHZ Clock Generator PLL) which generates vcxo_tune which is connected to Voltage Controlled Temperature Compensated Crystal Oscillator (VCTCXO), which is than connected to a fan-out buffer to distribute it to xo_out (going to the AD9361) and xo_to_pll (to PLL RF in).
 
+PPS_IN_EXT is connected to the Spartan6 IO_L34P_GCLK19_0.
+
 PLL bring-up:
 1. VCTCXO starts up
 2. FX3 brings up transceiver, sets CLKOUT to FPGA
