@@ -21,6 +21,24 @@ Between FPGA and host:
 
 At the host:
 
+## B210
+
+Sync input:
+- pulse per second input: PPS_IN_EXT (see schematic)
+- 20MHz reference input (as no GPS option to our B210): REFIN (see schematic)
+
+The REFIN is connected to the [ADF4001](https://www.analog.com/en/products/adf4001.html) (200MHZ Clock Generator PLL) which generates vcxo_tune which is connected to Voltage Controlled Temperature Compensated Crystal Oscillator (VCTCXO), which is than connected to a fan-out buffer to distribute it to xo_out (going to the AD9361) and xo_to_pll (to PLL RF in).
+
+PLL bring-up:
+1. VCTCXO starts up
+2. FX3 brings up transceiver, sets CLKOUT to FPGA
+3. FX3 programs FPGA
+4. FPGA writes to PLL, initializes PLL
+5. PLL locks to external ref if avail.
+6. If no ref, PLL tristated via SPI
+
+
+![clock connections](images/clock-connections-fpga.png)
 
 ## AD9361 - RF transceiver
 
@@ -68,6 +86,4 @@ This PLL is programmed from 700 MHz to 1400 MHz based on
 the data rate and sample rate requirements of the system. 
 
 
-## FPGA - AD9361
 
-![clock connections](images/clock-connections-fpga.png)
