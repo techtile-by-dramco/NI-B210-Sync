@@ -6,6 +6,7 @@
 - [Schematic B210](https://files.ettus.com/schematics/b200/b210.pdf)
 - [Ettus Research USRP FPGA HDL Source](https://github.com/EttusResearch/fpga)
 - [AD community question related to phase diff](https://ez.analog.com/wide-band-rf-transceivers/design-support/f/q-a/543540/phase-difference-in-ad9361-multichip-synchronization)
+- [Fractional/Integer-N PLL Basics](https://www.ti.com/lit/an/swra029/swra029.pdf)
 
 ## What needs to be synchronised for MIMO applications
 
