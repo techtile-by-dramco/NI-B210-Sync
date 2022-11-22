@@ -7,6 +7,8 @@
 - [Ettus Research USRP FPGA HDL Source](https://github.com/EttusResearch/fpga)
 - [AD community question related to phase diff](https://ez.analog.com/wide-band-rf-transceivers/design-support/f/q-a/543540/phase-difference-in-ad9361-multichip-synchronization)
 - [Fractional/Integer-N PLL Basics](https://www.ti.com/lit/an/swra029/swra029.pdf)
+- [FMComms5 Phase Synchronization](https://wiki.analog.com/resources/eval/user-guides/ad-fmcomms5-ebz/phase-sync)
+- [Phase Difference in AD9361 Multichip Synchronization](https://ez.analog.com/wide-band-rf-transceivers/design-support/f/q-a/543540/phase-difference-in-ad9361-multichip-synchronization)
 
 ## What needs to be synchronised for MIMO applications
 
