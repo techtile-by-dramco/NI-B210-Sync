@@ -50,6 +50,14 @@ PLL bring-up:
 
 The device utilizes a fractional-N synthesizer in the baseband PLL block to generate the desired sample rate for a given system. This synthesizer generates the ADC sample clock, DAC sample clock, and baseband digital clocks from any reference clock in the frequency range specified for the reference clock input.
 
+
+## Sync BBPLLs and Digital CLK [AD9361 Register Map Reference Manual](https://usermanual.wiki/Document/AD9361RegisterMapReferenceManualUG671.1082447504)
+  - SPI Register 0x001—Multichip Sync and Tx Monitor Control
+  - D2—MCS BBPLL EnableTo synchronize the BBPLLs of multiple devices, write this bit high and then provide a sync pulse to SYNC_IN.
+  - D1—MCS Digital CLK Enable To synchronize the digital clocks of multiple AD9361 devices, first synchronize the BBPLLs, then write this bit high and provide a sync pulse to the `SYNC_IN` pin. 
+  - D0—MCS BB Enable Setting this bit enables the capability of baseband multichip digital synchronization. See also 0x001[D2:D1]. 
+
+
 ### Clock input options (from AD9361 datasheet)
 The AD9361 operates using a reference clock that can be provided
 by two different sources. The first option is to use a dedicated
