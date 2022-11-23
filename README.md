@@ -18,7 +18,7 @@ At the RF transceiver:
 - Baseband digital clocks
 
 At the FPGA:
-- TBD
+- DSP (CORDICs)
 
 Between FPGA and host:
 - USB (to be checked)
