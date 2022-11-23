@@ -100,4 +100,10 @@ This PLL is programmed from 700 MHz to 1400 MHz based on
 the data rate and sample rate requirements of the system. 
 
 
+## FPGA
+
+From [here](https://www.ni.com/nl-nl/shop/wireless-design-test/what-is-a-usrp-software-defined-radio/global-synchronization-and-clock-disciplining-with-ni-usrp-293x-.html):
+- The USRP hardware OSP interpolates and up-converts the synthesized signals to 400 MS/s using a digital up conversion process, and uses the CORDIC algorithm to apply minor frequency offset corrections to achieve the requested RF center frequency. 
+- The digitized I and Q data flow through parallel onboard signal processing (OSP) processes that applies DC offset correction and digital down conversion using the CORDIC algorithm.
+- [How to sync the CORDICs](https://files.ettus.com/manual/page_sync.html)
 
