@@ -9,6 +9,7 @@
 - [Fractional/Integer-N PLL Basics](https://www.ti.com/lit/an/swra029/swra029.pdf)
 - [FMComms5 Phase Synchronization](https://wiki.analog.com/resources/eval/user-guides/ad-fmcomms5-ebz/phase-sync)
 - [Phase Difference in AD9361 Multichip Synchronization](https://ez.analog.com/wide-band-rf-transceivers/design-support/f/q-a/543540/phase-difference-in-ad9361-multichip-synchronization)
+- [UHD Device synchronisation](https://files.ettus.com/manual/page_sync.html)
 
 ## What needs to be synchronised for MIMO applications
 
@@ -107,4 +108,29 @@ From [here](https://www.ni.com/nl-nl/shop/wireless-design-test/what-is-a-usrp-so
 - The digitized I and Q data flow through parallel onboard signal processing (OSP) processes that applies DC offset correction and digital down conversion using the CORDIC algorithm.
 
 [How to sync the CORDICs](https://files.ettus.com/manual/page_sync.html)
+
+
+## UHD and GNURadio
+
+### Enable external PPS and 10MHz
+```cpp
+usrp->set_clock_source("external");
+usrp->set_time_source("external");
+```
+### Defining a common absolute reference clock
+
+The time can be 're'-set once a new PPS has occured:
+```cpp
+const uhd::time_spec_t last_pps_time = usrp->get_time_last_pps();
+while (last_pps_time == usrp->get_time_last_pps()){
+    //sleep 100 milliseconds (give or take)
+}
+// This command will be processed fairly soon after the last PPS edge:
+usrp->set_time_next_pps(uhd::time_spec_t(0.0));
+```
+
+**TODO**: Send a command from the server to the RPIs to start resetting their time reference on next PPS. Or only start transmitting PPS signals from the octoclocks once all devices are operational (not sure the latter is supported by the Octoclock). 
+
+
+
 
