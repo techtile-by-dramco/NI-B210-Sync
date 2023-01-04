@@ -160,6 +160,16 @@ With the above code block, we are able to set a command time equal to the curren
 Modern USRPs pass packets using the CHDR protocol. These packets can be used to issue commands to the USRP and may have an associated timestamp. A command with an included timestamp is called a timed command and it's important to understand how the USRP handles these timed commands. All blocks in a USRP's FPGA have a command queue and maintain a sense of time, however the Radio Core has the unique ability to store an absolute sense of time known as the vita_time. When timed commands are issued to the USRP, they are added to a command FIFO of finite depth and are executed when the timestamp in the header of the command packet is >= the RFNoC block's sense of time. Utilizing these timed commands correctly allows for various USRP functionality to be executed with nanosecond precision, enabling time and phase coherent operation across multiple devices.
 
 
+#### Command Queue
+As commands are passed from host to USRP, they are added to a FIFO on the USRP's FPGA. This FIFO is called the command queue and all commands that are sent to the USRP must pass through a command queue. Each block in the FPGA that handles data also has its own command queue. The command queue FIFO is not to be confused with the data FIFOs used to buffer data between blocks (pictured in Figure 3).
+
+Every command queue maintains a sense of time. The mechanism for acquiring this sense of time is different between the Radio Core and other IP cores (including custom RFNoC blocks) and will be explored later in this application note. When commands enter the command queue, their timestamp is compared against the command queue's sense of time and the commands are executed when Queue Time >= Command Time. Commands without timestamps are executed immediately when they're at the front of the queue. Command queues in the USRP do not support on-the-fly reordering, meaning a command at the front of the queue will block subsequent commands from executing even if their timestamp has passed.
+
+Every IP core on a USRP, including the Radio Core, DDC, DUC, and custom blocks, includes one command queue per data stream (certain blocks are designed to pass multiple data streams). The depth of this command queue varies from device to device is determined at FPGA compilation time based on user settings and available resources. An overflow of the command queue will result in a system halt and often requires a physical reset of the FPGA.
+
+The B210 (Xilinx Spartan 6 XC6SLX150) has by default a depth of 8 (radio core) and 5 (IP cores).
+
+
 ### Phase-aligned DSP
 In order to achieve phase alignment between USRP devices, the CORDICS in both devices must be aligned with respect to each other. This is easily achieved by issuing stream commands with a time spec property, which instructs the streaming to begin at a specified time. Since the devices are already synchronized via the 10 MHz and PPS inputs, the streaming will start at exactly the same time on both devices. The CORDICs are reset at each start-of-burst command, so users should ensure that every start-of-burst also has a time spec set.
 
