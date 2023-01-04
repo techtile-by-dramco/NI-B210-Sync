@@ -10,6 +10,7 @@
 - [FMComms5 Phase Synchronization](https://wiki.analog.com/resources/eval/user-guides/ad-fmcomms5-ebz/phase-sync)
 - [Phase Difference in AD9361 Multichip Synchronization](https://ez.analog.com/wide-band-rf-transceivers/design-support/f/q-a/543540/phase-difference-in-ad9361-multichip-synchronization)
 - [UHD Device synchronisation](https://files.ettus.com/manual/page_sync.html)
+- [Timed commands in UHD](https://kb.ettus.com/index.php?title=Synchronizing_USRP_Events_Using_Timed_Commands_in_UHD)
 
 ## What needs to be synchronised for MIMO applications
 
@@ -112,13 +113,20 @@ From [here](https://www.ni.com/nl-nl/shop/wireless-design-test/what-is-a-usrp-so
 
 ## UHD and GNURadio
 
+There are four key elements required for phase coherent operation of resync-capable USRPs:
+
+1. All USRPs share a common reference clock (10MHz Ref)
+2. All USRPs share a common sense of time (PPS)
+3. LO and DSP tuning is synchronous
+4. Streaming is started synchronously
+
 ### Enable external PPS and 10MHz
 ```cpp
 usrp->set_clock_source("external");
 usrp->set_time_source("external");
 ```
-### Defining a common absolute reference clock
 
+### Defining a common absolute reference clock
 The time can be 're'-set once a new PPS has occured:
 ```cpp
 const uhd::time_spec_t last_pps_time = usrp->get_time_last_pps();
@@ -127,10 +135,70 @@ while (last_pps_time == usrp->get_time_last_pps()){
 }
 // This command will be processed fairly soon after the last PPS edge:
 usrp->set_time_next_pps(uhd::time_spec_t(0.0));
+
+std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 ```
+After we reset the USRP's sense of time, we wait 1 second to ensure a PPS rising edge occurs and latches the 0.000s value to both USRPs. At this point, both USRPs should have a shared sense of time.  We've now satisfied the first and second requirements for phase coherent USRP operation. 
 
 **TODO**: Send a command from the server to the RPIs to start resetting their time reference on next PPS. Or only start transmitting PPS signals from the octoclocks once all devices are operational (not sure the latter is supported by the Octoclock). 
 
 
+### Timed commands for predicatable and repeatable phase offsets
+```cp
+usrp->clear_command_time();
+
+usrp->set_command_time(usrp->get_time_now() + uhd::time_spec_t(0.1)); //set cmd time for .1s in the future
+
+uhd::tune_request_t tune_request(freq);
+usrp->set_rx_freq(tune_request);
+std::this_thread::sleep_for(std::chrono::milliseconds(110)); //sleep 110ms (~10ms after retune occurs) to allow LO to lock
+
+usrp->clear_command_time();
+```
+With the above code block, we are able to set a command time equal to the current time + 0.1s. Any commands that are called after `set_command_time()` will be sent to the USRP with a timestamp corresponding to the argument passed to `set_command_time()`. Because of this timestamp, the USRP will wait until the command time passes to execute the tune request. This will ensure that the LO and DSP chain of our USRPs are retuned synchronously (on the same clock cycle), satisfying the third requirement for phase coherent operation, i.e., LO and DSP tuning is synchronous.
+
+
+### Phase-aligned DSP
+In order to achieve phase alignment between USRP devices, the CORDICS in both devices must be aligned with respect to each other. This is easily achieved by issuing stream commands with a time spec property, which instructs the streaming to begin at a specified time. Since the devices are already synchronized via the 10 MHz and PPS inputs, the streaming will start at exactly the same time on both devices. The CORDICs are reset at each start-of-burst command, so users should ensure that every start-of-burst also has a time spec set.
+
+#### Receive example
+
+##### One burst
+```cpp
+uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_NUM_SAMPS_AND_DONE); 
+stream_cmd.num_samps = samps_to_recv;
+stream_cmd.stream_now = false;
+stream_cmd.time_spec = uhd::time_spec_t(usrp->get_time_now() + uhd::time_spec_t(1.0));
+usrp->issue_stream_cmd(stream_cmd);
+```
+
+##### Streaming
+```cpp
+// create a receive streamer
+uhd::stream_args_t stream_args("fc32", wire); // complex floats
+stream_args.channels             = "0,1,2,3";
+uhd::rx_streamer::sptr rx_stream = usrp->get_rx_stream(stream_args);
+
+// setup streaming
+uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS);
+stream_cmd.stream_now = false;
+stream_cmd.time_spec  = uhd::time_spec_t(usrp->get_time_now() + uhd::time_spec_t(1.0));
+rx_stream->issue_stream_cmd(stream_cmd);
+```
+
+Our system will begin to stream data 1s after the time returned by usrp->get_time_now(). Data sent to the host will be phase coherent between the 4 RX channels in this system. 
+**TODO**: Check if the signal maintains a known phase relationship between both i) the channels and ii) the devices, across runs of code and system power cycles.
+
+
+#### Transmit example
+```cpp
+uhd::tx_metadata_t md; \\ the metadata incl. the time spec
+md.start_of_burst = true;
+md.end_of_burst = false;
+md.has_time_spec = true;
+md.time_spec = time_to_send;
+//send a single packet
+size_t num_tx_samps = tx_streamer->send(buffs, samps_to_send, md);
+```
 
 
