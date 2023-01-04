@@ -192,7 +192,7 @@ Our system will begin to stream data 1s after the time returned by usrp->get_tim
 
 #### Transmit example
 ```cpp
-uhd::tx_metadata_t md; \\ the metadata incl. the time spec
+uhd::tx_metadata_t md; //the metadata incl. the time spec
 md.start_of_burst = true;
 md.end_of_burst = false;
 md.has_time_spec = true;
