@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG   CMakeFiles/init_usrp.dir/zmq_test.cpp.o  -o init_usrp  /usr/lib/x86_64-linux-gnu/libuhd.so /usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0 -lzmq /usr/lib/x86_64-linux-gnu/libboost_atomic.so.1.71.0 -lpthread 

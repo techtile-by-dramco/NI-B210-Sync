@@ -1,0 +1,3 @@
+/home/gnuradio/ZMQ_test/build/CMakeFiles/rebuild_cache.dir
+/home/gnuradio/ZMQ_test/build/CMakeFiles/edit_cache.dir
+/home/gnuradio/ZMQ_test/build/CMakeFiles/init_usrp.dir
