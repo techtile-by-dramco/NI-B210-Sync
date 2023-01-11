@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # simple_pub.py
 import zmq
 import time
