@@ -19,6 +19,9 @@ At the RF transceiver:
 - RF mixer 
 - Baseband digital clocks
 
+
+
+
 At the FPGA:
 - DSP (CORDICs)
 
@@ -49,6 +52,14 @@ PLL bring-up:
 ![clock connections](images/clock-connections-fpga.png)
 
 ## AD9361 - RF transceiver
+
+
+### Synchronise ADC/DAC clocks
+The ADC and DAC clocks can not be perfectly synchronised due to the divider, both clocks are derived from the same BBPLL.
+
+$$ADC_{rate} = BBPLL_{rate} / 2^{div}$$
+
+witd $div$ between 1 through 6. The value for $div$ is [determined so the the VCO rate is between 672MHz and 1430MHz](https://github.com/EttusResearch/uhd/blob/197cdc4f665cbd4e6394a7eeb44b405f67ab10b1/host/lib/usrp/common/ad9361_driver/ad9361_device.cpp#L1202).
 
 ![AD9361](images/ad9361.svg)
 
