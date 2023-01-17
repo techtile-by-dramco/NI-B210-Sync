@@ -19,9 +19,6 @@ At the RF transceiver:
 - RF mixer 
 - Baseband digital clocks
 
-
-
-
 At the FPGA:
 - DSP (CORDICs)
 
@@ -36,7 +33,7 @@ Sync input:
 - pulse per second input: PPS_IN_EXT (see schematic)
 - 20MHz reference input (as no GPS option to our B210): REFIN (see schematic)
 
-The REFIN is connected to the [ADF4001](https://www.analog.com/en/products/adf4001.html) (200MHZ Clock Generator PLL) which generates vcxo_tune which is connected to Voltage Controlled Temperature Compensated Crystal Oscillator (VCTCXO), which is than connected to a fan-out buffer to distribute it to xo_out (going to the AD9361) and xo_to_pll (to PLL RF in).
+The REFIN is connected to the [ADF4001](https://www.analog.com/en/products/adf4001.html) (200MHz Clock Generator PLL) which generates vcxo_tune which is connected to Voltage Controlled Temperature Compensated Crystal Oscillator (VCTCXO), which is than connected to a fan-out buffer to distribute it to xo_out (going to the AD9361) and xo_to_pll (to PLL RF in).
 
 PPS_IN_EXT is connected to the Spartan6 IO_L34P_GCLK19_0.
 
@@ -53,6 +50,10 @@ PLL bring-up:
 
 ## AD9361 - RF transceiver
 
+### XTALN
+The on-board 40MHz clock signal generated from the [ADF4001](https://www.analog.com/en/products/adf4001.html) is coherent:
+
+![scope-40MHz-XTALN](images/scope-40MHz-XTALN.png)
 
 ### Synchronise ADC/DAC clocks
 The ADC and DAC clocks can not be perfectly synchronised due to the divider, both clocks are derived from the same BBPLL.
