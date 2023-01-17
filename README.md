@@ -127,6 +127,13 @@ RX and TX frames. In FDD mode, the TX PLL and the RX PLL
 can be activated simultaneously. These PLLs require no external
 components
 
+#### RFPLL frequency
+
+Scaling to [2xREF](https://github.com/EttusResearch/uhd/blob/197cdc4f665cbd4e6394a7eeb44b405f67ab10b1/host/lib/usrp/common/ad9361_driver/ad9361_device.cpp#L1640).
+By setting registers `0x2AB` and `0x2AC`.
+
+Meaning the RFPLL (F_{REF}) for TX and RX is 80MHz.
+
 ### BB PLL (from AD9361 datasheet)
 The AD9361 also contains a baseband PLL synthesizer that is
 used to generate all baseband related clock signals. These include
