@@ -52,7 +52,7 @@ PLL bring-up:
 ### XTALN
 The on-board 40MHz clock signal generated from the [ADF4001](https://www.analog.com/en/products/adf4001.html) is coherent:
 
-![scope-40MHz-XTALN](images/scope-40MHz-XTALN.png)
+![scope-40MHz-XTALN](images/scope-40MHz-input-XTALN.png)
 
 ### Synchronise ADC/DAC clocks
 The ADC and DAC clocks can not be perfectly synchronised due to the divider, both clocks are derived from the same BBPLL.
