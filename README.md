@@ -45,7 +45,6 @@ PLL bring-up:
 5. PLL locks to external ref if avail.
 6. If no ref, PLL tristated via SPI
 
-
 ![clock connections](images/clock-connections-fpga.png)
 
 ## AD9361 - RF transceiver
