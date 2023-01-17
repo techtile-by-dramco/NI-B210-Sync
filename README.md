@@ -27,6 +27,29 @@ Between FPGA and host:
 
 At the host:
 
+
+## Maintaining phase coherency at different PLLs
+
+From [ref](https://ez.analog.com/cfs-file/__key/telligent-evolution-components-attachments/00-333-01-00-00-24-69-46/attachment.pdf):
+Phase coherence is defined as the state in which two signals maintain a fixed phase relationship
+between each other and is typically required for evaluating the performance of phased-array antennas
+as well as for test and measurement equipment.
+For integer-N PLLs, it is relatively straightforward to achieve phase coherence between multiple PLLs
+by using the same reference for each PLL and updating each device at the same time to ensure the
+PLL counters are aligned. This is often achieved by updating the PLL register contents with the new
+frequency word while holding the device in reset. To ensure both parts get updated at the same time,
+the reset signal is made common and so is cleared internally in the PLLs at exactly the same time.
+This ensures the internal dividers in the PLL start counting from the same start-point. See here for a
+good reference on achieving integer-N PLL phase coherence using this method. If the output
+frequencies on both parts are updated at the same time then the consistent output phase will be
+maintained between the multiple PLLs. To achieve absolute phase consistency with respect to the
+reference input requires you to update the PLLs at a rate equal to an integer multiple of N-divide (PLL
+feedback divider) times REFIN cycles. This would mean the reset signal would need to be
+synchronized with the reference and a count done internally in a microcontroller to keep
+synchronization. In many cases the absolute phase consistency is not required just that the relative
+phase between the PLL outputs is kept constant. In this case LE can be asynchronous to the reference
+input.
+
 ## B210
 
 Sync input:
