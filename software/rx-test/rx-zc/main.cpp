@@ -23,7 +23,7 @@ void ready_to_go(std::string id)
         zmq::socket_t socket(context, zmq::socket_type::req);
 
         std::cout << "Connecting to server..." << std::endl;
-        socket.connect("tcp://localhost:5555");
+        socket.connect("tcp://10.128.48.4:5555");
 
         zmq::message_t request(id.size());
         memcpy(request.data(), id.data(), id.size());
@@ -43,7 +43,7 @@ void wait_till_go_from_server(void)
         // TODO check if received message is SYNC
         //   Socket to receive messages on
         zmq::socket_t subscriber(context, ZMQ_SUB);
-        subscriber.connect("tcp://localhost:5557");
+        subscriber.connect("tcp://10.128.48.4:5557");
         zmq_setsockopt(subscriber, ZMQ_SUBSCRIBE, "", 0);
 
         zmq::message_t msg;
