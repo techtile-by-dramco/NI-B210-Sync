@@ -30,7 +30,8 @@ git clone https://github.com/techtile-by-dramco/NI-B210-Sync.git
 sudo chown -R pi:pi ~/NI-B210-Sync/
 
 # if you want to push use this to set remote "git remote set-url origin https://<auth-token>@github.com/techtile-by-dramco/NI-B210-Sync.git"
-
+# increase buffersize
+git config --global http.postBuffer 524288000
 
 
 
