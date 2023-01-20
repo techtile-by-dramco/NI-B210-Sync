@@ -274,8 +274,8 @@ class TX_ZC(gr.top_block, Qt.QWidget):
         ##################################################
         self.connect((self.blocks_complex_to_magphase_0, 0), (self.qtgui_time_sink_x_0_0, 0))
         self.connect((self.blocks_complex_to_magphase_0, 1), (self.qtgui_time_sink_x_0_0_0, 0))
-        self.connect((self.blocks_complex_to_magphase_0_0, 0), (self.qtgui_time_sink_x_0_0_2, 0))
         self.connect((self.blocks_complex_to_magphase_0_0, 1), (self.qtgui_time_sink_x_0_0_2, 1))
+        self.connect((self.blocks_complex_to_magphase_0_0, 0), (self.qtgui_time_sink_x_0_0_2, 0))
         self.connect((self.blocks_stream_to_vector_0, 0), (self.fft_vxx_0, 0))
         self.connect((self.blocks_vector_source_x_0, 0), (self.blocks_complex_to_magphase_0_0, 0))
         self.connect((self.blocks_vector_source_x_0, 0), (self.blocks_stream_to_vector_0, 0))
