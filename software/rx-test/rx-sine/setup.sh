@@ -25,3 +25,19 @@ apt -y install git
 
 # Clone this project
 git clone https://github.com/techtile-by-dramco/NI-B210-Sync.git
+
+
+# Navigate to software folder and build
+cd NI-B210-Sync/software/rx-test/rx-zc
+mkdir build
+cd build
+cmake ..
+make
+
+# UHD install FPGA images for UHD
+/usr/lib/uhd/utils/uhd_images_downloader.py
+export UHD_IMAGES_DIR=/usr/share/uhd/images
+
+cp /usr/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
+udevadm control --reload-rules
+udevadm trigger
