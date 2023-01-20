@@ -230,7 +230,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         // /*********** quit gpio operations ***********/
         // /********************************************/
 
-        size_t num_requested_samples = rate * 20;
+        size_t num_requested_samples = rate * 10;
         size_t nsamps_per_buff = rx_stream->get_max_num_samps();
         // std::vector<std::vector<std::complex<float>>> buff(usrp->get_rx_num_channels(), std::vector<std::complex<float>>(nsamps_per_buff));     
         /* Allocate large buffer to store all samples */
