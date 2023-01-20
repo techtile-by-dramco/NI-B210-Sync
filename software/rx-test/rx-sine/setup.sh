@@ -25,3 +25,11 @@ apt -y install git
 
 # Clone this project
 git clone https://github.com/techtile-by-dramco/NI-B210-Sync.git
+
+
+# Navigate to software folder and build
+cd NI-B210-Sync/software/rx-test/rx-zc
+mkdir build
+cd build
+cmake ..
+make
