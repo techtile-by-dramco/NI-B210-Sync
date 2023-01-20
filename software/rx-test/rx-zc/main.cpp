@@ -114,11 +114,11 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
                 std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }*/
 
-        std::string file = "usrp_samples_" + serial + "_0.dat";
+        std::string file = "../usrp_samples_" + serial + "_0.dat";
         std::ofstream outfile_0;
         outfile_0.open(file.c_str(), std::ofstream::binary | std::ios::trunc);
 
-        file = "usrp_samples_" + serial + "_1.dat";
+        file = "../usrp_samples_" + serial + "_1.dat";
         std::ofstream outfile_1;
         outfile_1.open(file.c_str(), std::ofstream::binary | std::ios::trunc);
 
