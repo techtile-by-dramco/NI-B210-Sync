@@ -43,7 +43,7 @@ make
 
 # UHD install FPGA images for UHD
 /usr/lib/uhd/utils/uhd_images_downloader.py
-export UHD_IMAGES_DIR=/usr/share/uhd/images
+export UHD_IMAGES_DIR=/usr/share/uhd/images>>~/.bashrc
 
 cp /usr/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
 udevadm control --reload-rules
