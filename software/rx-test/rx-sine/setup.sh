@@ -33,3 +33,6 @@ mkdir build
 cd build
 cmake ..
 make
+
+# UHD install FPGA images for UHD
+usr/lib/uhd/utils/uhd_images_downloader.py
