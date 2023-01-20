@@ -27,13 +27,36 @@ Between FPGA and host:
 
 At the host:
 
+
+## Maintaining phase coherency at different PLLs
+
+From [ref](https://ez.analog.com/cfs-file/__key/telligent-evolution-components-attachments/00-333-01-00-00-24-69-46/attachment.pdf):
+Phase coherence is defined as the state in which two signals maintain a fixed phase relationship
+between each other and is typically required for evaluating the performance of phased-array antennas
+as well as for test and measurement equipment.
+For integer-N PLLs, it is relatively straightforward to achieve phase coherence between multiple PLLs
+by using the same reference for each PLL and updating each device at the same time to ensure the
+PLL counters are aligned. This is often achieved by updating the PLL register contents with the new
+frequency word while holding the device in reset. To ensure both parts get updated at the same time,
+the reset signal is made common and so is cleared internally in the PLLs at exactly the same time.
+This ensures the internal dividers in the PLL start counting from the same start-point. See here for a
+good reference on achieving integer-N PLL phase coherence using this method. If the output
+frequencies on both parts are updated at the same time then the consistent output phase will be
+maintained between the multiple PLLs. To achieve absolute phase consistency with respect to the
+reference input requires you to update the PLLs at a rate equal to an integer multiple of N-divide (PLL
+feedback divider) times REFIN cycles. This would mean the reset signal would need to be
+synchronized with the reference and a count done internally in a microcontroller to keep
+synchronization. In many cases the absolute phase consistency is not required just that the relative
+phase between the PLL outputs is kept constant. In this case LE can be asynchronous to the reference
+input.
+
 ## B210
 
 Sync input:
 - pulse per second input: PPS_IN_EXT (see schematic)
 - 20MHz reference input (as no GPS option to our B210): REFIN (see schematic)
 
-The REFIN is connected to the [ADF4001](https://www.analog.com/en/products/adf4001.html) (200MHZ Clock Generator PLL) which generates vcxo_tune which is connected to Voltage Controlled Temperature Compensated Crystal Oscillator (VCTCXO), which is than connected to a fan-out buffer to distribute it to xo_out (going to the AD9361) and xo_to_pll (to PLL RF in).
+The REFIN is connected to the [ADF4001](https://www.analog.com/en/products/adf4001.html) (200MHz Clock Generator PLL) which generates vcxo_tune which is connected to Voltage Controlled Temperature Compensated Crystal Oscillator (VCTCXO), which is than connected to a fan-out buffer to distribute it to xo_out (going to the AD9361) and xo_to_pll (to PLL RF in).
 
 PPS_IN_EXT is connected to the Spartan6 IO_L34P_GCLK19_0.
 
@@ -45,10 +68,21 @@ PLL bring-up:
 5. PLL locks to external ref if avail.
 6. If no ref, PLL tristated via SPI
 
-
 ![clock connections](images/clock-connections-fpga.png)
 
 ## AD9361 - RF transceiver
+
+### XTALN
+The on-board 40MHz clock signal generated from the [ADF4001](https://www.analog.com/en/products/adf4001.html) is coherent:
+
+![scope-40MHz-XTALN](images/scope-40MHz-input-XTALN.png)
+
+### Synchronise ADC/DAC clocks
+The ADC and DAC clocks can not be perfectly synchronised due to the divider, both clocks are derived from the same BBPLL.
+
+$$ADC_{rate} = BBPLL_{rate} / 2^{div}$$
+
+witd $div$ between 1 through 6. The value for $div$ is [determined so the the VCO rate is between 672MHz and 1430MHz](https://github.com/EttusResearch/uhd/blob/197cdc4f665cbd4e6394a7eeb44b405f67ab10b1/host/lib/usrp/common/ad9361_driver/ad9361_device.cpp#L1202).
 
 ![AD9361](images/ad9361.svg)
 
@@ -92,6 +126,13 @@ operation, the synthesizers turn on and off as appropriate for the
 RX and TX frames. In FDD mode, the TX PLL and the RX PLL
 can be activated simultaneously. These PLLs require no external
 components
+
+#### RFPLL frequency
+
+Scaling to [2xREF](https://github.com/EttusResearch/uhd/blob/197cdc4f665cbd4e6394a7eeb44b405f67ab10b1/host/lib/usrp/common/ad9361_driver/ad9361_device.cpp#L1640).
+By setting registers `0x2AB` and `0x2AC`.
+
+Meaning the RFPLL (F_{REF}) for TX and RX is 80MHz.
 
 ### BB PLL (from AD9361 datasheet)
 The AD9361 also contains a baseband PLL synthesizer that is
