@@ -1,0 +1,34 @@
+id: xcorr
+label: Cross-correlator
+category: '[GRC Hier Blocks]'
+
+parameters:
+-   id: fft_len
+    label: fft_len
+    dtype: int
+    default: '1024'
+    hide: none
+
+inputs:
+-   label: in_0
+    dtype: complex
+    vlen: 1
+-   label: in_1
+    dtype: complex
+    vlen: 1
+
+outputs:
+-   label: out
+    dtype: complex
+    vlen: 1
+
+templates:
+    imports: 'from xcorr import xcorr  # grc-generated hier_block'
+    make: "xcorr(\n    fft_len=${ fft_len },\n)"
+    callbacks:
+    - set_fft_len(${ fft_len })
+
+documentation: /home/techtile/NI-B210-Sync/software/xcorr.py
+grc_source: /home/techtile/NI-B210-Sync/software/xcorr.grc
+
+file_format: 1
