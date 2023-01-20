@@ -26,6 +26,9 @@ apt -y install git
 # Clone this project
 git clone https://github.com/techtile-by-dramco/NI-B210-Sync.git
 
+# change ownership (currently root only)
+sudo chown -R pi:pi ~/NI-B210-Sync/
+
 # if you want to push use this to set remote "git remote set-url origin https://<auth-token>@github.com/techtile-by-dramco/NI-B210-Sync.git"
 
 
