@@ -26,6 +26,10 @@ apt -y install git
 # Clone this project
 git clone https://github.com/techtile-by-dramco/NI-B210-Sync.git
 
+# if you want to push use this to set remote "git remote set-url origin https://<auth-token>@github.com/techtile-by-dramco/NI-B210-Sync.git"
+
+
+
 
 # Navigate to software folder and build
 cd NI-B210-Sync/software/rx-test/rx-zc
