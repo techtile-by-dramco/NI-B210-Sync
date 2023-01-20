@@ -19,3 +19,9 @@ apt -y install libuhd-dev uhd-host
 
 # Install ZMQ
 apt -y install libzmq3-dev
+
+# Install git
+apt -y install git
+
+# Clone this project
+git clone https://github.com/techtile-by-dramco/NI-B210-Sync.git
