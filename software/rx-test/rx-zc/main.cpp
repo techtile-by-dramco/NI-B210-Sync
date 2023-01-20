@@ -257,7 +257,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         std::cout << num_requested_samples << std::endl;
         cmd_time += 10.0;
         // std::cout << usrp->get_time_now().get_real_secs() << std::endl;
-        stream_cmd.time_spec = uhd::time_spec_t(uhd::time_spec_t(cmd_time));
+        stream_cmd.time_spec = uhd::time_spec_t(cmd_time);
         rx_stream->issue_stream_cmd(stream_cmd);
 
         // uhd::stream_cmd_t stream_cmd(uhd::stream_cmd_t::STREAM_MODE_START_CONTINUOUS);
@@ -275,6 +275,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         std::cout << "Locked: " << usrp->get_rx_sensor("lo_locked").to_bool() << std::endl;
         std::cout << "RX channels: " << rx_stream->get_num_channels() << std::endl;
+        
+       	std::cout << "Rx in " << usrp->get_time_now() - uhd::time_spec_t(cmd_time) << " seconds" << std::endl;
 
         // Run this loop until either time expired (if a duration was given), until
         // the requested number of samples were collected (if such a number was

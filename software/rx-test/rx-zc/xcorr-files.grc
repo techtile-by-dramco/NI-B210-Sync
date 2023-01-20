@@ -124,7 +124,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile/NI-B210-Sync/software/rx-test/rx-zc/build/usrp_samples_31E2BD7_0.dat
+    file: /home/techtile/NI-B210-Sync/software/rx-test/rx-zc/usrp_samples_31E2BD7_0.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -146,7 +146,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile/NI-B210-Sync/software/rx-test/rx-zc/build/usrp_samples_31E2BD7_1.dat
+    file: /home/techtile/NI-B210-Sync/software/rx-test/rx-zc/usrp_samples_31E2BD7_1.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -168,7 +168,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile/NI-B210-Sync/software/rx-test/rx-zc/build/usrp_samples_31E2C39_0.dat
+    file: /home/techtile/NI-B210-Sync/software/rx-test/rx-zc/usrp_samples_31E2C39_0.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
@@ -190,7 +190,7 @@ blocks:
     alias: ''
     begin_tag: pmt.PMT_NIL
     comment: ''
-    file: /home/techtile/NI-B210-Sync/software/rx-test/rx-zc/build/usrp_samples_31E2C39_1.dat
+    file: /home/techtile/NI-B210-Sync/software/rx-test/rx-zc/usrp_samples_31E2C39_1.dat
     length: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
