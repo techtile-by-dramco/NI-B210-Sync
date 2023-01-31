@@ -31,6 +31,9 @@ while(True):
 	print(f"Node #{message.decode()} is ready")
 	hello_socket.send_string("OK")
 
+	message = hello_socket.recv()
+	print(f"Node #{message.decode()} is ready")
+	hello_socket.send_string("OK")
 
 	# start_ms = datetime.now(timezone.utc).timestamp()
 	# print(f"Waiting 30 seconds before starting the SYNC")
