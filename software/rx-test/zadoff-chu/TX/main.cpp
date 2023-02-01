@@ -288,7 +288,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
                 fmt::print(stderr, "error opening '{:s}'\n", filename);
         }
 
-        while (not md.end_of_burst)
+        while (num_requested_samples > num_total_samps)
         {
 
                 infile.read((char *)&buff.front(), buff.size() * sizeof(sample_t));
@@ -302,10 +302,18 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
                 }
                 std::cout << std::endl;
 
-                md.end_of_burst = infile.eof();
+                if(infile.eof()){
+                        // reset to beginning
+                        infile.clear();
+                        infile.seekg(0, std::ios::beg);
+                }
 
                 tx_stream->send(&buff.front(), num_tx_samps, md, timeout);
                 md.has_time_spec = false;
+
+                if (num_tx_samps < nsamps_per_buff)
+                        std::cerr << "Send timeout..." << std::endl;
+                num_total_samps += num_tx_samps;
         }
 
         // while (num_requested_samples > num_total_samps)
