@@ -158,7 +158,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->set_clock_source("external");
         usrp->set_time_source("external");
 
-        std::map<std::string, std::string> m = usrp->get_usrp_rx_info();
+        std::map<std::string, std::string> m = usrp->get_usrp_tx_info();
 
         std::string serial = m["mboard_serial"];
 
@@ -195,7 +195,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         usrp->clear_command_time();
         double rate = RATE;
-        // set the rx sample rate
+        // set the tx sample rate
         std::cout << boost::format("Setting TX Rate: %f Msps...") % (rate / 1e6) << std::endl;
         cmd_time += 2.0; //7
         usrp->set_command_time(uhd::time_spec_t(cmd_time));
@@ -215,8 +215,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->clear_command_time();
         double freq = FREQ;
 
-        // set the rx center frequency
-        std::cout << boost::format("Setting RX Freq: %f MHz...") % (freq / 1e6) << std::endl;
+        // set the tx center frequency
+        std::cout << boost::format("Setting TX Freq: %f MHz...") % (freq / 1e6) << std::endl;
        
         uhd::tune_request_t::policy_t policy = uhd::tune_request_t::POLICY_MANUAL;
         uhd::tune_request_t tune_request(freq);
@@ -228,8 +228,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         cmd_time += 2.0;
         usrp->set_command_time(uhd::time_spec_t(cmd_time));
-        usrp->set_rx_freq(tune_request, 0);
-        usrp->set_rx_freq(tune_request, 1);
+        usrp->set_tx_freq(tune_request, 0);
         usrp->clear_command_time();
 
         // busy waiting to be sure setting is done
@@ -237,7 +236,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         while(usrp->get_time_now() < uhd::time_spec_t(cmd_time)){}
 
 
-        std::cout << boost::format("Actual RX Freq: %f MHz...") % (usrp->get_rx_freq() / 1e6)
+        std::cout << boost::format("Actual TX Freq: %f MHz...") % (usrp->get_tx_freq() / 1e6)
                   << std::endl
                   << std::endl;
 
@@ -259,12 +258,12 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         double timeout = cmd_time + 4.0f;
 
-        std::cout << "Locked: " << usrp->get_rx_sensor("lo_locked").to_bool() << std::endl;
+        std::cout << "Locked: " << usrp->get_tx_sensor("lo_locked").to_bool() << std::endl;
 
         
-        uhd::time_spec_t rx_starts_in =  uhd::time_spec_t(cmd_time) - usrp->get_time_now();
+        uhd::time_spec_t tx_starts_in =  uhd::time_spec_t(cmd_time) - usrp->get_time_now();
         
-       	std::cout << "Tx starting in " << rx_starts_in.get_full_secs() << " seconds" << std::endl;
+       	std::cout << "Tx starting in " << tx_starts_in.get_full_secs() << " seconds" << std::endl;
 
         // Run this loop until either time expired (if a duration was given), until
         // the requested number of samples were collected (if such a number was
