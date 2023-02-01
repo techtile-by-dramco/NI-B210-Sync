@@ -11,6 +11,8 @@
 #include <thread>
 #include <cmath>
 #include <filesystem>
+#include <fmt/format.h>
+#include <fmt/ranges.h>
 
 namespace po = boost::program_options;
 
@@ -27,7 +29,7 @@ int read_ZC_seq(std::vector<sample_t> *seq)
         // check whether file exists
         if (!std::filesystem::exists(filename.data()))
         {
-                std::cerr << "file is not found" <<std::endl;
+                fmt::print(stderr, "file '{:s}' not found\n", filename);
                 return -2;
         }
 
@@ -40,11 +42,11 @@ int read_ZC_seq(std::vector<sample_t> *seq)
         std::ifstream input_file(filename.data(), std::ios_base::binary);
         if (!input_file)
         {
-                std::cerr << "error opennig file" << std::endl;
+                fmt::print(stderr, "error opening '{:s}'\n", filename);
                 return -4;
         }
 
-        std::cerr << "Reading samples" << std::endl;
+        fmt::print(stderr, "Reading {:d} samples…\n", samples_to_read);
         while (samples_to_read)
         {
                 auto read_now = std::min(samples_to_read, seq->size());
@@ -52,6 +54,8 @@ int read_ZC_seq(std::vector<sample_t> *seq)
                                 read_now * sizeof(sample_t));
                 samples_to_read -= read_now;
         }
+
+        return 0;
 
         /*
         LEGACY
@@ -168,15 +172,20 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
         std::vector<sample_t> seq;
-        read_ZC_seq(&seq);
 
-        if (!ignore_sync)
-        {
-                ready_to_go(serial);        // non-blocking
-                wait_till_go_from_server(); // blocking till SYNC message received
-        }else{
-                std::cout << "Ignoring waiting for server" << std::endl;
+        if (read_ZC_seq(&seq) <0){
+                return -1;
         }
+
+                if (!ignore_sync)
+                {
+                        ready_to_go(serial);        // non-blocking
+                        wait_till_go_from_server(); // blocking till SYNC message received
+                }
+                else
+                {
+                        std::cout << "Ignoring waiting for server" << std::endl;
+                }
 
         // This command will be processed fairly soon after the last PPS edge:
         usrp->set_time_next_pps(uhd::time_spec_t(0.0));
