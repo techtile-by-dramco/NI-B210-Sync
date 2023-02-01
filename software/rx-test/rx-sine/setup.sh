@@ -12,7 +12,7 @@ apt -y update
 apt -y upgrade
 
 # Install the build tools (dpkg-dev g++ gcc libc6-dev make)
-apt -y install build-essential cmake pkg-config
+apt -y install build-essential cmake pkg-config libfmt-dev
 
 # Install UHD
 apt -y install libuhd-dev uhd-host
