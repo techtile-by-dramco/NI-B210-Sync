@@ -24,10 +24,7 @@ apt -y install libzmq3-dev
 apt -y install git
 
 # Clone this project
-git clone https://github.com/techtile-by-dramco/NI-B210-Sync.git
-
-# change ownership (currently root only)
-sudo chown -R pi:pi ~/NI-B210-Sync/
+sudo -u pi git clone https://github.com/techtile-by-dramco/NI-B210-Sync.git
 
 # if you want to push use this to set remote "git remote set-url origin https://<auth-token>@github.com/techtile-by-dramco/NI-B210-Sync.git"
 # increase buffersize
@@ -37,14 +34,14 @@ git config --global http.postBuffer 524288000
 
 # Navigate to software folder and build
 cd NI-B210-Sync/software/rx-test/rx-zc
-mkdir build
+sudo -u pi mkdir build
 cd build
 cmake ..
 make
 
 # UHD install FPGA images for UHD
 /usr/lib/uhd/utils/uhd_images_downloader.py
-export UHD_IMAGES_DIR=/usr/share/uhd/images>>~/.bashrc
+echo "export UHD_IMAGES_DIR=/usr/share/uhd/images" >> ~/.bashrc
 
 cp /usr/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
 udevadm control --reload-rules

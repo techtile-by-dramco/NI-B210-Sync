@@ -10,12 +10,72 @@
 #include <chrono>
 #include <thread>
 #include <cmath>
+#include <filesystem>
 
 namespace po = boost::program_options;
 
+#define RATE 250e3
+
 zmq::context_t context(1);
 
-void ready_to_go(std::string id)
+using sample_t = std::complex<float>;
+
+int read_ZC_seq(std::vector<sample_t> *seq)
+{
+        // adapted from https://wiki.gnuradio.org/index.php/File_Sink
+        std::string filename = "../zc-sequence.dat";
+        // check whether file exists
+        if (!std::filesystem::exists(filename.data()))
+        {
+                std::cerr << "file is not found" <<std::endl;
+                return -2;
+        }
+
+        // calculate how many samples to read
+        auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
+        auto samples_to_read = file_size / sizeof(sample_t);
+
+        seq->resize(samples_to_read);
+
+        std::ifstream input_file(filename.data(), std::ios_base::binary);
+        if (!input_file)
+        {
+                std::cerr << "error opennig file" << std::endl;
+                return -4;
+        }
+
+        std::cerr << "Reading samples" << std::endl;
+        while (samples_to_read)
+        {
+                auto read_now = std::min(samples_to_read, seq->size());
+                input_file.read(reinterpret_cast<char *>(seq->data()),
+                                read_now * sizeof(sample_t));
+                samples_to_read -= read_now;
+        }
+
+        /*
+        LEGACY
+        std::vector<std::complex<float>> seq(353*10);
+        std::complex<float> seq_length(353,0);
+        std::complex<float> u(7,0);
+        std::complex<float> cf(53%2,0);
+        std::complex<float> q(2*0,0);
+        std::complex<float> min_j(0,-1);
+
+        std::complex<float> pi = M_PI;
+
+
+        std::complex<float> n = 0;
+        for(uint16_t i=0;i<353*10;i++){
+                n = i%353;
+                std::complex<float> s = exp(min_j*pi*u*n*(n+cf+q) / seq_length); // i defined q = 2*q, so i dont need to cast 2 to a complex number
+                seq.push_back(s);
+        }
+        */
+}
+
+
+    void ready_to_go(std::string id)
 {
         // REQ RES pattern
         // let server now that you are ready and waiting for a SYNC command
@@ -107,23 +167,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         stream_args.channels = {0};
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
-        
-        std::vector<std::complex<float>> seq(353*10);
-        std::complex<float> seq_length(353,0);
-        std::complex<float> u(7,0);
-        std::complex<float> cf(53%2,0);
-        std::complex<float> q(2*0,0);
-        std::complex<float> min_j(0,-1);
-
-        std::complex<float> pi = M_PI;
-
-        
-        std::complex<float> n = 0;
-        for(uint16_t i=0;i<353*10;i++){
-                n = i%353;
-                std::complex<float> s = exp(min_j*pi*u*n*(n+cf+q) / seq_length); // i defined q = 2*q, so i dont need to cast 2 to a complex number
-                seq.push_back(s);
-        }
+        std::vector<sample_t> seq;
+        read_ZC_seq(&seq);
 
         if (!ignore_sync)
         {
@@ -147,16 +192,16 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->set_rx_gain(0.7);
 
         usrp->clear_command_time();
-        double rate = 1e6;
+        double rate = RATE;
         // set the rx sample rate
         std::cout << boost::format("Setting TX Rate: %f Msps...") % (rate / 1e6) << std::endl;
-        cmd_time += 2.0;
+        cmd_time += 2.0; //7
         usrp->set_command_time(uhd::time_spec_t(cmd_time));
         usrp->set_tx_rate(rate);
         usrp->clear_command_time();
 
         // busy waiting to be sure setting is done
-        cmd_time += 2.0;
+        cmd_time += 2.0; //9
         while(usrp->get_time_now() < uhd::time_spec_t(cmd_time)){}
 
         rate = usrp->get_tx_rate();
@@ -186,7 +231,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->clear_command_time();
 
         // busy waiting to be sure setting is done
-        cmd_time += 2.0;
+        cmd_time += 2.0; //11
         while(usrp->get_time_now() < uhd::time_spec_t(cmd_time)){}
 
 
@@ -202,7 +247,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         md.end_of_burst = false;
         md.has_time_spec = true;
 
-        cmd_time += 11.0;
+        cmd_time += 5.0; //16
         md.time_spec = uhd::time_spec_t(cmd_time);
 
         size_t num_requested_samples = rate*15;
