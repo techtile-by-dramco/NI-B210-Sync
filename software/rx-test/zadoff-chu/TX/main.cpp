@@ -48,7 +48,7 @@ int read_ZC_seq(std::vector<sample_t> *seq)
         while (samples_to_read)
         {
                 auto read_now = std::min(samples_to_read, seq->size());
-                input_file.read(reinterpret_cast<char *>(samples.data()),
+                input_file.read(reinterpret_cast<char *>(seq->data()),
                                 read_now * sizeof(sample_t));
                 samples_to_read -= read_now;
         }
