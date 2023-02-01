@@ -54,7 +54,7 @@ std::vector<sample_t> read_ZC_seq(void)
 
         for (size_t idx = 0; idx < samples_to_read; ++idx)
         {
-                std::cout << std::abs(samples[idx]);
+                std::cout << std::arg(samples[idx]);
                 
         }
         std::cout << std::endl;
