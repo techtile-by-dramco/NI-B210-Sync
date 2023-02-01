@@ -32,7 +32,6 @@ std::vector<sample_t> read_ZC_seq(void)
         if (!std::filesystem::exists(filename.data()))
         {
                 fmt::print(stderr, "file '{:s}' not found\n", filename);
-                return -2;
         }
 
         // calculate how many samples to read
@@ -46,12 +45,11 @@ std::vector<sample_t> read_ZC_seq(void)
         if (!input_file)
         {
                 fmt::print(stderr, "error opening '{:s}'\n", filename);
-                return -4;
         }
 
         fmt::print(stderr, "Reading {:d} samples...\n", samples_to_read);
 
-        input_file.read(reinterpret_cast<char *>(samples.data()), read_now * sizeof(sample_t));
+        input_file.read(reinterpret_cast<char *>(samples.data()), samples_to_read * sizeof(sample_t));
 
         return samples;
 
