@@ -52,13 +52,6 @@ std::vector<sample_t> read_ZC_seq(void)
 
         input_file.read(reinterpret_cast<char *>(samples.data()), samples_to_read * sizeof(sample_t));
 
-        for (size_t idx = 0; idx < samples_to_read; ++idx)
-        {
-                std::cout << std::arg(samples[idx]);
-                
-        }
-        std::cout << std::endl;
-
         return samples;
 
         /*
@@ -177,6 +170,12 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         std::vector<sample_t> seq = read_ZC_seq();
 
+        for (size_t idx = 0; idx < 353*20; ++idx)
+        {
+                std::cout << std::arg(seq[idx]);
+        }
+        std::cout << std::endl;
+
         if (!ignore_sync)
         {
                 ready_to_go(serial);        // non-blocking
@@ -279,7 +278,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         while (num_requested_samples > num_total_samps)
         {
                 //send a single packet
-                size_t num_tx_samps = tx_stream->send(&seq.front(), 353*10, md, timeout);
+                size_t num_tx_samps = tx_stream->send(&seq.front(), 353*20, md, timeout);
 
                 //do not use time spec for subsequent packets
                 md.has_time_spec = false;
