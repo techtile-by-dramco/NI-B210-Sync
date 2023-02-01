@@ -25,7 +25,7 @@ zmq::context_t context(1);
 
 using sample_t = std::complex<float>;
 
-std::vector<sample_t> read_ZC_seq(void)
+std::vector<sample_t> read_ZC_seq(int min_samples)
 {
         // adapted from https://wiki.gnuradio.org/index.php/File_Sink
         std::string filename = "../zc-sequence.dat";
@@ -37,10 +37,14 @@ std::vector<sample_t> read_ZC_seq(void)
 
         // calculate how many samples to read
         auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
-        auto samples_to_read = file_size / sizeof(sample_t);
+        auto samples_in_file = file_size / sizeof(sample_t);
+
+        int num_repetitions = std::ceil(static_cast<float>(min_samples) / samples_in_file);
 
         std::vector<sample_t> samples;
-        samples.resize(samples_to_read);
+        samples.resize(samples_in_file * num_repetitions);
+
+        fmt::print(stderr, "Reading {:d} times...\n", num_repetitions);
 
         std::ifstream input_file(filename.data(), std::ios_base::binary);
         if (!input_file)
@@ -48,9 +52,15 @@ std::vector<sample_t> read_ZC_seq(void)
                 fmt::print(stderr, "error opening '{:s}'\n", filename);
         }
 
-        fmt::print(stderr, "Reading {:d} samples...\n", samples_to_read);
+        fmt::print(stderr, "Reading {:d} samples...\n", samples_in_file);
 
-        input_file.read(reinterpret_cast<char *>(samples.data()), samples_to_read * sizeof(sample_t));
+        sample_t *buff_ptr = &samples.front();
+        // read-out the same file "num_repetitions" times
+        for (int i = 0; i < num_repetitions; i++)
+        {
+                input_file.read(reinterpret_cast<char *>(buff_ptr), samples_in_file * sizeof(sample_t));
+                buff_ptr += samples_in_file;
+        }
 
         return samples;
 
@@ -168,7 +178,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         stream_args.channels = {0};
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
-        std::vector<sample_t> seq = read_ZC_seq();
+        size_t nsamps_per_buff = tx_stream->get_max_num_samps();
+        std::vector<sample_t> seq = read_ZC_seq(nsamps_per_buff);
 
         if (!ignore_sync)
         {
@@ -254,7 +265,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         size_t num_requested_samples = rate*15;
 
         size_t num_total_samps = 0;
-        size_t nsamps_per_buff = 353*20;
+        
 
         double timeout = cmd_time + 4.0f;
 
@@ -279,7 +290,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         // calculate how many samples to read
         auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
-        auto samples_to_read = file_size / sizeof(sample_t);
+        auto samples_in_file = file_size / sizeof(sample_t);
 
         std::ifstream infile(filename.data(), std::ios_base::binary);
         if (!infile)
