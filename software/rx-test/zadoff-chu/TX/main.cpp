@@ -10,6 +10,9 @@
 #include <chrono>
 #include <thread>
 #include <cmath>
+#include <filesystem>
+#include <fmt/format.h>
+#include <fmt/ranges.h>
 
 namespace po = boost::program_options;
 
@@ -19,7 +22,7 @@ zmq::context_t context(1);
 
 using sample_t = std::complex<float>;
 
-void read_ZC_seq(std::vector<sample_t> *seq)
+int read_ZC_seq(std::vector<sample_t> *seq)
 {
         // adapted from https://wiki.gnuradio.org/index.php/File_Sink
         std::string filename = "../zc-sequence.dat";
@@ -34,7 +37,7 @@ void read_ZC_seq(std::vector<sample_t> *seq)
         auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
         auto samples_to_read = file_size / sizeof(sample_t);
 
-        seq.resize(samples_to_read);
+        seq->resize(samples_to_read);
 
         std::ifstream input_file(filename.data(), std::ios_base::binary);
         if (!input_file)
@@ -46,7 +49,7 @@ void read_ZC_seq(std::vector<sample_t> *seq)
         fmt::print(stderr, "Reading {:d} samples…\n", samples_to_read);
         while (samples_to_read)
         {
-                auto read_now = std::min(samples_to_read, samples.size());
+                auto read_now = std::min(samples_to_read, seq->size());
                 input_file.read(reinterpret_cast<char *>(samples.data()),
                                 read_now * sizeof(sample_t));
                 samples_to_read -= read_now;
