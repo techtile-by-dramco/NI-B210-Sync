@@ -18,7 +18,8 @@
 
 namespace po = boost::program_options;
 
-#define RATE 250e3
+#define RATE    250e3
+#define FREQ    400e6
 
 zmq::context_t context(1);
 
@@ -50,6 +51,13 @@ std::vector<sample_t> read_ZC_seq(void)
         fmt::print(stderr, "Reading {:d} samples...\n", samples_to_read);
 
         input_file.read(reinterpret_cast<char *>(samples.data()), samples_to_read * sizeof(sample_t));
+
+        for (size_t idx = 0; idx < samples_to_read; ++idx)
+        {
+                std::cout << std::abs(samples[idx]);
+                
+        }
+        std::cout << std::endl;
 
         return samples;
 
@@ -212,7 +220,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
 
         usrp->clear_command_time();
-        double freq = 400e6;
+        double freq = FREQ;
 
         // set the rx center frequency
         std::cout << boost::format("Setting RX Freq: %f MHz...") % (freq / 1e6) << std::endl;
