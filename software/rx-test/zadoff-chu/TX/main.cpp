@@ -17,7 +17,64 @@ namespace po = boost::program_options;
 
 zmq::context_t context(1);
 
-void ready_to_go(std::string id)
+using sample_t = std::complex<float>;
+
+void read_ZC_seq(std::vector<sample_t> *seq)
+{
+        // adapted from https://wiki.gnuradio.org/index.php/File_Sink
+        std::string filename = "../zc-sequence.dat";
+        // check whether file exists
+        if (!std::filesystem::exists(filename.data()))
+        {
+                fmt::print(stderr, "file '{:s}' not found\n", filename);
+                return -2;
+        }
+
+        // calculate how many samples to read
+        auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
+        auto samples_to_read = file_size / sizeof(sample_t);
+
+        seq.resize(samples_to_read);
+
+        std::ifstream input_file(filename.data(), std::ios_base::binary);
+        if (!input_file)
+        {
+                fmt::print(stderr, "error opening '{:s}'\n", filename);
+                return -4;
+        }
+
+        fmt::print(stderr, "Reading {:d} samples…\n", samples_to_read);
+        while (samples_to_read)
+        {
+                auto read_now = std::min(samples_to_read, samples.size());
+                input_file.read(reinterpret_cast<char *>(samples.data()),
+                                read_now * sizeof(sample_t));
+                samples_to_read -= read_now;
+        }
+
+        /*
+        LEGACY
+        std::vector<std::complex<float>> seq(353*10);
+        std::complex<float> seq_length(353,0);
+        std::complex<float> u(7,0);
+        std::complex<float> cf(53%2,0);
+        std::complex<float> q(2*0,0);
+        std::complex<float> min_j(0,-1);
+
+        std::complex<float> pi = M_PI;
+
+
+        std::complex<float> n = 0;
+        for(uint16_t i=0;i<353*10;i++){
+                n = i%353;
+                std::complex<float> s = exp(min_j*pi*u*n*(n+cf+q) / seq_length); // i defined q = 2*q, so i dont need to cast 2 to a complex number
+                seq.push_back(s);
+        }
+        */
+}
+
+
+    void ready_to_go(std::string id)
 {
         // REQ RES pattern
         // let server now that you are ready and waiting for a SYNC command
@@ -109,23 +166,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         stream_args.channels = {0};
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
-        
-        std::vector<std::complex<float>> seq(353*10);
-        std::complex<float> seq_length(353,0);
-        std::complex<float> u(7,0);
-        std::complex<float> cf(53%2,0);
-        std::complex<float> q(2*0,0);
-        std::complex<float> min_j(0,-1);
-
-        std::complex<float> pi = M_PI;
-
-        
-        std::complex<float> n = 0;
-        for(uint16_t i=0;i<353*10;i++){
-                n = i%353;
-                std::complex<float> s = exp(min_j*pi*u*n*(n+cf+q) / seq_length); // i defined q = 2*q, so i dont need to cast 2 to a complex number
-                seq.push_back(s);
-        }
+        std::vector<sample_t> seq;
+        read_ZC_seq(&seq);
 
         if (!ignore_sync)
         {
