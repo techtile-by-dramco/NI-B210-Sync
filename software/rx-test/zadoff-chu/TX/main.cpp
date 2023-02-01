@@ -170,12 +170,6 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         std::vector<sample_t> seq = read_ZC_seq();
 
-        for (size_t idx = 0; idx < 353*20; ++idx)
-        {
-                std::cout << std::arg(seq[idx]);
-        }
-        std::cout << std::endl;
-
         if (!ignore_sync)
         {
                 ready_to_go(serial);        // non-blocking
@@ -261,6 +255,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         size_t num_requested_samples = rate*15;
 
         size_t num_total_samps = 0;
+        size_t nsamps_per_buff = 353;
 
         double timeout = cmd_time + 4.0f;
 
@@ -278,15 +273,18 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         while (num_requested_samples > num_total_samps)
         {
                 //send a single packet
-                size_t num_tx_samps = tx_stream->send(&seq.front(), 353*20, md, timeout);
+                size_t num_tx_samps = tx_stream->send(&seq.front(), nsamps_per_buff, md, timeout);
 
                 //do not use time spec for subsequent packets
                 md.has_time_spec = false;
 
-                if (num_tx_samps < 353*10) std::cerr << "Send timeout..." << std::endl;
+                if (num_tx_samps < nsamps_per_buff)
+                        std::cerr << "Send timeout..." << std::endl;
 
                 num_total_samps += num_tx_samps;
         }
+
+        
 
         // send a mini EOB packet
         md.end_of_burst = true;
