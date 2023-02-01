@@ -12,7 +12,7 @@
 
 namespace po = boost::program_options;
 
-#define RATE 1e6
+#define RATE 10e6
 #define FREQ 400e6
 
 zmq::context_t context(1);
