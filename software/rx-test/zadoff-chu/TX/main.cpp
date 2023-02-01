@@ -49,10 +49,11 @@ int read_ZC_seq(std::vector<sample_t> *seq)
         }
 
         fmt::print(stderr, "Reading {:d} samples...\n", samples_to_read);
+
         if(input_file.read(reinterpret_cast<char *>seq->data(), samples_to_read * sizeof(sample_t))){
-                fmt::print(stdout, "Successfully read file\n");
+                std::cout << "Successfully read file\n";
         }else{
-                fmt::print(stderr, "error reading file contents\n");
+                std::cerr << "error reading file contents\n";
                 return -5;
         }
 
