@@ -150,13 +150,13 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         double rate = 10e6;
         // set the rx sample rate
         std::cout << boost::format("Setting TX Rate: %f Msps...") % (rate / 1e6) << std::endl;
-        cmd_time += 2.0;
+        cmd_time += 2.0; //7
         usrp->set_command_time(uhd::time_spec_t(cmd_time));
         usrp->set_tx_rate(rate);
         usrp->clear_command_time();
 
         // busy waiting to be sure setting is done
-        cmd_time += 2.0;
+        cmd_time += 2.0; //9
         while(usrp->get_time_now() < uhd::time_spec_t(cmd_time)){}
 
         rate = usrp->get_tx_rate();
@@ -186,7 +186,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->clear_command_time();
 
         // busy waiting to be sure setting is done
-        cmd_time += 2.0;
+        cmd_time += 2.0; //11
         while(usrp->get_time_now() < uhd::time_spec_t(cmd_time)){}
 
 
@@ -202,7 +202,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         md.end_of_burst = false;
         md.has_time_spec = true;
 
-        cmd_time += 5.0;
+        cmd_time += 5.0; //16
         md.time_spec = uhd::time_spec_t(cmd_time);
 
         size_t num_requested_samples = rate*15;
