@@ -168,7 +168,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         stream_args.channels = {0};
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
-        std::vector<sample_t> seq = read_ZC_seq();
+        //std::vector<sample_t> seq = read_ZC_seq();
 
         if (!ignore_sync)
         {
@@ -270,21 +270,36 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         // the requested number of samples were collected (if such a number was
         // given), or until Ctrl-C was pressed.
 
-        while (num_requested_samples > num_total_samps)
+        std::vector<samp_type> buff(nsamps_per_buff);
+        std::ifstream infile("../zc-sequence.dat", std::ifstream::binary);
+
+        while (not md.end_of_burst)
         {
-                //send a single packet
-                size_t num_tx_samps = tx_stream->send(&seq.front(), nsamps_per_buff, md, timeout);
 
-                //do not use time spec for subsequent packets
-                md.has_time_spec = false;
+                infile.read((char *)&buff.front(), buff.size() * sizeof(samp_type));
+                size_t num_tx_samps = infile.gcount() / sizeof(samp_type);
 
-                if (num_tx_samps < nsamps_per_buff)
-                        std::cerr << "Send timeout..." << std::endl;
+                md.end_of_burst = infile.eof();
 
-                num_total_samps += num_tx_samps;
+                tx_stream->send(&buff.front(), num_tx_samps, md);
         }
 
+        // while (num_requested_samples > num_total_samps)
+        // {
         
+        //         //send a single packet
+        //         // size_t num_tx_samps = tx_stream->send(&seq.front(), nsamps_per_buff, md, timeout);
+
+        //         // //do not use time spec for subsequent packets
+        //         // md.has_time_spec = false;
+
+        //         // if (num_tx_samps < nsamps_per_buff)
+        //         //         std::cerr << "Send timeout..." << std::endl;
+
+        //         // num_total_samps += num_tx_samps;
+        // }
+
+
 
         // send a mini EOB packet
         md.end_of_burst = true;
