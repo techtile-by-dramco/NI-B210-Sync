@@ -12,6 +12,8 @@
 
 namespace po = boost::program_options;
 
+#define RATE 250e3
+
 zmq::context_t context(1);
 
 void ready_to_go(std::string id)
@@ -146,7 +148,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         usrp->set_rx_gain(0.7);
 
         usrp->clear_command_time();
-        double rate = 10e6;
+        double rate = RATE;
         // set the rx sample rate
         std::cout << boost::format("Setting RX Rate: %f Msps...") % (rate / 1e6) << std::endl;
         cmd_time += 2.0; //7
