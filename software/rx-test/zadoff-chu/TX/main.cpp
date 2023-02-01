@@ -270,14 +270,14 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         // the requested number of samples were collected (if such a number was
         // given), or until Ctrl-C was pressed.
 
-        std::vector<samp_type> buff(nsamps_per_buff);
+        std::vector<sample_t> buff(nsamps_per_buff);
         std::ifstream infile("../zc-sequence.dat", std::ifstream::binary);
 
         while (not md.end_of_burst)
         {
 
-                infile.read((char *)&buff.front(), buff.size() * sizeof(samp_type));
-                size_t num_tx_samps = infile.gcount() / sizeof(samp_type);
+                infile.read((char *)&buff.front(), buff.size() * sizeof(sample_t));
+                size_t num_tx_samps = infile.gcount() / sizeof(sample_t);
 
                 md.end_of_burst = infile.eof();
 
