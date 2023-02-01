@@ -147,7 +147,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         time_t cmd_time = 5.0;
 
-        usrp->set_rx_gain(0.7);
+        usrp->set_normalized_rx_gain(0.7);
 
         usrp->clear_command_time();
         double rate = RATE;
