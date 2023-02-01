@@ -281,7 +281,8 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
                 md.end_of_burst = infile.eof();
 
-                tx_stream->send(&buff.front(), num_tx_samps, md);
+                tx_stream->send(&buff.front(), num_tx_samps, md, timeout);
+                md.has_time_spec = false;
         }
 
         // while (num_requested_samples > num_total_samps)
