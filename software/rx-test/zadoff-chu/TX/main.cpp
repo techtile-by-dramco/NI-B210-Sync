@@ -271,7 +271,22 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         // given), or until Ctrl-C was pressed.
 
         std::vector<sample_t> buff(nsamps_per_buff);
-        std::ifstream infile("../zc-sequence.dat", std::ifstream::binary);
+        std::string filename = "../zc-sequence.dat";
+        // check whether file exists
+        if (!std::filesystem::exists(filename.data()))
+        {
+                fmt::print(stderr, "file '{:s}' not found\n", filename);
+        }
+
+        // calculate how many samples to read
+        auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
+        auto samples_to_read = file_size / sizeof(sample_t);
+
+        std::ifstream infile(filename.data(), std::ios_base::binary);
+        if (!infile)
+        {
+                fmt::print(stderr, "error opening '{:s}'\n", filename);
+        }
 
         while (not md.end_of_burst)
         {
