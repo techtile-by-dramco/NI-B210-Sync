@@ -48,13 +48,12 @@ int read_ZC_seq(std::vector<sample_t> *seq)
                 return -4;
         }
 
-        fmt::print(stderr, "Reading {:d} samples…\n", samples_to_read);
-        while (samples_to_read)
-        {
-                auto read_now = std::min(samples_to_read, seq->size());
-                input_file.read(reinterpret_cast<char *>(seq->data()),
-                                read_now * sizeof(sample_t));
-                samples_to_read -= read_now;
+        fmt::print(stderr, "Reading {:d} samples...\n", samples_to_read);
+        if(input_file.read(reinterpret_cast<char *>seq->data(), samples_to_read * sizeof(sample_t))){
+                fmt::print(stdout, "Successfully read file\n");
+        }else{
+                fmt::print(stderr, "error reading file contents\n");
+                return -5;
         }
 
         return 0;
@@ -200,7 +199,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         time_t cmd_time = 5.0;
 
-        usrp->set_rx_gain(0.7);
+        usrp->set_rx_gain(0.5);
 
         usrp->clear_command_time();
         double rate = RATE;
