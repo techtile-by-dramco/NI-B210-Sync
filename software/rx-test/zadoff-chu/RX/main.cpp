@@ -12,7 +12,8 @@
 
 namespace po = boost::program_options;
 
-#define RATE 250e3
+#define RATE 10e6
+#define FREQ 400e6
 
 zmq::context_t context(1);
 
@@ -169,7 +170,7 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
 
         usrp->clear_command_time();
-        double freq = 400e6;
+        double freq = FREQ;
 
         // set the rx center frequency
         std::cout << boost::format("Setting RX Freq: %f MHz...") % (freq / 1e6) << std::endl;
