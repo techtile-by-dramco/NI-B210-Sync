@@ -288,27 +288,31 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
                 fmt::print(stderr, "error opening '{:s}'\n", filename);
         }
 
+        std::vector<sample_t> buff_ones(nsamps_per_buff);
+        std::fill(buff_ones.begin(), buff_ones.end(), 1);
+        size_t num_tx_samps = nsamps_per_buff;
+
         while (num_requested_samples > num_total_samps)
         {
 
-                infile.read((char *)&buff.front(), buff.size() * sizeof(sample_t));
-                size_t num_tx_samps = infile.gcount() / sizeof(sample_t);
+                // infile.read((char *)&buff.front(), buff.size() * sizeof(sample_t));
+                // size_t num_tx_samps = infile.gcount() / sizeof(sample_t);
 
-                sample_t *start_pos = &buff.front();
-                 for (int i = 0; i < num_tx_samps; i++)
-                {
-                        std::cout << std::arg(*start_pos) << " ";
-                        start_pos++;
-                }
-                std::cout << std::endl;
+                // sample_t *start_pos = &buff.front();
+                //  for (int i = 0; i < num_tx_samps; i++)
+                // {
+                //         std::cout << std::arg(*start_pos) << " ";
+                //         start_pos++;
+                // }
+                // std::cout << std::endl;
 
-                if(infile.eof()){
-                        // reset to beginning
-                        infile.clear();
-                        infile.seekg(0, std::ios::beg);
-                }
+                // if(infile.eof()){
+                //         // reset to beginning
+                //         infile.clear();
+                //         infile.seekg(0, std::ios::beg);
+                // }
 
-                tx_stream->send(&buff.front(), num_tx_samps, md, timeout);
+                tx_stream->send(&buff_ones.front(), num_tx_samps, md, timeout);
                 md.has_time_spec = false;
 
                 if (num_tx_samps < nsamps_per_buff)
