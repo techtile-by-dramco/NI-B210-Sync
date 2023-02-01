@@ -11,8 +11,6 @@
 #include <thread>
 #include <cmath>
 #include <filesystem>
-#include <fmt/format.h>
-#include <fmt/ranges.h>
 
 namespace po = boost::program_options;
 
@@ -29,7 +27,7 @@ int read_ZC_seq(std::vector<sample_t> *seq)
         // check whether file exists
         if (!std::filesystem::exists(filename.data()))
         {
-                fmt::print(stderr, "file '{:s}' not found\n", filename);
+                std::cerr << "file is not found" <<std::endl;
                 return -2;
         }
 
@@ -42,11 +40,11 @@ int read_ZC_seq(std::vector<sample_t> *seq)
         std::ifstream input_file(filename.data(), std::ios_base::binary);
         if (!input_file)
         {
-                fmt::print(stderr, "error opening '{:s}'\n", filename);
+                std::cerr << "error opennig file" << std::endl;
                 return -4;
         }
 
-        fmt::print(stderr, "Reading {:d} samples…\n", samples_to_read);
+        std::cerr << "Reading samples" << std::endl;
         while (samples_to_read)
         {
                 auto read_now = std::min(samples_to_read, seq->size());
