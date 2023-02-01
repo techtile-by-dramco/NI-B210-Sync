@@ -24,7 +24,7 @@ zmq::context_t context(1);
 
 using sample_t = std::complex<float>;
 
-int read_ZC_seq(std::vector<sample_t> *seq)
+std::vector<sample_t> read_ZC_seq(void)
 {
         // adapted from https://wiki.gnuradio.org/index.php/File_Sink
         std::string filename = "../zc-sequence.dat";
@@ -39,7 +39,8 @@ int read_ZC_seq(std::vector<sample_t> *seq)
         auto file_size = std::filesystem::file_size(std::filesystem::path(filename));
         auto samples_to_read = file_size / sizeof(sample_t);
 
-        seq->resize(samples_to_read);
+        std::vector<sample_t> samples;
+        samples.resize(samples_to_read);
 
         std::ifstream input_file(filename.data(), std::ios_base::binary);
         if (!input_file)
@@ -50,14 +51,9 @@ int read_ZC_seq(std::vector<sample_t> *seq)
 
         fmt::print(stderr, "Reading {:d} samples...\n", samples_to_read);
 
-        if(input_file.read(reinterpret_cast<char *>seq->data(), samples_to_read * sizeof(sample_t))){
-                std::cout << "Successfully read file\n";
-        }else{
-                std::cerr << "error reading file contents\n";
-                return -5;
-        }
+        input_file.read(reinterpret_cast<char *>(samples.data()), read_now * sizeof(sample_t));
 
-        return 0;
+        return samples;
 
         /*
         LEGACY
@@ -173,21 +169,17 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         stream_args.channels = {0};
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
-        std::vector<sample_t> seq;
+        std::vector<sample_t> seq = read_ZC_seq();
 
-        if (read_ZC_seq(&seq) <0){
-                return -1;
+        if (!ignore_sync)
+        {
+                ready_to_go(serial);        // non-blocking
+                wait_till_go_from_server(); // blocking till SYNC message received
         }
-
-                if (!ignore_sync)
-                {
-                        ready_to_go(serial);        // non-blocking
-                        wait_till_go_from_server(); // blocking till SYNC message received
-                }
-                else
-                {
-                        std::cout << "Ignoring waiting for server" << std::endl;
-                }
+        else
+        {
+                std::cout << "Ignoring waiting for server" << std::endl;
+        }
 
         // This command will be processed fairly soon after the last PPS edge:
         usrp->set_time_next_pps(uhd::time_spec_t(0.0));
