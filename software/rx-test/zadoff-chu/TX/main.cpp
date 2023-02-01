@@ -294,8 +294,11 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
                 infile.read((char *)&buff.front(), buff.size() * sizeof(sample_t));
                 size_t num_tx_samps = infile.gcount() / sizeof(sample_t);
 
-                for (int i = 0; i << num_tx_samps; i++ ){
-                        std::cout << std::arg(buff[i]) << " ";
+                sample_t *start_pos = &buff.front();
+                 for (int i = 0; i < num_tx_samps; i++)
+                {
+                        std::cout << std::arg(*start_pos) << " ";
+                        start_pos++;
                 }
                 std::cout << std::endl;
 
