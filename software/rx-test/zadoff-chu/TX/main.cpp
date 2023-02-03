@@ -18,7 +18,7 @@
 
 namespace po = boost::program_options;
 
-#define RATE    10e6
+#define RATE    1e6
 #define FREQ    400e6
 
 zmq::context_t context(1);
@@ -179,7 +179,6 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         uhd::tx_streamer::sptr tx_stream = usrp->get_tx_stream(stream_args);
 
         size_t nsamps_per_buff = tx_stream->get_max_num_samps();
-        std::cout << nsamps_per_buff << std::endl;
         std::vector<sample_t> seq = read_ZC_seq(nsamps_per_buff);
 
         if (!ignore_sync)
