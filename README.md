@@ -11,6 +11,7 @@
 - [Phase Difference in AD9361 Multichip Synchronization](https://ez.analog.com/wide-band-rf-transceivers/design-support/f/q-a/543540/phase-difference-in-ad9361-multichip-synchronization)
 - [UHD Device synchronisation](https://files.ettus.com/manual/page_sync.html)
 - [Timed commands in UHD](https://kb.ettus.com/index.php?title=Synchronizing_USRP_Events_Using_Timed_Commands_in_UHD)
+- [DoA and methods to phase-align](https://www.youtube.com/watch?v=_UBPVi1vp2s&ab_channel=GNURadio)
 
 ## What needs to be synchronised for MIMO applications
 
