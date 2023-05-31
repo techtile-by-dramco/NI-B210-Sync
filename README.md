@@ -12,6 +12,7 @@
 - [UHD Device synchronisation](https://files.ettus.com/manual/page_sync.html)
 - [Timed commands in UHD](https://kb.ettus.com/index.php?title=Synchronizing_USRP_Events_Using_Timed_Commands_in_UHD)
 - [DoA and methods to phase-align](https://www.youtube.com/watch?v=_UBPVi1vp2s&ab_channel=GNURadio)
+- [Multichannel RF Reference Architecture](https://kb.ettus.com/Multichannel_RF_Reference_Architecture)
 
 ## What needs to be synchronised for MIMO applications
 
