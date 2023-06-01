@@ -21,6 +21,7 @@ ${\color{lightblue} \text{This first step serves rather as confirmation showing 
 - MEASURE outputs TX-1 (USRP-1) and TX-2 (USRP-1) connected to a scope and visualize phase relation.
 
 PHOTO
+DOCS
 
 - [x] incomplete task
 - [ ] completed task
@@ -31,6 +32,7 @@ PHOTO
 - Does the result correspond to the configured phase relationship?
 
 PHOTO
+DOCS
 
 - [x] incomplete task
 - [ ] completed task
@@ -42,12 +44,13 @@ PHOTO
 - MEASURE outputs TX-1 (USRP-1) and TX-1 (USRP-2) connected to a scope and visualize phase relation.
 
 PHOTO
+DOCS
 
 - [x] incomplete task
 - [ ] completed task
 
 **Repeat process several times** --> Phase difference will be different each time!
-After this step the problem îs clearly represented.
+After this step the problem is clearly demonstrated.
 
 # STEP 2. Measure phase difference of internal RF-PLLs 
 The purpose is to measure the phase difference between the RX RF-PLL ans the TX RF-PLL. 
@@ -57,10 +60,10 @@ The purpose is to measure the phase difference between the RX RF-PLL ans the TX 
 
 Signal representation of at the input and output of the USRP channels <br>
 * Transmit signal $tx_1(t) = \exp(j2\pi ft) \cdot \exp(\phi_{tx,configured}) \cdot \exp(\phi_{pll,tx}) \cdot \exp(\phi_{L,tx})$
-* Receive signal $rx_1(t) = \exp(j2\pi ft) \cdot \exp(\phi_{rx,configured}) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx})$ <br>
+* Receive signal $rx_1(t) = \exp(j2\pi ft) \cdot \exp(\phi_{rx,offset}) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx})$ <br>
 With: <br>
   - $tx_1(t)$ and $rx_1(t)$ the signals transmitted or received at the SMA ports of the USRP.
-  - $\phi_{tx,configured}$ and $\phi_{rx,configured}$ is the configured and recieved phases respectively.
+  - $\phi_{tx,configured}$ and $\phi_{rx,offset}$ is the configured and recieved phases respectively.
   - $\phi_{L,rx}$ and $\phi_{L,rx}$ is the RF path between SMA connector port and RF transceiver IC.
   - $\phi_{pll,tx}$ and $\phi_{pll,rx}$ the initial absolute PLL phase realtive to some reference.
 
@@ -68,25 +71,26 @@ With: <br>
 The received signal is the sum of the transmitted signal and the phase shift occured in the SMA cable.
 $$rx_1(t) = tx_1(t) \cdot \exp(\phi_{SMA,cable})$$
 
-$$\exp(j2\pi ft) \cdot \exp(\phi_{tx,configured}) \cdot \exp(\phi_{pll,tx}) \cdot \exp(\phi_{L,tx}) = \exp(j2\pi ft) \cdot \exp(\phi_{rx,configured}) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx}) \cdot \exp(\phi_{SMA,cable})$$
+$$\exp(j2\pi ft) \cdot \exp(\phi_{tx,configured}) \cdot \exp(\phi_{pll,tx}) \cdot \exp(\phi_{L,tx}) = \exp(j2\pi ft) \cdot \exp(\phi_{rx,offset}) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx}) \cdot \exp(\phi_{SMA,cable})$$
 
 Assuming that $\exp(\phi_{L,rx}) \approx \exp(\phi_{L,tx})$ and knowing $\exp(\phi_{SMA,cable})$ (due to the lenght of the cable), the phase difference between the tx and rx path can be determined.
 
 The following formule contains all phase shift contributions when measuring the received phase.
-$${\color{green} \phi_{rx,configured} = \phi_{tx,configured} + \Delta\phi_{pll} + \phi_{L,tx} - \phi_{L,rx} + \phi_{SMA,cable}}$$
+$${\color{green} \phi_{rx,offset} = \phi_{tx,configured} + \Delta\phi_{pll} + \phi_{L,tx} - \phi_{L,rx} + \phi_{SMA,cable}}$$
 
   - The phase difference between both PLLs is represented by $\Delta\phi_{pll} = \phi_{pll,tx} - \phi_{pll,rx}$.
   - $\phi_{tx,configured}$ can be configured to zero during calibration.
   - $\phi_{L,tx}$, $\phi_{L,rx}$ is expected to be constant for all URSPs
   - If same cables length from same manufacturer are selected, $\phi_{SMA,cable}$ is expected to be constant for all URSPs
 
-Meausring $\phi_{rx,configured}$ can be seen as the calibration procedure.
-After this step, the PLL may not by 
+Meausring $\phi_{rx,offset}$ can be seen as the calibration procedure.
+After this step, the PLL may not lock again, since the phase offset will change.
 
 
 ## 2.1. Measure phase between two RX and TX RF-PLLs
 
 PHOTO
+DOCS
 
 - [x] incomplete task
 - [ ] completed task
@@ -94,29 +98,51 @@ PHOTO
 ## 2.2. Compensate for previously measured phase error with one USRP
 - Do not change PLL lock frequency
 - Set $\phi_{tx,configured}$ to the measured phase from 2.1.
-- Measure phase at the receiver again and check if $\phi_{rx,configured}$ approximately zero.
+- Measure phase at the receiver again and check if $\phi_{rx,offset}$ approximately zero.
 
 PHOTO
+DOCS
 
 - [x] incomplete task
 - [ ] completed task
 
 # STEP 3. Compensate phase differences between the two PLLs with multiple USRPs
 
-If previous step 2 was successful, pilot based tests be the logical next step.
-A pilot signal could be generated with another USRP or the RF generator _SMC100A_.
-
-Initially it should be validated that all USRPs could deliver a perfectly synchronised sine wave.
-a phase coherent incoming pilot signal on multiple USRPs 
+If previous step 2 was successful, pilot based tests are the logical next step.
+A pilot signal could be generated with another USRP or the RF generator _SMC100A_ (available in our lab).
 
 For this step, it is required to have time synchronisation. Both time drift and time offset can be controllered with the PPS input.
 Every URSP is connected to an PPS output of NI Clock Distribution Devices CDA-2990.
 - It is mandatory to measure the incoming signal in_1(t), in_2(t), ..., in_n(t) on the $N$ USRP simultaneously at time $t_0$. 
-<!-- - With $$n = \sum_{n = 1}^{N}$$. -->
 - Consequently, it is mandatory to start transmitting the signals simultaneously at time $t_1$.
 
+Initially, it should be validated that all USRPs could deliver a perfectly synchronised sine wave.
+A first test excists of a perfectely phase coherent incoming pilot signal on all USRPs.
+On t1 all USRP output signals should give phase coherent output signals.
 
-## 3.1 Measure incoming phase
+## 3.1 Measure incoming phase on t0
+
+Measuring $\phi_{rx,pilot,n,t0}$
+
+PHOTO
+DOCS
+
+- [x] incomplete task
+- [ ] completed task
+
+## 3.2 Generate outcoming signal on t1
+
+$\phi_{tx,configured,n,t1} = \phi_{rx,offset,n} + \phi_{rx,pilot,n,t0}
+
+With: <br>
+  - $\phi_{rx,offset,n}$ the offset measured in step 2 for the $n^th$ USRP.
+  - $\phi_{rx,pilot,n,t0}$ the measured phase at t0 (during pilot transmission).
+
+PHOTO
+DOCS
+
+- [x] incomplete task
+- [ ] completed task
 
 
 
