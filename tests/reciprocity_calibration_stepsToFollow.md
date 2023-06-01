@@ -37,7 +37,9 @@ DOCS
 - [x] incomplete task
 - [ ] completed task
 
-## 1.2. MEASUREMENTs two USRPs
+## 1.2. Measurements with two USRPs
+
+${\color{red} \text{**Visualize the phase coherency problem!**}}$
 
 ### 1.2.1 Phase relation between two transmit channels of two USRPs
 - Generating a sine wave with both USRPs (e.g., 400 MHz signals) without coded phase shifts and similar frequency.
