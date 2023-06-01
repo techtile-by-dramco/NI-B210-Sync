@@ -46,7 +46,7 @@ With: <br>
 
 <!-- Multiplying transmit signal $tx_1(t)$ with receive signal $rx_1(t)$ gives the phase shift introduced by the SMA cable. -->
 The received signal is the sum of the transmitted signal and the phase shift occured in the SMA cable.
-$$rx_1(t)$ = $tx_1(t)$ \cdot \exp(\phi_{SMA,cable})$$
+$$rx_1(t) = tx_1(t) \cdot \exp(\phi_{SMA,cable})$$
 
 $$\exp(j2\pi ft) \cdot \exp(\phi_{tx,configured}) \cdot \exp(\phi_{pll,tx}) \cdot \exp(\phi_{L,tx}) = \exp(j2\pi ft) \cdot \exp(\phi_{rx,configured}) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx}) \cdot \exp(\phi_{SMA,cable})$$
 
