@@ -50,6 +50,8 @@ $$rx_1(t) = tx_1(t) \cdot \exp(\phi_{SMA,cable})$$
 
 $$\exp(j2\pi ft) \cdot \exp(\phi_{tx,configured}) \cdot \exp(\phi_{pll,tx}) \cdot \exp(\phi_{L,tx}) = \exp(j2\pi ft) \cdot \exp(\phi_{rx,configured}) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx}) \cdot \exp(\phi_{SMA,cable})$$
 
+Assuming that $\exp(\phi_{L,rx}) \approx \exp(\phi_{L,tx})$ and knowing $\exp(\phi_{SMA,cable})$ (due to the lenght of the cable), the phase difference between the tx and rx path can be determined.
+
 <!-- \begin{equation}
 \phi_{RX2} = \Delta\phi 
 \end{equation}
