@@ -137,7 +137,7 @@ DOCS
 
 ## 3.1.2. Generate outcoming signal on t1
 
-$\phi_{tx,configured,n,t1} = \phi_{rx,offset,n} + \phi_{rx,pilot,n,t0}
+$\phi_{tx,configured,n,t1} = \phi_{rx,offset,n} + \phi_{rx,pilot,n,t0}$
 
 With: <br>
   - $\phi_{rx,offset,n}$ the offset measured in step 2 for the $n^th$ USRP.
