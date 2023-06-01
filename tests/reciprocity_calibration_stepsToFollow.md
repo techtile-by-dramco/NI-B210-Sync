@@ -118,11 +118,14 @@ Every URSP is connected to an PPS output of NI Clock Distribution Devices CDA-29
 - It is mandatory to measure the incoming signal in_1(t), in_2(t), ..., in_n(t) on the $N$ USRP simultaneously at time $t_0$. 
 - Consequently, it is mandatory to start transmitting the signals simultaneously at time $t_1$.
 
+## 3.1. Generate phase coherent sine waves with multiple USRPs
+
 Initially, it should be validated that all USRPs could deliver a perfectly synchronised sine wave.
 A first test excists of a perfectely phase coherent incoming pilot signal on all USRPs.
 On t1 all USRP output signals should give phase coherent output signals.
+To test this, an RF splitter can be selected to ensure the incoming signals on the $N$ USRPs are equal.
 
-## 3.1 Measure incoming phase on t0
+## 3.1.1. Measure incoming phase on t0
 
 Measuring $\phi_{rx,pilot,n,t0}$
 
@@ -132,7 +135,7 @@ DOCS
 - [x] incomplete task
 - [ ] completed task
 
-## 3.2 Generate outcoming signal on t1
+## 3.1.2. Generate outcoming signal on t1
 
 $\phi_{tx,configured,n,t1} = \phi_{rx,offset,n} + \phi_{rx,pilot,n,t0}
 
