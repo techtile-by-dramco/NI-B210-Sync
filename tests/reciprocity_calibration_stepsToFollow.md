@@ -91,7 +91,7 @@ PHOTO
 - [x] incomplete task
 - [ ] completed task
 
-## 2.2. Compensate PLL phase difference with one USRP
+## 2.2. Compensate for previously measured phase error with one USRP
 - Do not change PLL lock frequency
 - Set $\phi_{tx,configured}$ to the measured phase from 2.1.
 - Measure phase at the receiver again and check if $\phi_{rx,configured}$ approximately zero.
@@ -102,6 +102,24 @@ PHOTO
 - [ ] completed task
 
 # STEP 3. Compensate phase differences between the two PLLs with multiple USRPs
+
+If previous step 2 was successful, pilot based tests be the logical next step.
+A pilot signal could be generated with another USRP or the RF generator _SMC100A_.
+
+Initially it should be validated that all USRPs could deliver a perfectly synchronised sine wave.
+a phase coherent incoming pilot signal on multiple USRPs 
+
+For this step, it is required to have time synchronisation. Both time drift and time offset can be controllered with the PPS input.
+Every URSP is connected to an PPS output of NI Clock Distribution Devices CDA-2990.
+- It is mandatory to measure the incoming signal in_1(t), in_2(t), ..., in_n(t) on the $N$ USRP simultaneously at time $t_0$. 
+<!-- - With $$n = \sum_{n = 1}^{N}$$. -->
+- Consequently, it is mandatory to start transmitting the signals simultaneously at time $t_1$.
+
+
+## 3.1 Measure incoming phase
+
+
+
 
 
 
