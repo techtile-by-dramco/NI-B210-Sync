@@ -37,6 +37,18 @@ PHOTO
 
 ## 1.2. MEASUREMENTs two USRPs
 
+### 1.2.1 Phase relation between two transmit channels of two USRPs
+- Generating a sine wave with both USRPs (e.g., 400 MHz signals) without coded phase shifts and similar frequency.
+- MEASURE outputs TX-1 (USRP-1) and TX-1 (USRP-2) connected to a scope and visualize phase relation.
+
+PHOTO
+
+- [x] incomplete task
+- [ ] completed task
+
+**Repeat process several times** --> Phase difference will be different each time!
+After this step the problem îs clearly represented.
+
 # STEP 2. Measure phase difference of internal RF-PLLs 
 The purpose is to measure the phase difference between the RX RF-PLL ans the TX RF-PLL. 
 - Start to lock the USRP RX and TX RF-PLL on the same frequency $f$.
@@ -72,8 +84,24 @@ Meausring $\phi_{rx,configured}$ can be seen as the calibration procedure.
 After this step, the PLL may not by 
 
 
-## 2.1. 
+## 2.1. Measure phase between two RX and TX RF-PLLs
 
+PHOTO
+
+- [x] incomplete task
+- [ ] completed task
+
+## 2.2. Compensate PLL phase difference with one USRP
+- Do not change PLL lock frequency
+- Set $\phi_{tx,configured}$ to the measured phase from 2.1.
+- Measure phase at the receiver again and check if $\phi_{rx,configured}$ approximately zero.
+
+PHOTO
+
+- [x] incomplete task
+- [ ] completed task
+
+# STEP 3. Compensate phase differences between the two PLLs with multiple USRPs
 
 
 
