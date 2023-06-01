@@ -12,13 +12,18 @@ Purpose is to generate two sine waves that are in phase when pilot signal was re
 
 # STEP 1. Proof the "phase coherency" problem
 
+${\color{lightblue} \text{This first step serves rather as confirmation showing the current situation and shortcomings of the B210 USRP.}}$
+
 ## 1.1. START with one USRP
 
 ### 1.1.1. Phase relation between two transmit channels of same USRP
 - Generating two signals on the same USRP (e.g., 400 MHz signals) without coded phase shifts.
 - MEASURE outputs TX-1 (USRP-1) and TX-2 (USRP-1) connected to a scope and visualize phase relation.
 
-<span style="color:red">PHOTO</span>
+PHOTO
+
+- [x] incomplete task
+- [ ] completed task
 
 ### 1.1.2. Check the adaptability of the phase relation between the two channels on same USRP
 - Similarly, generate two signals know with relative phase shift (e.g. 90°).
@@ -26,6 +31,9 @@ Purpose is to generate two sine waves that are in phase when pilot signal was re
 - Does the result correspond to the configured phase relationship?
 
 PHOTO
+
+- [x] incomplete task
+- [ ] completed task
 
 ## 1.2. MEASUREMENTs two USRPs
 
@@ -52,12 +60,15 @@ $$\exp(j2\pi ft) \cdot \exp(\phi_{tx,configured}) \cdot \exp(\phi_{pll,tx}) \cdo
 
 Assuming that $\exp(\phi_{L,rx}) \approx \exp(\phi_{L,tx})$ and knowing $\exp(\phi_{SMA,cable})$ (due to the lenght of the cable), the phase difference between the tx and rx path can be determined.
 
-<!-- \begin{equation}
-\phi_{RX2} = \Delta\phi 
-\end{equation}
-$$ -->
+The following formule contains all phase shift contributions when measuring the received phase.
+$${\color{green} \phi_{rx,configured} = \phi_{tx,configured} + \Delta\phi_{pll} + \phi_{L,tx} - \phi_{L,rx} + \phi_{SMA,cable}}$$
 
-This can be seen as the calibration procedure.
+  - The phase difference between both PLLs is represented by $\Delta\phi_{pll} = \phi_{pll,tx} - \phi_{pll,rx}$.
+  - $\phi_{tx,configured}$ can be configured to zero during calibration.
+  - $\phi_{L,tx}$, $\phi_{L,rx}$ is expected to be constant for all URSPs
+  - If same cables length from same manufacturer are selected, $\phi_{SMA,cable}$ is expected to be constant for all URSPs
+
+Meausring $\phi_{rx,configured}$ can be seen as the calibration procedure.
 After this step, the PLL may not by 
 
 
