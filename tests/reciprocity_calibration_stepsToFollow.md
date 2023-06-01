@@ -42,7 +42,7 @@ DOCS
 ${\color{red} \text{Visualize the phase coherency problem!}}$
 
 ### 1.2.1 Phase relation between two transmit channels of two USRPs
-- Generating a sine wave with both USRPs (e.g., 400 MHz signals) without coded phase shifts and similar frequency.
+- Generating a sine wave with both USRPs (e.g., 400 MHz signals) without coded phase shifts and equal frequency.
 - MEASURE outputs TX-1 (USRP-1) and TX-1 (USRP-2) connected to a scope and visualize phase relation.
 
 PHOTO
