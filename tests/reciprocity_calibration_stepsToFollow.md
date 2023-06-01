@@ -108,7 +108,7 @@ DOCS
 - [x] incomplete task
 - [ ] completed task
 
-# STEP 3. Compensate phase differences between the two PLLs with multiple USRPs
+# STEP 3. Compensate for phase differences between the RF-PLLs of multiple USRPs and measure incoming pilot signals
 
 If previous step 2 was successful, pilot based tests are the logical next step.
 A pilot signal could be generated with another USRP or the RF generator _SMC100A_ (available in our lab).
