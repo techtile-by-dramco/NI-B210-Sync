@@ -1,8 +1,8 @@
 # Reciprocity calibration RX and TX PLL of USRP B210
 **STEPS TO FOLLOW**
 
-Problem: It is not possible to **transmit phase coherent signals** with different individual USRPs.
-Reason: PLLs lock is not constant in time (Even if NI Clock Distribution Devices CDA-2990, the problem can not be solved.) 
+**Problem:** It is not possible to **transmit phase coherent signals** with different individual USRPs.<br>
+**Reason:** PLLs lock is not constant in time (Even if NI Clock Distribution Devices CDA-2990, the problem can not be solved.) The NI Clock Distribution Devices only prevents occurring frequency offsets, frequency drifts and phase drifts. The _**phase offset**_ cannot be controlled without adjustments of the HW or by adding additional feedback cables. This study focusses on this last synchronisation topic.
 
 Assumptions
 
