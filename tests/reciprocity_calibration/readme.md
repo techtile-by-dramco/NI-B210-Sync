@@ -28,16 +28,17 @@ File: [test_111.cpp](test_111.cpp)
 
 DOCS
 
-- [x] incomplete task
-- [ ] completed task
+- [] incomplete task
+- [x] completed task
 
 ### 1.1.2. Check the adaptability of the phase relation between the two channels on same USRP
 - Similarly, generate two signals know with relative phase shift (e.g. 90°).
 - MEASURE outputs TX-1 (USRP-1) and TX-2 (USRP-1) connected to a scope and visualize phase relation.
 - Does the result correspond to the configured phase relationship?
 
-PHOTO
-DOCS
+File: [test_112.cpp](test_112.cpp)
+
+![test_112.png](figures/test_112.png)
 
 - [x] incomplete task
 - [ ] completed task
