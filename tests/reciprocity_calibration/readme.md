@@ -22,9 +22,9 @@ ${\color{lightblue} \text{This first step serves rather as confirmation showing 
 
 File: [test_111.cpp](test_111.cpp)
 
-[test_111.png](figures/test_111.png)
+![test_111.png](figures/test_111.png)
 
-[test_111_zoom.png](figures/test_111_zoom.png)
+![test_111_zoom.png](figures/test_111_zoom.png)
 
 DOCS
 
