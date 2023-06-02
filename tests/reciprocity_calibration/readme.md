@@ -20,6 +20,8 @@ ${\color{lightblue} \text{This first step serves rather as confirmation showing 
 - Generating two signals on the same USRP (e.g., 400 MHz signals) without coded phase shifts.
 - MEASURE outputs TX-1 (USRP-1) and TX-2 (USRP-1) connected to a scope and visualize phase relation.
 
+File: [test_0.cpp](test_0.cpp)
+
 PHOTO
 DOCS
 
