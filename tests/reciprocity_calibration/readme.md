@@ -22,6 +22,8 @@ ${\color{lightblue} \text{This first step serves rather as confirmation showing 
 
 File: [test_111.cpp](test_111.cpp)
 
+Command used: ` make -j4 && ./init_usrp --ignore-server --channels="0,1" --rate=250e3 --gain=0.8`
+
 ![test_111.png](figures/test_111.png)
 
 ![test_111_zoom.png](figures/test_111_zoom.png)
@@ -37,6 +39,8 @@ DOCS
 - Does the result correspond to the configured phase relationship?
 
 File: [test_112.cpp](test_112.cpp)
+
+Command used: ` make -j4 && ./init_usrp --ignore-server --channels="0,1" --rate=250e3 --gain=0.8`
 
 ![test_112.png](figures/test_112.png)
 
