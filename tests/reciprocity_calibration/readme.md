@@ -44,8 +44,8 @@ Command used: ` make -j4 && ./init_usrp --ignore-server --channels="0,1" --rate=
 
 ![test_112.png](figures/test_112.png)
 
-- [x] incomplete task
-- [ ] completed task
+- [] incomplete task
+- [x] completed task
 
 ## 1.2. Measurements with two USRPs
 
@@ -55,17 +55,22 @@ ${\color{red} \text{Visualize the phase coherency problem!}}$
 - Generating a sine wave with both USRPs (e.g., 400 MHz signals) without coded phase shifts and equal frequency.
 - MEASURE outputs TX-1 (USRP-1) and TX-1 (USRP-2) connected to a scope and visualize phase relation.
 
-PHOTO
-DOCS
+File: [test_111.cpp](test_111.cpp)
 
-- [x] incomplete task
-- [ ] completed task
+Command used: ` make -j4 && ./init_usrp --ignore-server --channels="0,1" --rate=250e3 --gain=0.8`
+
+On two USRPs:
+
+![test_121.png](figures/test_121.png)
+
+- [] incomplete task
+- [x] completed task
 
 **Repeat process several times** --> Phase difference will be different each time!
 After this step the problem is clearly demonstrated.
 
 # STEP 2. Measure phase difference of internal RF-PLLs 
-The purpose is to measure the phase difference between the RX RF-PLL ans the TX RF-PLL. 
+The purpose is to measure the phase difference between the RX RF-PLL and the TX RF-PLL. 
 - Start to lock the USRP RX and TX RF-PLL on the same frequency $f$.
 - This measurement requires a physical 50 ohm SMA cable connection between RX-1 and TX-1 of the USRP.
 - The measured phase difference will contain the sum of several components.
