@@ -10,6 +10,16 @@ synchronisattion overview
 
 Purpose is to generate two sine waves that are in phase when pilot signal was received on both input channels.
 
+
+
+- [x] Phase relation between two transmit channels of same USRP
+- [x] Check the adaptability of the phase relation between the two channels on same USRP
+- [x] Phase relation between two transmit channels of two USRPs
+- [] Measure phase difference of internal RF-PLLs
+- [] Measure phase between two RX and TX RF-PLLs
+
+
+
 # STEP 1. Proof the "phase coherency" problem
 
 ${\color{lightblue} \text{This first step serves rather as confirmation showing the current situation and shortcomings of the B210 USRP.}}$
@@ -30,8 +40,7 @@ Command used: ` make -j4 && ./init_usrp --ignore-server --channels="0,1" --rate=
 
 DOCS
 
-- [] incomplete task
-- [x] completed task
+
 
 ### 1.1.2. Check the adaptability of the phase relation between the two channels on same USRP
 - Similarly, generate two signals know with relative phase shift (e.g. 90°).
@@ -44,8 +53,7 @@ Command used: ` make -j4 && ./init_usrp --ignore-server --channels="0,1" --rate=
 
 ![test_112.png](figures/test_112.png)
 
-- [] incomplete task
-- [x] completed task
+[x] completed task
 
 ## 1.2. Measurements with two USRPs
 
@@ -63,8 +71,7 @@ On two USRPs:
 
 ![test_121.png](figures/test_121.png)
 
-- [] incomplete task
-- [x] completed task
+[x] completed task
 
 **Repeat process several times** --> Phase difference will be different each time!
 After this step the problem is clearly demonstrated.
