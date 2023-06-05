@@ -69,7 +69,7 @@ On two USRPs:
 **Repeat process several times** --> Phase difference will be different each time!
 After this step the problem is clearly demonstrated.
 
-# STEP 2. Measure phase difference of internal RF-PLLs 
+# STEP 2. Measure accumulated phase of the internal TX and RX RF-PLLs 
 The purpose is to measure the phase difference between the RX RF-PLL and the TX RF-PLL. 
 - Start to lock the USRP RX and TX RF-PLL on the same frequency $f$.
 - This measurement requires a physical 50 ohm SMA cable connection between RX-1 and TX-1 of the USRP.
