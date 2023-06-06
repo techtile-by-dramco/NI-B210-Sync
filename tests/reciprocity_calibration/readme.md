@@ -89,8 +89,8 @@ The purpose is to measure the phase difference between the RX RF-PLL and the TX 
 - The measured phase difference will contain the sum of several components.
 
 Signal representation of at the input and output of the USRP channels <br>
-* Transmit signal $tx_1(t) = \exp(j2\pi ft) \cdot \exp(\phi_{tx,configured}) \cdot \exp(\phi_{pll,tx}) \cdot \exp(\phi_{L,tx})$
-* Receive signal $rx_1(t) = \exp(j2\pi ft) \cdot \exp(\phi_{rx,offset}) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx})$ <br>
+* Transmit signal $tx_1(t) = \exp(j2\pi ft) \cdot \exp(j \phi_{pll,tx}) \cdot \exp(\phi_{L,tx})$
+* Receive signal $rx_1(t) = \exp(j2\pi ft) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx})$ <br>
 With: <br>
   - $tx_1(t)$ and $rx_1(t)$ the signals transmitted or received at the SMA ports of the USRP.
   - $\phi_{tx,configured}$ and $\phi_{rx,offset}$ is the configured and recieved phases respectively.
