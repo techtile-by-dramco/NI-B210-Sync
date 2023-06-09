@@ -77,7 +77,8 @@ On two USRPs:
 After this step the problem is clearly demonstrated.
 
 # STEP 2. Measure accumulated phase of the internal TX and RX RF-PLLs 
-The purpose is to measure the phase difference between the RX RF-PLL and the TX RF-PLL. 
+The purpose is to measure the accumulated phase yielded from the RX RF-PLL and the TX RF-PLL (and cable). 
+
 - Start to lock the USRP RX and TX RF-PLL on the same frequency $f$.
 - This measurement requires a physical 50 ohm SMA cable connection between RX-1 and TX-1 of the USRP.
 - The measured phase difference will contain the sum of several components.
