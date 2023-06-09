@@ -1,6 +1,12 @@
 # Reciprocity calibration RX and TX PLL of USRP B210
 **STEPS TO FOLLOW**
 
+
+
+https://github.com/techtile-by-dramco/NI-B210-Sync/assets/8626571/951605d9-fbe6-4f4d-9bd9-e3b61ec03a3c
+
+
+
 **Problem:** It is not possible to **transmit phase coherent signals** with different individual USRPs.<br>
 **Reason:** PLLs lock is not constant in time (Even if NI Clock Distribution Devices CDA-2990, the problem can not be solved.) The NI Clock Distribution Devices only prevents occurring frequency offsets, frequency drifts and phase drifts. The _**phase offset**_ cannot be controlled without adjustments of the HW or by adding additional feedback cables. This study focusses on this last synchronisation topic.
 
@@ -84,8 +90,8 @@ The purpose is to measure the accumulated phase yielded from the RX RF-PLL and t
 - The measured phase difference will contain the sum of several components.
 
 Signal representation of at the input and output of the USRP channels <br>
-* Transmit signal $tx_1(t) = \exp(j2\pi ft) \cdot \exp(\phi_{tx,configured}) \cdot \exp(\phi_{pll,tx}) \cdot \exp(\phi_{L,tx})$
-* Receive signal $rx_1(t) = \exp(j2\pi ft) \cdot \exp(\phi_{rx,offset}) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx})$ <br>
+* Transmit signal $tx_1(t) = \exp(j2\pi ft) \cdot \exp(j \phi_{pll,tx}) \cdot \exp(\phi_{L,tx})$
+* Receive signal $rx_1(t) = \exp(j2\pi ft) \cdot \exp(\phi_{pll,rx}) \cdot \exp(\phi_{L,rx})$ <br>
 With: <br>
   - $tx_1(t)$ and $rx_1(t)$ the signals transmitted or received at the SMA ports of the USRP.
   - $\phi_{tx,configured}$ and $\phi_{rx,offset}$ is the configured and recieved phases respectively.
