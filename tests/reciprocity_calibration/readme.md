@@ -21,7 +21,7 @@ Purpose is to generate two sine waves that are in phase when pilot signal was re
 - [x] Phase relation between two transmit channels of same USRP
 - [x] Check the adaptability of the phase relation between the two channels on same USRP
 - [x] Phase relation between two transmit channels of two USRPs
-- [] Measure phase difference of internal RF-PLLs
+- [x] Measure phase difference of internal RF-PLLs
 - [] Measure phase between two RX and TX RF-PLLs
 
 
@@ -82,7 +82,7 @@ On two USRPs:
 **Repeat process several times** --> Phase difference will be different each time!
 After this step the problem is clearly demonstrated.
 
-# STEP 2. Measure accumulated phase of the internal TX and RX RF-PLLs 
+# 2.1 Measure accumulated phase of the internal TX and RX RF-PLLs 
 The purpose is to measure the accumulated phase yielded from the RX RF-PLL and the TX RF-PLL (and cable). 
 
 - Start to lock the USRP RX and TX RF-PLL on the same frequency $f$.
@@ -114,11 +114,24 @@ $${\color{green} \phi_{rx,offset} = \phi_{tx,configured} + \Delta\phi_{pll} + \p
   - $\phi_{L,tx}$, $\phi_{L,rx}$ is expected to be constant for all URSPs
   - If same cables length from same manufacturer are selected, $\phi_{SMA,cable}$ is expected to be constant for all URSPs
 
-Meausring $\phi_{rx,offset}$ can be seen as the calibration procedure.
+Measuring $\phi_{rx,offset}$ can be seen as the calibration procedure.
 After this step, the PLL may not lock again, since the phase offset will change.
 
 
-## 2.1. Measure phase between two RX and TX RF-PLLs
+### Experiment
+
+Command used: `make -j4 && ./init_usrp --ref="external" --tx-freq=400E6 --rx-freq=400E6 --tx-rate=250E3 --rx-rate=250E3 --tx-gain=1`
+
+Setup: TX/RX A -- 20dB att. -- 16-port splitter -- RX2 (all on the same USRP)
+
+Description: 16-port splitter was in between to visualize the transmitted signal on the scope. 16-port as no other was available.
+
+USRP program: [test_21.cpp](test_21.cpp)
+
+The produced out.dat file is then processed by [test_211.ipynb](test_211.ipynb).
+
+
+## 2.2 Measure phase between two RX and TX RF-PLLs
 
 PHOTO
 DOCS
@@ -126,7 +139,7 @@ DOCS
 - [x] incomplete task
 - [ ] completed task
 
-## 2.2. Compensate for previously measured phase error with one USRP
+## 2.3 Compensate for previously measured phase error with one USRP
 - Do not change PLL lock frequency
 - Set $\phi_{tx,configured}$ to the measured phase from 2.1.
 - Measure phase at the receiver again and check if $\phi_{rx,offset}$ approximately zero.
