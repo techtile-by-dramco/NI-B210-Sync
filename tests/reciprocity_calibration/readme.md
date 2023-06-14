@@ -26,7 +26,13 @@ Purpose is to generate two sine waves that are in phase when pilot signal was re
 
 
 
-# STEP 1. Proof the "phase coherency" problem
+<details>
+<summary>
+  
+  # STEP 1. Proof the "phase coherency" problem
+  
+  </summary>
+
 
 ${\color{lightblue} \text{This first step serves rather as confirmation showing the current situation and shortcomings of the B210 USRP.}}$
 
@@ -81,7 +87,14 @@ On two USRPs:
 
 **Repeat process several times** --> Phase difference will be different each time!
 After this step the problem is clearly demonstrated.
+</details>
 
+<details>
+<summary>
+  
+  # STEP 2
+  
+  </summary>
 # 2.1 Measure accumulated phase of the internal TX and RX RF-PLLs 
 The purpose is to measure the accumulated phase yielded from the RX RF-PLL and the TX RF-PLL (and cable). 
 
@@ -195,6 +208,15 @@ DOCS
 
 - [x] incomplete task
 - [ ] completed task
+  
+</details>
+
+<details>
+<summary>
+  
+  # # STEP 3. Compensate for phase differences between the RF-PLLs of multiple USRPs and measure incoming pilot signals
+  
+  </summary>
 
 # STEP 3. Compensate for phase differences between the RF-PLLs of multiple USRPs and measure incoming pilot signals
 
@@ -238,7 +260,7 @@ DOCS
 - [ ] completed task
 
 
-
+</details>
 
 
 
