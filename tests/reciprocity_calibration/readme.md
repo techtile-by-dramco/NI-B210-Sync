@@ -214,7 +214,7 @@ DOCS
 <details>
 <summary>
   
-  # # STEP 3. Compensate for phase differences between the RF-PLLs of multiple USRPs and measure incoming pilot signals
+  # STEP 3. Compensate for phase differences between the RF-PLLs of multiple USRPs and measure incoming pilot signals
   
   </summary>
 
