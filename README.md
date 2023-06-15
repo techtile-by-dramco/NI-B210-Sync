@@ -3,6 +3,7 @@
 ## Relevant sources
 - [Synchronizing multiple AD9361 devices](https://wiki.analog.com/resources/eval/user-guides/ad-fmcomms5-ebz/multi-chip-sync?force_rev=1)
 - [AD9361 Register Map Reference Manual](https://usermanual.wiki/Document/AD9361RegisterMapReferenceManualUG671.1082447504)
+- [AD9361 Reference Manual (e.g., PLL architecture)](https://www.farnell.com/datasheets/2007082.pdf)
 - [Schematic B210](https://files.ettus.com/schematics/b200/b210.pdf)
 - [Ettus Research USRP FPGA HDL Source](https://github.com/EttusResearch/fpga)
 - [AD community question related to phase diff](https://ez.analog.com/wide-band-rf-transceivers/design-support/f/q-a/543540/phase-difference-in-ad9361-multichip-synchronization)
