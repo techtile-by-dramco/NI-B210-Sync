@@ -1,7 +1,9 @@
 # Reciprocity calibration RX and TX PLL of USRP B210
+Work in progress!
+
+![40%](https://progress-bar.dev/40)
+
 **STEPS TO FOLLOW**
-
-
 
 https://github.com/techtile-by-dramco/NI-B210-Sync/assets/8626571/951605d9-fbe6-4f4d-9bd9-e3b61ec03a3c
 
@@ -29,7 +31,7 @@ Purpose is to generate two sine waves that are in phase when pilot signal was re
 <details>
 <summary>
   
-  # STEP 1. Proof the "phase coherency" problem
+  # STEP 1. Proof of the "phase coherency" problem
   
   </summary>
 
@@ -92,7 +94,7 @@ After this step the problem is clearly demonstrated.
 <details>
 <summary>
   
-  # STEP 2
+# STEP 2. Compensate phase differences RF-PLLs
   
   </summary>
 # 2.1 Measure accumulated phase of the internal TX and RX RF-PLLs 
@@ -214,11 +216,9 @@ DOCS
 <details>
 <summary>
   
-# STEP 3. Compensate for phase differences between the RF-PLLs of multiple USRPs and measure incoming pilot signals
- 
-</summary>
-
-
+# STEP 3. Phase differences between multiple USRPs
+  Compensate for phase differences between the RF-PLLs of multiple USRPs and measure incoming pilot signals.
+  </summary>
 If previous step 2 was successful, pilot based tests are the logical next step.
 A pilot signal could be generated with another USRP or the RF generator _SMC100A_ (available in our lab).
 
@@ -257,7 +257,6 @@ DOCS
 
 - [x] incomplete task
 - [ ] completed task
-
 
 </details>
 
