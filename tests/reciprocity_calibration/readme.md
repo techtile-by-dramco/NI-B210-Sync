@@ -24,7 +24,10 @@ Purpose is to generate two sine waves that are in phase when pilot signal was re
 - [x] Check the adaptability of the phase relation between the two channels on same USRP
 - [x] Phase relation between two transmit channels of two USRPs
 - [x] Measure phase difference of internal RF-PLLs
-- [] Measure phase between two RX and TX RF-PLLs
+- [ ] Calibrate phase difference of internal RF-PLLs (i.e., applying `-phase offset`)
+- [ ] Use Ref signal to coherent TX of two USRPs
+- [ ] Check phase coherency between RX and RX/TX on same USRP, does switching result in re-locking/re-tuning?
+- [ ] Use antennas instead of cables to do calibration
 
 
 
