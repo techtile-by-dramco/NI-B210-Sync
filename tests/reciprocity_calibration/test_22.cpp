@@ -1,6 +1,3 @@
-// requires to first run the script on the same machine: NI-B210-Sync/tests/reciprocity_calibration/python3 ZMQ-server.py
-// it is a ZMQ server to compute the phase offsets
-
 // requires to first run the script on the same machine: NI-B210-Sync/tests/reciprocity_calibration/python3 test_22.py
 // it is a ZMQ server to compute the phase offsets
 
@@ -97,7 +94,7 @@ void sync(std::string serial, std::string server_ip, uhd::usrp::multi_usrp::sptr
                 //wait_till_go_from_server(server_ip); // blocking till SYNC message received
                 // This command will be processed fairly soon after the last PPS edge:
                 usrp->set_time_next_pps(uhd::time_spec_t(0.0));
-                std::cout << "[SYNC] Resetting time." << std::endl;
+                //std::cout << "[SYNC] Resetting time." << std::endl;
                 std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 }
 
@@ -132,8 +129,8 @@ void transmit_worker(size_t nsamps_per_buff, uhd::tx_streamer::sptr tx_stream,
         md.end_of_burst = true;
         tx_stream->send("", 0, md);
 
-        std::cout << std::endl
-                  << "Waiting for async burst ACK... " << std::flush;
+        // std::cout << std::endl
+        //           << "Waiting for async burst ACK... " << std::flush;
         uhd::async_metadata_t async_md;
         bool got_async_burst_ack = false;
         // loop through all messages for the ACK packet (may have underflow messages in queue)
@@ -142,7 +139,7 @@ void transmit_worker(size_t nsamps_per_buff, uhd::tx_streamer::sptr tx_stream,
                 got_async_burst_ack =
                     (async_md.event_code == uhd::async_metadata_t::EVENT_CODE_BURST_ACK);
         }
-        std::cout << (got_async_burst_ack ? "success" : "fail") << std::endl;
+        //std::cout << (got_async_burst_ack ? "success" : "fail") << std::endl;
 }
 
 void recv_to_file(std::string id, uhd::rx_streamer::sptr rx_stream,
@@ -263,10 +260,10 @@ sample_fc32 start_cal(std::string id_cal, std::string serial, std::string server
 
         uhd::time_spec_t tx_starts_in = uhd::time_spec_t(cmd_time) - usrp->get_time_now();
 
-        std::cout << "Tx starting in " << tx_starts_in.get_full_secs() << " seconds" << std::endl;
+        //std::cout << "Tx starting in " << tx_starts_in.get_full_secs() << " seconds" << std::endl;
 
         size_t spb = tx_stream->get_max_num_samps();
-        std::cout << "nsamps_per_buff: " << spb << std::endl;
+        //std::cout << "nsamps_per_buff: " << spb << std::endl;
 
         // start transmit worker thread
         std::thread transmit_thread([&]()
@@ -279,21 +276,21 @@ sample_fc32 start_cal(std::string id_cal, std::string serial, std::string server
         transmit_thread.join();
 
         // get calbration phase
-        std::cout << "Connecting to receiver ..." << std::endl;
+        //std::cout << "Connecting to receiver ..." << std::endl;
         socket.connect("tcp://localhost:5000");
 
         std::string id = "hello";
 
         zmq::message_t request(id.size());
         memcpy(request.data(), id.data(), id.size());
-        std::cout << "Sending message " << id << "..." << std::endl;
+        //std::cout << "Sending message " << id << "..." << std::endl;
         socket.send(request, zmq::send_flags::none);
 
         //  Get the reply.
         zmq::message_t reply;
         auto res = socket.recv(reply, zmq::recv_flags::none);
         std::string rpl = std::string(static_cast<char *>(reply.data()), reply.size());
-        std::cout << rpl << std::endl;
+        std::cout << "Current phase: " << rpl << "rad" << std::endl;
 
         float phase_diff = std::stof(rpl);
 
@@ -600,12 +597,29 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
         /**************** start tuning **************/
         /********************************************/
 
+
+        bool calibrated = false;
+        sample_fc32 a = start_cal("0", serial, server_ip, usrp, num_channels, tx_stream, rx_stream, otw, rx_channel_nums, tx_rate);
+
+        sample_fc32 a_cal;
+
+            while (!calibrated)
+        {
+                std::cout << "CALIBRATING" << std::endl;
+                a_cal = start_cal("0", serial, server_ip, usrp, num_channels, tx_stream, rx_stream, otw, rx_channel_nums, tx_rate, a);
+                calibrated = (std::arg(a_cal) < 0.017 && std::arg(a_cal) > -0.017); // smaller than 1 degrees
+                if(!calibrated){
+                        a = a_cal; 
+                }
+                std::cout << std::endl;
+                std::cout << std::endl;
+        }
+
         while (!stop_signal_called){
-                sample_fc32 a = start_cal("0", serial, server_ip, usrp, num_channels, tx_stream, rx_stream, otw, rx_channel_nums, tx_rate);
-
-                sample_fc32 b = start_cal("1", serial, server_ip, usrp, num_channels, tx_stream, rx_stream, otw, rx_channel_nums, tx_rate, a);
-
-                rx_stream = usrp->get_rx_stream(rx_stream_args);
+                std::cout << "MEASURING PHASE STABILITY" << std::endl;
+                start_cal("1", serial, server_ip, usrp, num_channels, tx_stream, rx_stream, otw, rx_channel_nums, tx_rate, a);
+                std::cout << std::endl;
+                std::cout << std::endl;
         }
 
         // b should be now close to zero
@@ -620,4 +634,3 @@ int UHD_SAFE_MAIN(int argc, char *argv[])
 
         return EXIT_SUCCESS;
 }
-
