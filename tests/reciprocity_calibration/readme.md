@@ -14,7 +14,7 @@ https://github.com/techtile-by-dramco/NI-B210-Sync/assets/8626571/951605d9-fbe6-
 
 Assumptions
 
-synchronisattion overview
+synchronisation overview
 
 Purpose is to generate two sine waves that are in phase when pilot signal was received on both input channels.
 
