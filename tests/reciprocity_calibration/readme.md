@@ -7,18 +7,10 @@ Work in progress!
 
 https://github.com/techtile-by-dramco/NI-B210-Sync/assets/8626571/951605d9-fbe6-4f4d-9bd9-e3b61ec03a3c
 
-
-
 **Problem:** It is not possible to **transmit phase coherent signals** with different individual USRPs.<br>
 **Reason:** PLLs lock is not constant in time (Even if NI Clock Distribution Devices CDA-2990, the problem can not be solved.) The NI Clock Distribution Devices only prevents occurring frequency offsets, frequency drifts and phase drifts. The _**phase offset**_ cannot be controlled without adjustments of the HW or by adding additional feedback cables. This study focusses on this last synchronisation topic.
 
-Assumptions
-
-synchronisation overview
-
 Purpose is to generate two sine waves that are in phase when pilot signal was received on both input channels.
-
-
 
 - [x] Phase relation between two transmit channels of same USRP (1.1.1.)
 - [x] Check the adaptability of the phase relation between the two channels on same USRP (1.1.2.)
@@ -27,9 +19,8 @@ Purpose is to generate two sine waves that are in phase when pilot signal was re
 - [x] Calibrate phase difference of internal RF-PLLs (i.e., applying `-phase offset`) (2.2.)
 - [ ] Measure stabability of the calibrated phase (2.3.)
 - [ ] Use antennas instead of cables to do calibration (2.4.)
-- [ ] Use Ref signal to coherent TX of two USRPs
+- [ ] Use external reference signal to broadcast coherently with two individual USRPs (3.1.)
 - [ ] Check phase coherency between RX and RX/TX on same USRP, does switching result in re-locking/re-tuning?
-
 
 
 <details>
@@ -231,7 +222,9 @@ Every URSP is connected to an PPS output of NI Clock Distribution Devices CDA-29
 - It is mandatory to measure the incoming signal in_1(t), in_2(t), ..., in_n(t) on the $N$ USRP simultaneously at time $t_0$. 
 - Consequently, it is mandatory to start transmitting the signals simultaneously at time $t_1$.
 
-## 3.1. Generate phase coherent sine waves with multiple USRPs
+## 3.1. Use external reference signal to broadcast coherently with two individual USRPs
+
+The purpose is to generate phase coherent sine waves with multiple USRPs.
 
 Initially, it should be validated that all USRPs could deliver a perfectly synchronised sine wave.
 A first test excists of a perfectely phase coherent incoming pilot signal on all USRPs.
