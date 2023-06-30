@@ -20,14 +20,15 @@ Purpose is to generate two sine waves that are in phase when pilot signal was re
 
 
 
-- [x] Phase relation between two transmit channels of same USRP
-- [x] Check the adaptability of the phase relation between the two channels on same USRP
-- [x] Phase relation between two transmit channels of two USRPs
-- [x] Measure phase difference of internal RF-PLLs
-- [ ] Calibrate phase difference of internal RF-PLLs (i.e., applying `-phase offset`)
+- [x] Phase relation between two transmit channels of same USRP (1.1.1.)
+- [x] Check the adaptability of the phase relation between the two channels on same USRP (1.1.2.)
+- [x] Phase relation between two transmit channels of two USRPs (1.2.1.)
+- [x] Measure phase difference of internal RF-PLLs (2.1.)
+- [x] Calibrate phase difference of internal RF-PLLs (i.e., applying `-phase offset`) (2.2.)
+- [ ] Measure stabability of the calibrated phase (2.3.)
+- [ ] Use antennas instead of cables to do calibration (2.4.)
 - [ ] Use Ref signal to coherent TX of two USRPs
 - [ ] Check phase coherency between RX and RX/TX on same USRP, does switching result in re-locking/re-tuning?
-- [ ] Use antennas instead of cables to do calibration
 
 
 
@@ -100,7 +101,9 @@ After this step the problem is clearly demonstrated.
 # STEP 2. Compensate phase differences RF-PLLs
   
   </summary>
-# 2.1 Measure accumulated phase of the internal TX and RX RF-PLLs 
+  
+## 2.1 Measure accumulated phase of the internal TX and RX RF-PLLs
+
 The purpose is to measure the accumulated phase yielded from the RX RF-PLL and the TX RF-PLL (and cable). 
 
 - Start to lock the USRP RX and TX RF-PLL on the same frequency $f$.
@@ -194,8 +197,7 @@ Description: 16-port splitter was in between to visualize the transmitted signal
 USRP program: [test_22.cpp](test_22.cpp)
 
 
-
-## 2.2 Measure phase between two RX and TX RF-PLLs
+## 2.3. Measure synchronised phase stabability
 
 PHOTO
 DOCS
@@ -203,10 +205,12 @@ DOCS
 - [x] incomplete task
 - [ ] completed task
 
-## 2.3 Compensate for previously measured phase error with one USRP
-- Do not change PLL lock frequency
-- Set $\phi_{tx,configured}$ to the measured phase from 2.1.
-- Measure phase at the receiver again and check if $\phi_{rx,offset}$ approximately zero.
+
+## 2.4. Use antennas instead of cables to do calibration
+
+- Start with two antennas that has a high return loss for the desired frequency (917 MHz).
+- Mount the antennas on Techtile-tiles and redo similar measurements executed in 2.2. and 2.3.
+- Can we calibrated the phase offset of RFPLLs over the air?
 
 PHOTO
 DOCS
