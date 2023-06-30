@@ -101,8 +101,6 @@ After this step the problem is clearly demonstrated.
 # STEP 2. Compensate phase differences RF-PLLs
   
   </summary>
-  
-## 2.1 Measure accumulated phase of the internal TX and RX RF-PLLs
 
 The purpose is to measure the accumulated phase yielded from the RX RF-PLL and the TX RF-PLL (and cable). 
 
@@ -135,11 +133,10 @@ $${\color{green} \phi_{rx,offset} = \phi_{tx,configured} + \Delta\phi_{pll} + \p
   - $\phi_{L,tx}$, $\phi_{L,rx}$ is expected to be constant for all URSPs
   - If same cables length from same manufacturer are selected, $\phi_{SMA,cable}$ is expected to be constant for all URSPs
 
+## 2.1 Measure accumulated phase of the internal TX and RX RF-PLLs
+
 Measuring $\phi_{rx,offset}$ can be seen as the calibration procedure.
 After this step, the PLL may not lock again, since the phase offset will change.
-
-
-### Experiment
 
 Command used: `make -j4 && ./init_usrp --ref="external" --tx-freq=400E6 --rx-freq=400E6 --tx-rate=250E3 --rx-rate=250E3 --tx-gain=1`
 
