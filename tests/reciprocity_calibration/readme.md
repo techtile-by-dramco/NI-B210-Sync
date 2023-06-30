@@ -12,13 +12,18 @@ https://github.com/techtile-by-dramco/NI-B210-Sync/assets/8626571/951605d9-fbe6-
 
 Purpose is to generate two sine waves that are in phase when pilot signal was received on both input channels.
 
+*** Step 1 ***
 - [x] Phase relation between two transmit channels of same USRP (1.1.1.)
 - [x] Check the adaptability of the phase relation between the two channels on same USRP (1.1.2.)
 - [x] Phase relation between two transmit channels of two USRPs (1.2.1.)
+
+*** Step 2 ***
 - [x] Measure phase difference of internal RF-PLLs (2.1.)
 - [x] Calibrate phase difference of internal RF-PLLs (i.e., applying `-phase offset`) (2.2.)
 - [ ] Measure stabability of the calibrated phase (2.3.)
 - [ ] Use antennas instead of cables to do calibration (2.4.)
+
+*** Step 3 ***
 - [ ] Use external reference signal to broadcast coherently with two individual USRPs (3.1.)
 - [ ] Check phase coherency between RX and RX/TX on same USRP, does switching result in re-locking/re-tuning?
 
