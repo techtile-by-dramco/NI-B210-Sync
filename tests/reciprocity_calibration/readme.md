@@ -21,7 +21,7 @@ Purpose is to generate two sine waves that are in phase when pilot signal was re
 - [x] Measure phase difference of internal RF-PLLs (2.1.)
 - [x] Calibrate phase difference of internal RF-PLLs (i.e., applying `-phase offset`) (2.2.)
 - [ ] Measure long term stabability of the calibrated phase (2.3.)
-- [ ] **`EXTENSION`** Use an antenna instead of a feedback cable to do the calibration (2.4.)
+- [x] **`EXTENSION`** Use an antenna instead of a feedback cable to do the calibration (2.4.)
 
 *** Step 3 ***
 - [ ] Use external reference signal to broadcast coherently with two individual USRPs (3.1.)
