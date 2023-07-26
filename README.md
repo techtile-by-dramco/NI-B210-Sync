@@ -14,6 +14,7 @@
 - [Timed commands in UHD](https://kb.ettus.com/index.php?title=Synchronizing_USRP_Events_Using_Timed_Commands_in_UHD)
 - [DoA and methods to phase-align](https://www.youtube.com/watch?v=_UBPVi1vp2s&ab_channel=GNURadio)
 - [Multichannel RF Reference Architecture](https://kb.ettus.com/Multichannel_RF_Reference_Architecture)
+- [PLL-IC with phase synchronization](https://ez.analog.com/rf/f/q-a/165960/pll-ic-with-phase-synchronization/375973)
 
 ## What needs to be synchronised for MIMO applications
 
