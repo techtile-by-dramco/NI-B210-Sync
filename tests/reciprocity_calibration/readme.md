@@ -262,5 +262,8 @@ DOCS
 
 </details>
 
+## Loopback only works on frequencies (x times 10MHz) 
+Possible sources to solve
+- [USRP TUNING](http://www.radio-science.net/2017/12/adventures-in-usrp-tuning.html)
 
 
