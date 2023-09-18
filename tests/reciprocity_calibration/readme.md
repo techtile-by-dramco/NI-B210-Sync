@@ -1,7 +1,4 @@
 # Reciprocity calibration RX and TX PLL of USRP B210
-Work in progress!
-
-![40%](https://progress-bar.dev/40)
 
 **STEPS TO FOLLOW**
 
