@@ -212,8 +212,30 @@ DOCS
 
 <details>
 <summary>
-  
-# STEP 3. Phase differences between multiple USRPs
+
+# STEP 3. Phase synchronisation with reference baseline clock
+
+## 3.1 External RF source generator as baseline clock 
+
+To be added !!!
+
+- [x] incomplete task
+- [ ] completed task
+
+## 3.2 PLL hardware as baseline clock
+The PLL hardware will be connected to raspberry pi with an SPI interface 
+The algoritme running on the RPI should interface with the PLL registers as so the PLL locks on the same frequency as the internal RF PLLs.
+
+- [x] incomplete task
+- [ ] completed task
+
+</details>
+
+<details>
+<summary>
+
+
+# STEP 4. Phase differences between multiple USRPs
   Compensate for phase differences between the RF-PLLs of multiple USRPs and measure incoming pilot signals.
   </summary>
 If previous step 2 was successful, pilot based tests are the logical next step.
