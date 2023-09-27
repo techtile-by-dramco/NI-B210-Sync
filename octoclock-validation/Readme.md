@@ -1,5 +1,8 @@
 # Octoclock validation
 
+- Type: CDA-2990
+- Brand: National Instruments
+- [Octoclock schemetic](https://files.ettus.com/schematics/octoclock/octoclock.pdf)
 
 ## Assume following hierarchy (Techtile)
 
