@@ -21,3 +21,7 @@ How much time difference (phase shift) occurs between any of the outputs of "lev
 
 ## Additional question: 
 What time differences are acceptable?
+
+## Other interesting information
+
+- [Generate a phase alignment clock](https://ez.analog.com/clock_and_timing/f/q-a/20323/ad9548-how-to-generate-a-phase-alignment-clock-to-pps)
