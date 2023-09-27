@@ -3,7 +3,7 @@
 
 ## Assume following hierarchy (Techtile)
 
-![octoclock hierarchy](https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/Octoclock%20validation/Octoclock-techtile-architecture.png)
+![octoclock hierarchy](https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/octoclock-validation/Octoclock-techtile-architecture.png)
 
 How much time difference (phase shift) occurs between any of the outputs of "level 2"?
 ## The main conclusion is as follows:
