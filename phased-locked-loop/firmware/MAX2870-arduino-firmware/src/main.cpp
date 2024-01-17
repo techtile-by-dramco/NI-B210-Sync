@@ -51,7 +51,7 @@ void setup(){
   pinMode(LD, INPUT);
   pinMode(RFOUTEN, OUTPUT);
   pinMode(CE, OUTPUT);
-  pinMode(MOSI, INPUT_PULLUP);
+  // pinMode(MOSI, INPUT_PULLUP);
   pinMode(MOSI, OUTPUT);
   pinMode(MISO, INPUT);
   pinMode(SCLK, OUTPUT);
@@ -75,7 +75,9 @@ void setup(){
 
 
   max2871.powerOn(true);              //set all hardware enable pins and deassert software shutdown bits
-  max2871.setPFD(100.0,1);             //inputs are reference frequency and R divider to set phase/frequency detector comparison frequency
+
+  // Reference clock equals 10 MHz (fixed frequency by octoclocks)
+  max2871.setPFD(10.0,1);             //inputs are reference frequency and R divider to set phase/frequency detector comparison frequency
 
 }
 
@@ -89,7 +91,7 @@ char print_buffer [256];
 
 void loop(){
   
-  Serial.println("\n\rEnter a frequency in MHz:");
+  Serial.println("\nEnter a frequency in MHz\n");
   //fgets(buffer ,256, stdin);
 
 
@@ -111,38 +113,25 @@ void loop(){
 
     // You can add your own logic here to process the received data
   }
-  Serial.flush();
-
-  // max2871.disable_output();
   
-  // Serial.println("buffer");
-  // for(uint8_t i = 0; i < val; i++){
-  //   Serial.println(*(buffer + i), HEX);
-  // } 
+  //  Wait 10 ms
+  delay(10);
 
-  // // char new_buffer [] = "123";
-  // char new_buffer [5];
-  // memcpy(new_buffer, buffer, val-2);
+  //  Flush input buffer
+  while (Serial.available() > 0) {
+     Serial.read();
+  }
 
-  // Serial.println("new buffer");
-  // for(uint8_t i = 0; i < sizeof(new_buffer); i++){
-  //   Serial.println(*(new_buffer + i), HEX);
-  // }
+  //  Print frequency set
+  Serial.println("************************************************");
+  Serial.println("Frequency: " + String(intValue) + " MHz");
   
-  // sprintf(print_buffer, "Line: %s\n", new_buffer);
-  // Serial.println(print_buffer);                       //store entry as string until newline entered
-
-  // uint32_t intValue = atoi(new_buffer);
-  Serial.println(intValue);
-  
-  freq_entry = intValue;//floor(1000*atof(new_buffer))/1000;         //convert string to a float with 1kHz precision
-  Serial.println(freq_entry);
-  if((freq_entry < 23.5) || (freq_entry > 6000.0))    //check the entered frequency is in MAX2871 range
+  freq_entry = intValue;                                          //convert string to a float with 1kHz precision
+  if((freq_entry < 23.5) || (freq_entry > 6000.0))                //check the entered frequency is in MAX2871 range
       Serial.println("\n\rNot a valid frequency entry.");  
   else
   {
-    sprintf(print_buffer, "\n\rTarget: %.3f MHz", freq_entry);
-    Serial.println(print_buffer);                           //store entry as string until newline entered
+    // sprintf(print_buffer, "\n\rTarget: %.3f MHz", freq_entry);    //store entry as string until newline entered
 
     //Serial.println("\n\rTarget: %.3f MHz",freq_entry);   //report the frequency derived from user's input
     max2871.setRFOUTA(freq_entry);                  //update MAX2871 registers for new frequency
@@ -150,17 +139,17 @@ void loop(){
     uint32_t start_ms = millis();
     uint32_t timeout = 5000;
     while(!digitalRead(LD)){                                     //blink an LED while waiting for MAX2871 lock detect signal to assert
-        // led = !led;
-        // wait_ms(30);
         delay(100);
         Serial.println("Waiting for lock detect");
         if(millis() > start_ms + timeout)
           break;
     }
-    // led = 1;
+    
+    //  Enable output A
     max2871.enable_output();
 
-    Serial.println("Mode: " + String(max2871.getMode()));
+    //  Print PLL mode
+    Serial.println("PLL mode: " + String(max2871.getMode()));
 
     // !!! READING COULD CAUSE PROBLEMS !!! (TE ONDERZOEKEN)
     // vco = max2871.readVCO();                        //read the active VCO from MAX2871
@@ -170,12 +159,13 @@ void loop(){
 
     //print the achieved output frequency and MAX2871 diagnostics
     // Serial.println("\n\rActual: %.3f MHz", freq_rfouta);
-    sprintf(print_buffer, "\n\rActual: %.3f MHz", freq_rfouta);
-    Serial.println(print_buffer);  
+    // sprintf(print_buffer, "\n\rActual: %.3f MHz", freq_rfouta);
+    // Serial.println(print_buffer);  
     // Serial.println("\n\rVTUNE: %.3f V, VCO: %d, TEMP: %f", v_tune,vco,temperature);
-    sprintf(print_buffer, "\n\rVTUNE: %.3f V, VCO: %lu, TEMP: %f", v_tune, vco, temperature);
-    Serial.println(print_buffer);  
-    Serial.println(temperature);
-    Serial.println(v_tune);
+    // sprintf(print_buffer, "\n\rVTUNE: %.3f V, VCO: %lu, TEMP: %f", v_tune, vco, temperature);
+    // Serial.println(print_buffer);  
+    // Serial.println(temperature);
+    // Serial.println(v_tune);
+    Serial.println("************************************************");
   }
 }

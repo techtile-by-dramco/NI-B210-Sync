@@ -162,12 +162,8 @@ void MAX2871::setRFOUTA(const double freq)
     }
     pll_coefficient = freq*powf(2,diva)/f_pfd;
 
-    Serial.println(pll_coefficient);
-
     n = floor(round(pll_coefficient));
     // n = static_cast<uint32_t>(round(pll_coefficient));
-
-    Serial.println(n);
     
     fractional = pll_coefficient - n;
 
@@ -175,12 +171,11 @@ void MAX2871::setRFOUTA(const double freq)
         fractional = 0;
     }
 
-    Serial.println(fractional);
     m = 4000;
     // frac = rint(m*fractional);
     frac = myRound(m*fractional);
 
-    Serial.println("Frac: " + String(frac) + " | n: " + String(n) + " | m: " + String(m) + " | diva: " + String(diva));
+    // Serial.println("Frac: " + String(frac) + " | n: " + String(n) + " | m: " + String(m) + " | diva: " + String(diva));
 
         // My code (Jarne Van Mulders)
     if(frac == 0){
@@ -237,10 +232,14 @@ void MAX2871::setPFD(const double ref_in,const uint16_t rdiv)
     reg4.bits.rfb_en = 0;
 
     // my code
-    reg2.bits.sdn = 0x00;
-    reg4.bits.apwr = 0x00;
+    // reg2.bits.sdn = 0x00;
+    // reg4.bits.apwr = 0x03;
 
-    reg3.bits.cdm = 0x00;
+    // My code (Jarne Van Mulders)
+    // Disable phase shifts
+    // reg3.bits.cdm = 0;
+    // // Value p = 0
+    // reg1.bits.p = 2000;
     
     updateAll();
 }
