@@ -45,6 +45,7 @@ LED_MODE_PPS_BLINK                      = 3
 LED_MODE_LOCK_DETECT                    = 4
 LED_MODE_PPS_BLINK_AND_LOCK_DETECT      = 5
 
+DELAY                                   = 0.1
 class PLL(object):
     def __init__(self, address=PLL_ADDRESS, i2c=None, **kwargs):
         if i2c is None:
@@ -52,12 +53,12 @@ class PLL(object):
             i2c = I2C
         self._device = i2c.get_i2c_device(address, **kwargs)
 
-        self.output = self.get_PLL_enable_output()
-        self.power = self.get_PLL_power()
-        self.frequency = self.get_PLL_frequency()
+        self._output = self.get_PLL_enable_output()
+        self._power = self.get_PLL_power()
+        self._frequency = self.get_PLL_frequency()
 
-        self.divider = self.get_PLL_reference_divider()
-        self.reference_clock = self.get_PLL_reference_clock()
+        self._divider = self.get_PLL_reference_divider()
+        self._reference_clock = self.get_PLL_reference_clock()
 
     # ---- Settings -----
     # - Getters
@@ -80,13 +81,13 @@ class PLL(object):
     # - Setters
     def set_PLL_reference_clock(self, v):
         self._device.write16(REGISTER_SETTINGS_PLL_REFERENCE_CLOCK, v)
-        self.reference_clock = v
-        time.sleep(0.1)
+        self._reference_clock = v
+        time.sleep(DELAY)
 
     def set_PLL_reference_divider(self, v):
         self._device.write8(REGISTER_SETTINGS_PLL_REFERENCE_DIVIDER, v)
-        self.divider = v
-        time.sleep(0.1)
+        self._divider = v
+        time.sleep(DELAY)
 
     def set_LED_mode(self, v):
         self._device.write8(REGISTER_SETTINGS_LED_MODE, v)
@@ -117,18 +118,18 @@ class PLL(object):
     # - Setters
     def set_PLL_power(self, v):
         self._device.write8(REGISTER_PLL_POWER, v)
-        self.power = v
-        time.sleep(0.1)
+        self._power = v
+        time.sleep(DELAY)
 
     def set_PLL_frequency(self, v):
         self._device.write16(REGISTER_PLL_FREQUENCY, v)
-        self.frequency = v
-        time.sleep(0.1)
+        self._frequency = v
+        time.sleep(DELAY)
 
     def set_PLL_enable_output(self, v):
         self._device.write8(REGISTER_PLL_ENABLE_OUTPUT, v)
-        self.output = v
-        time.sleep(0.1)
+        self._output = v
+        time.sleep(DELAY)
 
     # - Simpler naming functions
 
