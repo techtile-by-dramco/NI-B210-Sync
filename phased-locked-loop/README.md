@@ -5,7 +5,9 @@ This PCB was developed by Guus Leenders from KU Leuven, in collaboration with DR
 The PPS and 10MHz signals (coming from the octoclocks CDA2990) are amplified using on board buffers and are connected to the
 * PLL IC (MAX287x) ❗❗ **--> allowing for ∿ phase synchronisation ∿**
 * the flat cable connector (given that the raspberry pi also has access to these signals) ❗
-* the input SMA connectors of the USRPs intself ❗❗ **--> ∿ frequency synchronisation ∿ internal PLLs**
+* the input SMA connectors of the USRPs intself ❗❗
+  * ** 10 MHz --> ∿ frequency synchronisation ∿ for internal (RF) PLLs**
+  * ** PPS --> ⏰ time synchronisation ⏰**
 
 The board is controlled via I2C commands and features a flat cable input connected to the RPI HAT (developed by DRAMCO) to drive the PLL output. The most important registers are displayed below.
 
