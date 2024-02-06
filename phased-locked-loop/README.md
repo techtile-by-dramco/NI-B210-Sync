@@ -36,5 +36,5 @@ The board is controlled via I2C commands and features a flat cable input connect
 |REGISTER_PLL_MODE                      | 0x15 | Read only |
 
 # Techtile ToDo 📝
-- Work further on python script To achieve phase-synchronous outputs on the oscilloscope with two separate setups consisting of RPI, USRP, PLL, PPS, and 10 MHz input.
+- Work further on python script to achieve phase-synchronous outputs on the oscilloscope with two separate setups consisting of RPI, USRP, PLL, PPS, and 10 MHz input.
 - Current status ⏳ PENDING ⏳
