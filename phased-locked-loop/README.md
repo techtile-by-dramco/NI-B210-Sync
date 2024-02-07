@@ -35,6 +35,6 @@ The board is controlled via I2C commands and features a flat cable input connect
 |REGISTER_PLL_LOCK_DETECTED             | 0x14 | Read only |
 |REGISTER_PLL_MODE                      | 0x15 | Read only |
 
-# Techtile ToDo 📝
-- Work further on python script to achieve phase-synchronous outputs on the oscilloscope with two separate setups consisting of RPI, USRP, PLL, PPS, and 10 MHz input.
+# Phase synchronisation in Techtile ToDo 📝
+- Work further on python script to achieve phase-synchronised outputs with the B210 USRP. Validate and visualize the signals on the oscilloscope by using two separate setups consisting of RPI, USRP, PLL, PPS, and 10 MHz input.
 - Current status ⏳ PENDING ⏳
