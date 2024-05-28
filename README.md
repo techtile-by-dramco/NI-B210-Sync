@@ -78,6 +78,9 @@ PLL bring-up:
 
 ## AD9361 - RF transceiver
 
+As can be observed in the register manual and the [code](https://github.com/EttusResearch/uhd/blob/197cdc4f665cbd4e6394a7eeb44b405f67ab10b1/host/lib/usrp/common/ad9361_driver/ad9361_device.cpp#L1640). The BBPLL is unaltered wrt the reference PLL (40MHz) and RX and TX is multiplied by 2.
+[AD9361 Register Map Reference Manual](https://usermanual.wiki/Document/AD9361RegisterMapReferenceManualUG671.1082447504)
+
 ### XTALN
 The on-board 40MHz clock signal generated from the [ADF4001](https://www.analog.com/en/products/adf4001.html) is coherent:
 
