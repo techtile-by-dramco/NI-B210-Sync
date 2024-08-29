@@ -18,7 +18,7 @@
 - [PLL-IC with phase synchronization](https://ez.analog.com/rf/f/q-a/165960/pll-ic-with-phase-synchronization/375973) (difference between sync and resync PLLs)
 - [Phase-Locked Loops Enable Phase Alignment and Control](https://www.microwavejournal.com/articles/28830-phase-locked-loops-enable-phase-alignment-and-control)
 
-## Relavent scientific publications
+## Relevant scientific publications
 - [Multi-channel RF signal acquisition system design based on AD9361](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9173310)
 
 ## What needs to be synchronised for MIMO applications
