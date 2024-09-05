@@ -20,6 +20,7 @@
 
 ## Relevant scientific publications
 - [Multi-channel RF signal acquisition system design based on AD9361](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9173310)
+- [Angle of arrival estimation in a multi-antenna software defined radio system: impact of hardware and radio environment](https://link.springer.com/article/10.1007/s11276-022-03010-z)
 
 ## What needs to be synchronised for MIMO applications
 
