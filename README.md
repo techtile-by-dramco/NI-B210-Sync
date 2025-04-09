@@ -93,6 +93,9 @@ The on-board 40MHz clock signal generated from the [ADF4001](https://www.analog.
 ### Synchronise ADC/DAC clocks
 The ADC and DAC clocks can not be perfectly synchronised due to the divider, both clocks are derived from the same BBPLL.
 
+<img width="841" alt="image" src="https://github.com/user-attachments/assets/3958edf1-f426-4f22-83ff-d36c23287ac2" />
+
+
 $$ADC_{rate} = BBPLL_{rate} / 2^{div}$$
 
 witd $div$ between 1 through 6. The value for $div$ is [determined so the the VCO rate is between 672MHz and 1430MHz](https://github.com/EttusResearch/uhd/blob/197cdc4f665cbd4e6394a7eeb44b405f67ab10b1/host/lib/usrp/common/ad9361_driver/ad9361_device.cpp#L1202).
