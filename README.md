@@ -146,6 +146,8 @@ Scaling to [2xREF](https://github.com/EttusResearch/uhd/blob/197cdc4f665cbd4e639
 By setting registers `0x2AB` and `0x2AC`.
 
 Meaning the RFPLL (F_{REF}) for TX and RX is 80MHz.
+<img width="1085" alt="image" src="https://github.com/user-attachments/assets/e1ddd8d8-9cd5-4786-aca3-119137da5279" />
+
 
 ### BB PLL (from AD9361 datasheet)
 The AD9361 also contains a baseband PLL synthesizer that is
