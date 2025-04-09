@@ -63,8 +63,8 @@ input.
 ## B210
 
 Sync input:
-- pulse per second input: PPS_IN_EXT (see schematic)
-- 20MHz reference input (as no GPS option to our B210): REFIN (see schematic)
+- pulse per second input: PPS_IN_EXT (see [Schematic B210](https://files.ettus.com/schematics/b200/b210.pdf))
+- 20MHz reference input (as no GPS option to our B210): REFIN (see [Schematic B210](https://files.ettus.com/schematics/b200/b210.pdf))
 
 The REFIN is connected to the [ADF4001](https://www.analog.com/en/products/adf4001.html) (200MHz Clock Generator PLL) which generates vcxo_tune which is connected to Voltage Controlled Temperature Compensated Crystal Oscillator (VCTCXO), which is than connected to a fan-out buffer to distribute it to xo_out (going to the AD9361) and xo_to_pll (to PLL RF in).
 
