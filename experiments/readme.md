@@ -13,4 +13,21 @@ In the 2nd setup a longer cable is connected to A/B. This induces an additional 
 
 
 
-### Keep the RX gains contast and change 1 TX Gain
+### 02_dual_rx_channel_single_b210
+
+Same as 01 but with setup 2 (ie one cable is longer than the other to induce an additional phase shift between the two RX-TX chains)
+
+
+### 03_dual_tx
+
+Same as 02 but now the RX gains are fixed and the TX gains are varied.
+
+
+### 04
+
+Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase differences
+
+
+### 05
+
+Scripts to extract relevant rates and configuration from trace logging.
