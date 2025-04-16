@@ -31,3 +31,11 @@ Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase
 ### 05
 
 Scripts to extract relevant rates and configuration from trace logging.
+
+
+### 06 
+
+Fixed RX gains
+
+4 USRPs are connected to one splitter with equal length cables. Phase differences are checked on the scope and they were aligned <1°. 
+
