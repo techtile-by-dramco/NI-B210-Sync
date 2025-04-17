@@ -19,12 +19,9 @@ FREQ = 920e6          # Hz
 CAPTURE_TIME = 2      # seconds
 
 # Channel aliases
-TX_A = 0
 RX_A = 0
-TX_B = 1
 RX_B = 1
 
-TX_CHANNELS = [TX_A, TX_B]
 RX_CHANNELS = [RX_A, RX_B]
 
 
@@ -95,15 +92,8 @@ def tune_usrp(usrp, freq, channels, at_time):
     and every other channel will be manually tuned based on the response.
     This is to account for the internal LO channel having an offset in the actual DSP frequency.
     Then all channels are synchronously tuned."""
-    treq = uhd.types.TuneRequest(freq)
     usrp.set_command_time(uhd.types.TimeSpec(at_time))
-    treq.dsp_freq = 0.0
-    treq.target_freq = freq
-    treq.rf_freq = freq
-    treq.rf_freq_policy = uhd.types.TuneRequestPolicy(ord("M"))
-    treq.dsp_freq_policy = uhd.types.TuneRequestPolicy(ord("M"))
     args = uhd.types.DeviceAddr("mode_n=integer")
-    treq.args = args
     rx_freq = freq - 1e3
     rreq = uhd.types.TuneRequest(rx_freq)
     rreq.rf_freq = rx_freq
@@ -114,15 +104,10 @@ def tune_usrp(usrp, freq, channels, at_time):
     rreq.args = uhd.types.DeviceAddr("mode_n=fractional")
     for chan in channels:
         logger.debug(print_tune_result(usrp.set_rx_freq(rreq, chan)))
-        logger.debug(print_tune_result(usrp.set_tx_freq(treq, chan)))
     while not usrp.get_rx_sensor("lo_locked").to_bool():
         print(".")
         time.sleep(0.01)
     logger.info("RX LO is locked")
-    while not usrp.get_tx_sensor("lo_locked").to_bool():
-        print(".")
-        time.sleep(0.01)
-    logger.info("TX LO is locked")
 
 # Function to save metadata as YAML
 def save_metadata_to_yaml(filename, metadata):
@@ -130,7 +115,7 @@ def save_metadata_to_yaml(filename, metadata):
         yaml.dump(metadata, f, default_flow_style=False)
     logger.info(f"Metadata saved to {filename}")
   
-def setup(usrp, tx_gain, gain_db, exp_id, meas_id):
+def setup(usrp,  gain_db, exp_id, meas_id):
     usrp.set_master_clock_rate(20e6)
     setup_clock(usrp)
     setup_pps(usrp)
@@ -140,7 +125,6 @@ def setup(usrp, tx_gain, gain_db, exp_id, meas_id):
     metadata = {
         'experiment_id': exp_id,
         'measurement_id': meas_id,
-        'tx_gain': tx_gain,
         'rx_gain_a': gain_db[RX_A],
         'rx_gain_b': gain_db[RX_B],
         'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -155,76 +139,20 @@ def setup(usrp, tx_gain, gain_db, exp_id, meas_id):
 
     for ch in channels:
         usrp.set_rx_rate(RATE, ch)
-        usrp.set_tx_rate(RATE, ch)
         usrp.set_rx_dc_offset(False, ch)  # DC offset correction disabled to preserve full dynamic range
         usrp.set_rx_bandwidth(200e3, ch)
         usrp.set_rx_agc(False, ch)
         usrp.set_rx_gain(gain_db[ch], ch)
-    for ch in TX_CHANNELS:
-        usrp.set_tx_gain(tx_gain, ch)
 
     st_args = uhd.usrp.StreamArgs("fc32", "sc16")
     st_args.channels = channels
-    tx_streamer = usrp.get_tx_stream(st_args)
     rx_streamer = usrp.get_rx_stream(st_args)
 
     usrp.set_time_unknown_pps(uhd.types.TimeSpec(0.0))
     logger.debug("[SYNC] Set time to 0.0 via PPS")
     time.sleep(2)
     tune_usrp(usrp, FREQ, channels, at_time=INIT_DELAY)
-    return tx_streamer, rx_streamer
-
-def tx_ref(usrp, tx_streamer, quit_event, phase, amplitude, start_time):
-    global underrun_count, other_tx_errors
-    underrun_count = 0
-    other_tx_errors = 0
-    underrun_count = 0
-    other_tx_errors = 0
-    num_channels = tx_streamer.get_num_channels()
-    max_samps = tx_streamer.get_max_num_samps()
-    amplitude = np.asarray(amplitude)
-    phase = np.asarray(phase)
-    sample = amplitude * np.exp(1j * phase)
-    tx_buff = np.ones((num_channels, 1000 * max_samps), dtype=np.complex64)
-    for ch in TX_CHANNELS:
-        tx_buff[ch, :] *= sample[ch]
-    tx_md = uhd.types.TXMetadata()
-    tx_md.has_time_spec = True
-    tx_md.time_spec = start_time
-
-    logger.debug(f"TX scheduled at: {tx_md.time_spec.get_real_secs():.6f}, USRP time now: {usrp.get_time_now().get_real_secs():.6f}")
-
-    try:
-        first_tx = True
-        async_metadata = uhd.types.TXAsyncMetadata()
-        while not quit_event.is_set():
-            if first_tx:
-                logger.debug(f"TX send at USRP time: {usrp.get_time_now().get_real_secs():.6f}")
-                first_tx = False
-            tx_streamer.send(tx_buff, tx_md)
-            if not tx_streamer.recv_async_msg(async_metadata, 0.1):
-                continue
-
-            # Handle the error codes
-            if async_metadata.event_code == uhd.types.TXMetadataEventCode.burst_ack:
-                return
-            elif async_metadata.event_code in (
-                uhd.types.TXMetadataEventCode.underflow,
-                uhd.types.TXMetadataEventCode.underflow_in_packet,
-            ):
-                num_tx_underrun += 1
-                logger.warning(f"TX underrun detected. Count: {num_tx_underrun}")
-            elif async_metadata.event_code in (
-                uhd.types.TXMetadataEventCode.seq_error,
-                uhd.types.TXMetadataEventCode.seq_error_in_packet,
-            ):
-                num_tx_seqerr += 1
-                logger.error(f"TX sequence error detected. Count: {num_tx_seqerr}")
-            else:
-                logger.warning(f"Unexpected event on async recv ({async_metadata.event_code}), continuing.")
-    finally:
-        tx_md.end_of_burst = True
-        tx_streamer.send(np.zeros((num_channels, 0), dtype=np.complex64), tx_md)
+    return rx_streamer
 
 def rx_ref(usrp, rx_streamer, quit_event, duration, result_container, start_time):
     timeout_errors = 0
@@ -248,7 +176,6 @@ def rx_ref(usrp, rx_streamer, quit_event, duration, result_container, start_time
     rx_streamer.issue_stream_cmd(stream_cmd)
     num_rx = 0
     try:
-        first_iteration = True
         while not quit_event.is_set():
             recv_buff = np.zeros((num_channels, max_samps), dtype=np.complex64)
             n = rx_streamer.recv(recv_buff, rx_md, timeout)
@@ -303,27 +230,21 @@ def rx_ref(usrp, rx_streamer, quit_event, duration, result_container, start_time
         logger.info(f"RX summary: timeouts={timeout_errors}, overflows={overflow_errors}, other errors={other_errors}")
         result_container.extend(trimmed)
 
-def measure(usrp, tx_streamer, rx_streamer, tx_gain, gain_a, gain_b, exp_id, meas_id):
+def measure(usrp,  rx_streamer, gain_a, gain_b, exp_id, meas_id):
     usrp.set_rx_gain(gain_a, RX_A)
     usrp.set_rx_gain(gain_b, RX_B)
 
     
     filename = f"data_{socket.gethostname()[4:]}_{exp_id}_{meas_id}_gainA{gain_a}_gainB{gain_b}_{TIMESTAMP}.npy"
     quit_event_rx = threading.Event()
-    quit_event_tx = threading.Event()
     results = []
 
     now = usrp.get_time_now().get_real_secs()
-    start_time_tx = uhd.types.TimeSpec(now + 1.0)
-    start_time_rx = uhd.types.TimeSpec(now + 2.0)
-    logger.debug("Scheduled TX start_time: {:.6f} MHz, RX start_time: {:.6f} MHz, USRP time now: {:.6f}".format(
-        start_time_tx.get_real_secs(), start_time_rx.get_real_secs(), now))
+    start_time_rx = uhd.types.TimeSpec(now + 1.0)
+    logger.debug("Scheduled RX start_time: {:.6f} MHz, USRP time now: {:.6f}".format(start_time_rx.get_real_secs(), now))
 
     rx_thr = threading.Thread(target=rx_ref, args=(usrp, rx_streamer, quit_event_rx, CAPTURE_TIME, results, start_time_rx))
-    tx_thr = threading.Thread(target=tx_ref, args=(usrp, tx_streamer, quit_event_tx, [0.0, 0.0], [0.8, 0.8], start_time_tx))
 
-
-    tx_thr.start()
     rx_thr.start()
    
 
@@ -333,9 +254,6 @@ def measure(usrp, tx_streamer, rx_streamer, tx_gain, gain_a, gain_b, exp_id, mea
     time.sleep(sleep_duration)
     quit_event_rx.set()
     rx_thr.join()
-    quit_event_tx.set()
-    tx_thr.join()
-    logger.info(f"TX summary: underruns={underrun_count}, other TX errors={other_tx_errors}")
 
     np.save(filename, results)
     logger.info(f"Saved IQ data to {filename}")
@@ -344,7 +262,6 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("--exp", type=str, required=True, help="Experiment ID")
     parser.add_argument("--meas", type=int, required=True, help="Measurement ID")
-    parser.add_argument("--tx_gain", type=float, required=True, help="TX gain (same on both channels)")
     parser.add_argument("--gain_a", type=int, required=True, help="Fixed RX gain for Board A (CH0)")
     parser.add_argument("--gain_b", type=int, required=True)
     return parser.parse_args()
@@ -352,8 +269,8 @@ def parse_arguments():
 def main():
     args = parse_arguments()
     usrp = uhd.usrp.MultiUSRP("type=b200")
-    tx_streamer, rx_streamer = setup(usrp, args.tx_gain, {RX_A: args.gain_a, RX_B: args.gain_b}, args.exp, args.meas)
-    measure(usrp, tx_streamer, rx_streamer, args.tx_gain, args.gain_a, args.gain_b, args.exp, args.meas)
+    rx_streamer = setup(usrp, {RX_A: args.gain_a, RX_B: args.gain_b}, args.exp, args.meas)
+    measure(usrp, rx_streamer, args.gain_a, args.gain_b, args.exp, args.meas)
 
 if __name__ == "__main__":
     main()

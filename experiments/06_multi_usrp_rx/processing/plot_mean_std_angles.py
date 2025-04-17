@@ -1,29 +1,54 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import argparse
+import matplotlib.colors as mcolors
 
 # Function to plot the phase difference vs RX gain B with mean and variance
 def plot_phase_difference_vs_gain(csv_file):
     # Load the CSV file containing circmean and circstd
     data = pd.read_csv(csv_file)
 
-    # Create the plot
+
+    data = data.groupby("hostname")
+
+     # Create the plot
     plt.figure(figsize=(8, 6))
 
-    # Extract the values
-    data = data.groupby(["frequency"])
-    for freq, grp in data:
-        gain_b_values = grp['RX Gain B'].to_numpy()
-        circ_mean_deg = grp['Circular Mean (degrees)'].to_numpy()
-        circ_std_deg = grp['Circular Std Dev (degrees)'].to_numpy()
+    colors = mcolors.TABLEAU_COLORS
+    for (hostname, df), c in zip(data, colors):
 
-        # idx = gain_b_values.tolist().index(30)
+        # Extract the values
 
-        # plt.scatter(gain_b_values, circ_mean_deg-circ_mean_deg[idx], marker='o', label=freq)
-        # plt.errorbar(gain_b_values, circ_mean_deg-circ_mean_deg[idx], yerr=circ_std_deg, fmt='o')
+        df_fixed_rx = df[df['RX Gain A'] ==30]
 
-        plt.scatter(gain_b_values, circ_mean_deg, marker='o', label=f"{freq[0]/1e6:.0f} MHz")
-        plt.errorbar(gain_b_values, circ_mean_deg, yerr=circ_std_deg, fmt='o')
+
+        # gain_a_values = df['RX Gain A']
+        gain_b_values = df_fixed_rx['RX Gain B']
+        circ_mean_deg = df_fixed_rx['Circular Mean (degrees)']
+        circ_std_deg = df_fixed_rx['Circular Std Dev (degrees)']
+
+   
+        # plt.scatter(gain_b_values, circ_mean_deg, marker='o', label=hostname)
+
+        
+
+        # # Add error bars for the variance (converted to degrees)
+        # plt.errorbar(gain_b_values, circ_mean_deg, yerr=circ_std_deg, fmt='o',color=c)
+
+        df_same_rx = df[df['RX Gain A'] ==df['RX Gain B']]
+
+
+        # gain_a_values = df['RX Gain A']
+        gain_b_values = df_same_rx['RX Gain B']
+        circ_mean_deg = df_same_rx['Circular Mean (degrees)']
+        circ_std_deg = df_same_rx['Circular Std Dev (degrees)']
+
+   
+        plt.scatter(gain_b_values, circ_mean_deg, marker='1', label=hostname, color=c)
+        # Add error bars for the variance (converted to degrees)
+        plt.errorbar(gain_b_values, circ_mean_deg, yerr=circ_std_deg, fmt='1',color=c)
+
+
 
     # Format and display the plot
     plt.title('Phase Difference vs RX Gain B with Circular Variance (Mean over all files)')
