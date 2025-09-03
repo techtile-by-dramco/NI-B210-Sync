@@ -1,5 +1,6 @@
 This folder contains scripts and results to investigate the phase stability and coherency of the B210 for multi-device phase-coherent operation.
 
+# Experiment 0 
 
 ## 01_dual_rx_channel_single_b210
 
@@ -10,30 +11,36 @@ Given that using one B210 ensures phase-coherency between the channels, we can s
 In the first setup, the setup ensured as equal path lengths as possible by using the same cables and attenutator.
 In the 2nd setup a longer cable is connected to A/B. This induces an additional phase difference between the two channels. This was done intentionally as small IQ values could result in phase differences close to zero. 
 
+### 1️⃣ Setup
+  - 🔩 **Hardware** 🔩: a single USRP B210 (it has 2 transmitters and 2 receivers that are phase-coherent because they share the same local oscillator).
+  - 🔌**Connection**🔌: the TX output is looped back to the RX inputs using an SMA cable and a 20 dB attenuator, so the signal can be tested without antennas and without overloading the receiver.
 
+### 2️⃣ Goal of the experiment
+The goal is to investigate how the RX gain configuration affects the phase difference between the two RX channels.
+  - Normally, the channels are coherent, meaning their phase relationship should remain fixed.
+  - By varying the RX gain, one can check if this introduces additional phase shifts.
 
-
-### 02_dual_rx_channel_single_b210
+## 02_dual_rx_channel_single_b210
 
 Same as 01 but with setup 2 (ie one cable is longer than the other to induce an additional phase shift between the two RX-TX chains)
 
 
-### 03_dual_tx
+## 03_dual_tx
 
 Same as 02 but now the RX gains are fixed and the TX gains are varied.
 
 
-### 04
+## 04
 
 Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase differences
 
 
-### 05
+## 05
 
 Scripts to extract relevant rates and configuration from trace logging.
 
 
-### 06 
+## 06 
 
 Fixed RX gains
 
