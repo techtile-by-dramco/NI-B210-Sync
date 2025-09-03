@@ -7,7 +7,7 @@ This folder contains scripts and results to investigate the phase stability and 
   - 🔌**Connection**🔌: the TX output is looped back to the RX inputs using an SMA cable and a 20 dB attenuator, so the signal can be tested without antennas and without overloading the receiver.
 
 ### 2️⃣ Goal of the experiment
-The goal is to investigate how the RX gain configuration affects the phase difference between the two RX channels.
+The goal is to **investigate** how the TX or RX **gain** configuration affects the **phase difference** between the two RX channels.
   - Normally, the channels are coherent, meaning their phase relationship should remain fixed.
   - By varying the RX gain, one can check if this introduces additional phase shifts.
 
