@@ -2,15 +2,6 @@ This folder contains scripts and results to investigate the phase stability and 
 
 # Experiment 0 
 
-## 01_dual_rx_channel_single_b210
-
-In this experiment, a single B210 is used. The RX and TX channels are connected with an SMA cable and a 20 dB attenutator.
-The goal is to determine the effect of RX gain configuration on the phase difference between the two channels.
-Given that using one B210 ensures phase-coherency between the channels, we can see when a phase differences changes based on the gain index.
-
-In the first setup, the setup ensured as equal path lengths as possible by using the same cables and attenutator.
-In the 2nd setup a longer cable is connected to A/B. This induces an additional phase difference between the two channels. This was done intentionally as small IQ values could result in phase differences close to zero. 
-
 ### 1️⃣ Setup
   - 🔩 **Hardware** 🔩: a single USRP B210 (it has 2 transmitters and 2 receivers that are phase-coherent because they share the same local oscillator).
   - 🔌**Connection**🔌: the TX output is looped back to the RX inputs using an SMA cable and a 20 dB attenuator, so the signal can be tested without antennas and without overloading the receiver.
@@ -20,8 +11,17 @@ The goal is to investigate how the RX gain configuration affects the phase diffe
   - Normally, the channels are coherent, meaning their phase relationship should remain fixed.
   - By varying the RX gain, one can check if this introduces additional phase shifts.
 
+## 01_dual_rx_channel_single_b210
+
+In this experiment, a single B210 is used. The RX and TX channels are connected with an SMA cable and a 20 dB attenutator.
+The goal is to determine the effect of RX gain configuration on the phase difference between the two channels.
+Given that using one B210 ensures phase-coherency between the channels, we can see when a phase differences changes based on the gain index.
+
+In the first setup, the setup ensured as equal path lengths as possible by using the same cables and attenutator.
+
 ## 02_dual_rx_channel_single_b210
 
+In the 2nd setup a longer cable is connected to A/B. This induces an additional phase difference between the two channels. This was done intentionally as small IQ values could result in phase differences close to zero. 
 Same as 01 but with setup 2 (ie one cable is longer than the other to induce an additional phase shift between the two RX-TX chains)
 
 
