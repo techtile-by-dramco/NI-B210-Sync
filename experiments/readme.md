@@ -25,11 +25,9 @@ In the first setup, the setup ensured as equal path lengths as possible by using
 ### Setup
 
 <table>
-<tr>
-<td>
-<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/01_dual_rx_channel_single_b210/setup-1.jpg" width="200">
-</td>
-<td>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/01_dual_rx_channel_single_b210/setup-1.jpg" width="200"></td>
+    <td>
   
 | Parameters   | Settings |
 |--------------|----------|
@@ -40,16 +38,22 @@ In the first setup, the setup ensured as equal path lengths as possible by using
 | GAIN_STEP    | 1        |
 | ITERATIONS   | 100      |
 
-</td>
-<td>
+</td><td>
   
 | Identifiers   |  |
 |--------------|----------|
 | EXP_ID      | exp_test       |
 | MEAS_ID       | 1       |
 
-</td>
-</tr>
+</td></tr></table>
+
+### Results
+When adjusting the gain of channel B, a phase shift occurs at the transition from 33 dB to 34 dB. Below 33 dB, the phase difference is 0 degrees, whereas above 34 dB, the phase difference is 180 degrees.
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/01_dual_rx_channel_single_b210/phase_difference_vs_gainB_with_variance.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/01_dual_rx_channel_single_b210/phase_difference_polar_plot.png" width="400"></td>
+  </tr>
 </table>
 
 
