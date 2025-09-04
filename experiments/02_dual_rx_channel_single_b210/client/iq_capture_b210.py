@@ -339,7 +339,7 @@ def measure(usrp, tx_streamer, rx_streamer, tx_gain, gain_a, gain_b, exp_id, mea
     tx_thr.join()
     logger.info(f"TX summary: underruns={underrun_count}, other TX errors={other_tx_errors}")
 
-    filepath = os.path.join(save_dir, filename)
+    filepath = os.path.join(SAVE_DIR, filename)
 
     np.save(filepath, results)
     logger.info(f"Saved IQ data to {filename}")
