@@ -6,7 +6,7 @@ GAIN_A=30         # Fixed RX gain for A (CH0)
 GAIN_B_START=7    # Starting value for RX gain B
 GAIN_B_STOP=55    # Ending value for RX gain B
 GAIN_STEP=1       # Step size for RX gain B
-ITERATIONS=100      # Number of iterations per gain value
+ITERATIONS=1 #100      # Number of iterations per gain value
 
 # Experiment and measurement identifiers
 EXP_ID="exp_test"

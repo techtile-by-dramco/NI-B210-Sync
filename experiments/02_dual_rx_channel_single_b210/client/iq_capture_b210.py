@@ -7,9 +7,9 @@ import threading
 import time
 import yaml
 from datetime import datetime, timedelta
-
 import numpy as np
 import uhd
+import os
 
 # === Fixed Measurement Parameters ===
 CLOCK_TIMEOUT = 1000  # ms
@@ -27,8 +27,9 @@ RX_B = 1
 TX_CHANNELS = [TX_A, TX_B]
 RX_CHANNELS = [RX_A, RX_B]
 
-
 TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+
+SAVE_DIR = "rawdata"
 
 # Logging
 class LogFormatter(logging.Formatter):
@@ -125,7 +126,8 @@ def tune_usrp(usrp, freq, channels, at_time):
 
 # Function to save metadata as YAML
 def save_metadata_to_yaml(filename, metadata):
-    with open(filename, 'w') as f:
+    filepath = os.path.join(SAVE_DIR, filename)
+    with open(filepath, 'w') as f:
         yaml.dump(metadata, f, default_flow_style=False)
     logger.info(f"Metadata saved to {filename}")
   
@@ -305,8 +307,12 @@ def rx_ref(usrp, rx_streamer, quit_event, duration, result_container, start_time
 def measure(usrp, tx_streamer, rx_streamer, tx_gain, gain_a, gain_b, exp_id, meas_id):
     usrp.set_rx_gain(gain_a, RX_A) # Already set during the setup phase
     usrp.set_rx_gain(gain_b, RX_B) # Already set during the setup phase
-    
+
+    os.makedirs(SAVE_DIR, exist_ok=True)
+
     filename = f"data_{socket.gethostname()[4:]}_{exp_id}_{meas_id}_gainA{gain_a}_gainB{gain_b}_{TIMESTAMP}.npy"
+
+
     quit_event_rx = threading.Event()
     quit_event_tx = threading.Event()
     results = []
@@ -333,7 +339,9 @@ def measure(usrp, tx_streamer, rx_streamer, tx_gain, gain_a, gain_b, exp_id, mea
     tx_thr.join()
     logger.info(f"TX summary: underruns={underrun_count}, other TX errors={other_tx_errors}")
 
-    np.save(filename, results)
+    filepath = os.path.join(save_dir, filename)
+
+    np.save(filepath, results)
     logger.info(f"Saved IQ data to {filename}")
 
 def parse_arguments():
