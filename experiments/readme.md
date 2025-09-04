@@ -24,26 +24,32 @@ In the first setup, the setup ensured as equal path lengths as possible by using
 
 ### Setup
 
+🆔 Identifiers 🆔 [EXP_ID == exp_test] & [MEAS_ID == 1]
+
 <table>
   <tr>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/01_dual_rx_channel_single_b210/setup-1.jpg" width="200"></td>
     <td>
   
-| Parameters   | Settings |
-|--------------|----------|
-| TX_GAIN      | 38       |
-| GAIN_A       | 30       |
-| GAIN_B_START | 7        |
-| GAIN_B_STOP  | 55       |
-| GAIN_STEP    | 1        |
-| ITERATIONS   | 100      |
+| ⚙️ Bash Settings   | Value | Unit |
+|--------------|----------|-|
+| TX_GAIN      | 38       | dB |
+| GAIN_A       | 30       | dB |
+| GAIN_B_START | 7        | dB |
+| GAIN_B_STOP  | 55       | dB |
+| GAIN_STEP    | 1        | dB |
+| ITERATIONS   | 100      | - |
 
 </td><td>
   
-| Identifiers   |  |
-|--------------|----------|
-| EXP_ID      | exp_test       |
-| MEAS_ID       | 1       |
+| ⚙️ Python Settings | Value | Unit |
+|--------------|----------|-|
+| CLOCK_TIMEOUT  | 1000   | ms |
+| INIT_DELAY     | 0.2    | s |
+| RATE           | 250e3  | Hz |
+| FREQ           | 920e6  | Hz |
+| CAPTURE_TIME   | 2      | s |
+| / | | |
 
 </td></tr></table>
 
@@ -63,26 +69,33 @@ When adjusting the gain of channel B, a phase shift occurs at the transition fro
 In the 2nd setup a longer cable is connected to A/B. This induces an additional phase difference between the two channels. This was done intentionally as small IQ values could result in phase differences close to zero. 
 Same as 01 but with setup 2 (ie one cable is longer than the other to induce an additional phase shift between the two RX-TX chains)
 
+### Setup
+🆔 Identifiers 🆔 [EXP_ID == exp_test] & [MEAS_ID == 1]
+
 <table>
   <tr>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/02_dual_rx_channel_single_b210/setup-2.jpg" width="200"></td>
     <td>
   
-| Parameters   | Settings |
-|--------------|----------|
-| TX_GAIN      | 38       |
-| GAIN_A       | 30       |
-| GAIN_B_START | 7        |
-| GAIN_B_STOP  | 55       |
-| GAIN_STEP    | 1        |
-| ITERATIONS   | 100      |
+| ⚙️ Bash Settings   | Value | Unit |
+|--------------|----------|-|
+| TX_GAIN      | 38       | dB |
+| GAIN_A       | 30       | dB |
+| GAIN_B_START | 7        | dB |
+| GAIN_B_STOP  | 55       | dB |
+| GAIN_STEP    | 1        | dB |
+| ITERATIONS   | 100      | - |
 
 </td><td>
   
-| Identifiers   |  |
-|--------------|----------|
-| EXP_ID      | exp_test       |
-| MEAS_ID       | 1       |
+| ⚙️ Python Settings | Value | Unit |
+|--------------|----------|-|
+| CLOCK_TIMEOUT  | 1000   | ms |
+| INIT_DELAY     | 0.2    | s |
+| RATE           | 250e3  | Hz |
+| FREQ           | 920e6  | Hz |
+| CAPTURE_TIME   | 2      | s |
+| / | | |
 
 </td></tr></table>
 
