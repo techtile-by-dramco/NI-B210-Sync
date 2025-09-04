@@ -126,6 +126,7 @@ def tune_usrp(usrp, freq, channels, at_time):
 
 # Function to save metadata as YAML
 def save_metadata_to_yaml(filename, metadata):
+    os.makedirs(SAVE_DIR, exist_ok=True)
     filepath = os.path.join(SAVE_DIR, filename)
     with open(filepath, 'w') as f:
         yaml.dump(metadata, f, default_flow_style=False)
