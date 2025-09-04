@@ -65,6 +65,8 @@ def compute_phase_difference(iq_data, fs):
 def store_phase_difference(in_dir, out_dir, fs):
     phase_differences_by_gain = defaultdict(list)
     gain_b_values = []
+
+    print(len(os.listdir(in_dir)))
     
     # Loop through the files in the directory
     for filename in os.listdir(in_dir):
@@ -90,6 +92,8 @@ def store_phase_difference(in_dir, out_dir, fs):
             
             # Append the phase difference for this RX gain B
             phase_differences_by_gain[gain_b].extend(phase_diff)
+
+    print("Loop through the files in the directory - DONE")
 
     # Prepare CSV file to store the circmean and circstd for each gain value
     csv_filename = os.path.join(out_dir, "circmean_and_circstd.csv")
