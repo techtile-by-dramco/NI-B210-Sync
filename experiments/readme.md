@@ -1,7 +1,7 @@
 This folder contains scripts and results to investigate the phase stability and coherency of the B210 for multi-device phase-coherent operation.
 
-# Experiment 0 
 
+<!-- **************************************************************************************************************************** -->
 ### 1️⃣ Setup
   - 🔩 **Hardware** 🔩: a single USRP B210 (it has 2 transmitters and 2 receivers that are phase-coherent because they share the same local oscillator).
   - 🔌**Connection**🔌: the TX output is looped back to the RX inputs using an SMA cable and a 20 dB attenuator, so the signal can be tested without antennas and without overloading the receiver.
@@ -10,7 +10,10 @@ This folder contains scripts and results to investigate the phase stability and 
 The goal is to **investigate** how the TX or RX **gain** configuration affects the **phase difference** between the two RX channels.
   - Normally, the channels are coherent, meaning their phase relationship should remain fixed.
   - By varying the RX gain, one can check if this introduces additional phase shifts.
+<!-- **************************************************************************************************************************** -->
 
+
+<!-- **************************************************************************************************************************** -->
 ## 01_dual_rx_channel_single_b210
 
 In this experiment, a single B210 is used. The RX and TX channels are connected with an SMA cable and a 20 dB attenutator.
@@ -19,27 +22,59 @@ Given that using one B210 ensures phase-coherency between the channels, we can s
 
 In the first setup, the setup ensured as equal path lengths as possible by using the same cables and attenutator.
 
+### Setup
+
+<table>
+<tr>
+<td>
+<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/01_dual_rx_channel_single_b210/setup-1.jpg" width="200">
+</td>
+<td>
+  
+| Parameters   | Settings |
+|--------------|----------|
+| TX_GAIN      | 38       |
+| GAIN_A       | 30       |
+| GAIN_B_START | 7        |
+| GAIN_B_STOP  | 55       |
+| GAIN_STEP    | 1        |
+| ITERATIONS   | 100      |
+
+</td>
+<td>
+  
+| Identifiers   |  |
+|--------------|----------|
+| EXP_ID      | exp_test       |
+| MEAS_ID       | 1       |
+
+</td>
+</tr>
+</table>
+
+
+<!-- **************************************************************************************************************************** -->
 ## 02_dual_rx_channel_single_b210
 
 In the 2nd setup a longer cable is connected to A/B. This induces an additional phase difference between the two channels. This was done intentionally as small IQ values could result in phase differences close to zero. 
 Same as 01 but with setup 2 (ie one cable is longer than the other to induce an additional phase shift between the two RX-TX chains)
 
-
+<!-- **************************************************************************************************************************** -->
 ## 03_dual_tx
 
 Same as 02 but now the RX gains are fixed and the TX gains are varied.
 
-
+<!-- **************************************************************************************************************************** -->
 ## 04
 
 Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase differences
 
-
+<!-- **************************************************************************************************************************** -->
 ## 05
 
 Scripts to extract relevant rates and configuration from trace logging.
 
-
+<!-- **************************************************************************************************************************** -->
 ## 06 
 
 Fixed RX gains
