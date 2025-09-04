@@ -76,10 +76,9 @@ def setup_pps(usrp):
     logger.debug("PPS synced and device time set to 0")
     time.sleep(2)
 
-
 def print_tune_result(tune_res):
     return (
-        "Tune Result:\n    Target RF  Freq: {:.6f} (MHz)\n Actual RF  Freq: {:.6f} (MHz)\n Target DSP Freq: {:.6f} "
+        "Tune Result:\nTarget RF  Freq: {:.6f} (MHz)\n Actual RF  Freq: {:.6f} (MHz)\n Target DSP Freq: {:.6f} "
         "(MHz)\n "
         "Actual DSP Freq: {:.6f} (MHz)\n".format(
             (tune_res.target_rf_freq / 1e6),
@@ -134,8 +133,6 @@ def setup(usrp, tx_gain, gain_db, exp_id, meas_id):
     usrp.set_master_clock_rate(20e6)
     setup_clock(usrp)
     setup_pps(usrp)
-    channels = RX_CHANNELS
-
 
     metadata = {
         'experiment_id': exp_id,
@@ -153,25 +150,27 @@ def setup(usrp, tx_gain, gain_db, exp_id, meas_id):
     metadata_filename = f"metadata_{socket.gethostname()[4:]}_{exp_id}_{meas_id}_gainA{gain_db[RX_A]}_gainB{gain_db[RX_B]}_{TIMESTAMP}.yml"
     save_metadata_to_yaml(metadata_filename, metadata)
 
-    for ch in channels:
-        usrp.set_rx_rate(RATE, ch)
-        usrp.set_tx_rate(RATE, ch)
-        usrp.set_rx_dc_offset(False, ch)  # DC offset correction disabled to preserve full dynamic range
-        usrp.set_rx_bandwidth(200e3, ch)
-        usrp.set_rx_agc(False, ch)
-        usrp.set_rx_gain(gain_db[ch], ch)
+    for ch in RX_CHANNELS:
+        usrp.set_rx_rate(RATE, ch)          # Set sample rate for the receiver
+        usrp.set_rx_dc_offset(False, ch)    # DC offset correction disabled to preserve full dynamic range
+        usrp.set_rx_bandwidth(200e3, ch)    # BW of the RX filter
+        usrp.set_rx_agc(False, ch)          # Automatic Gain Control is disabled
+        usrp.set_rx_gain(gain_db[ch], ch)   # Receiver gain
     for ch in TX_CHANNELS:
-        usrp.set_tx_gain(tx_gain, ch)
+        usrp.set_tx_rate(RATE, ch)          # Set sample rate for the transmitter
+        usrp.set_tx_gain(tx_gain, ch)       # Transmitter gain
 
-    st_args = uhd.usrp.StreamArgs("fc32", "sc16")
-    st_args.channels = channels
-    tx_streamer = usrp.get_tx_stream(st_args)
-    rx_streamer = usrp.get_rx_stream(st_args)
+    st_args = uhd.usrp.StreamArgs("fc32", "sc16")   # Create a streaming object (define sample format - USRP/Host transfer)
+    # "fc32" = host format: complex float32 (I/Q)
+    # "sc16" = wire format: signed complex int16 (compact representation for transport over USB)
+    st_args.channels = RX_CHANNELS                  # Define channels to be streamed
+    tx_streamer = usrp.get_tx_stream(st_args)       # TX streamer object
+    rx_streamer = usrp.get_rx_stream(st_args)       # RX streamer object
 
     usrp.set_time_unknown_pps(uhd.types.TimeSpec(0.0))
     logger.debug("[SYNC] Set time to 0.0 via PPS")
     time.sleep(2)
-    tune_usrp(usrp, FREQ, channels, at_time=INIT_DELAY)
+    tune_usrp(usrp, FREQ, RX_CHANNELS, at_time=INIT_DELAY)
     return tx_streamer, rx_streamer
 
 def tx_ref(usrp, tx_streamer, quit_event, phase, amplitude, start_time):
@@ -304,9 +303,8 @@ def rx_ref(usrp, rx_streamer, quit_event, duration, result_container, start_time
         result_container.extend(trimmed)
 
 def measure(usrp, tx_streamer, rx_streamer, tx_gain, gain_a, gain_b, exp_id, meas_id):
-    usrp.set_rx_gain(gain_a, RX_A)
-    usrp.set_rx_gain(gain_b, RX_B)
-
+    usrp.set_rx_gain(gain_a, RX_A) # Already set during the setup phase
+    usrp.set_rx_gain(gain_b, RX_B) # Already set during the setup phase
     
     filename = f"data_{socket.gethostname()[4:]}_{exp_id}_{meas_id}_gainA{gain_a}_gainB{gain_b}_{TIMESTAMP}.npy"
     quit_event_rx = threading.Event()
@@ -322,11 +320,9 @@ def measure(usrp, tx_streamer, rx_streamer, tx_gain, gain_a, gain_b, exp_id, mea
     rx_thr = threading.Thread(target=rx_ref, args=(usrp, rx_streamer, quit_event_rx, CAPTURE_TIME, results, start_time_rx))
     tx_thr = threading.Thread(target=tx_ref, args=(usrp, tx_streamer, quit_event_tx, [0.0, 0.0], [0.8, 0.8], start_time_tx))
 
-
     tx_thr.start()
     rx_thr.start()
    
-
     rx_start_real = start_time_rx.get_real_secs()
     now = usrp.get_time_now().get_real_secs()
     sleep_duration = max(CAPTURE_TIME, rx_start_real - now + CAPTURE_TIME)
