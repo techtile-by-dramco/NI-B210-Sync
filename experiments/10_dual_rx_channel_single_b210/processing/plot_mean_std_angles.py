@@ -7,17 +7,23 @@ def plot_phase_difference_vs_gain(csv_file):
     # Load the CSV file containing circmean and circstd
     data = pd.read_csv(csv_file)
 
-    # Extract the values
-    gain_b_values = data['RX Gain B']
-    circ_mean_deg = data['Circular Mean (degrees)']
-    circ_std_deg = data['Circular Std Dev (degrees)']
-
     # Create the plot
     plt.figure(figsize=(8, 6))
-    plt.scatter(gain_b_values, circ_mean_deg, color='b', marker='o', label='Phase Difference')
-    
-    # Add error bars for the variance (converted to degrees)
-    plt.errorbar(gain_b_values, circ_mean_deg, yerr=circ_std_deg, fmt='o', color='b', label='Variance')
+
+    # Extract the values
+    data = data.groupby(["frequency"])
+    for freq, grp in data:
+        gain_b_values = grp['RX Gain B'].to_numpy()
+        circ_mean_deg = grp['Circular Mean (degrees)'].to_numpy()
+        circ_std_deg = grp['Circular Std Dev (degrees)'].to_numpy()
+
+        # idx = gain_b_values.tolist().index(30)
+
+        # plt.scatter(gain_b_values, circ_mean_deg-circ_mean_deg[idx], marker='o', label=freq)
+        # plt.errorbar(gain_b_values, circ_mean_deg-circ_mean_deg[idx], yerr=circ_std_deg, fmt='o')
+
+        plt.scatter(gain_b_values, circ_mean_deg, marker='o', label=f"{freq[0]/1e6:.0f} MHz")
+        plt.errorbar(gain_b_values, circ_mean_deg, yerr=circ_std_deg, fmt='o')
 
     # Format and display the plot
     plt.title('Phase Difference vs RX Gain B with Circular Variance (Mean over all files)')
