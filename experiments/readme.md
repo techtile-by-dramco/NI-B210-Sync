@@ -12,6 +12,12 @@ The goal is to **investigate** how the TX or RX **gain** configuration affects t
   - By varying the RX gain, one can check if this introduces additional phase shifts.
 <!-- **************************************************************************************************************************** -->
 
+# Processing data
+
+Create csv file
+```
+python store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\02_dual_rx_channel_single_b210\client\rawdata --out-dir C:\Users\jarne\Documents\GitHub\NI-B210-Sync\experiments\02_dual_rx_channel_single_b210\results
+```
 
 <!-- **************************************************************************************************************************** -->
 ## 01_dual_rx_channel_single_b210
