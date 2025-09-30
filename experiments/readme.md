@@ -116,9 +116,15 @@ Same as 01 but with setup 2 (ie one cable is longer than the other to induce an 
 python experiments\02_dual_rx_channel_single_b210\processing\store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\02_dual_rx_channel_single_b210\client\rawdata --out-dir experiments\02_dual_rx_channel_single_b210\\results
 ```
 
-- Create plots
-- 
+- **Create plots** plot_unit_circle
+```
+python .\experiments\02_dual_rx_channel_single_b210\processing\plot_unit_circle.py --csv_file .\experiments\02_dual_rx_channel_single_b210\results\circmean_and_circstd.csv 
+```
 
+- **Create plots** plot_unit_circle
+```
+python .\experiments\02_dual_rx_channel_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\02_dual_rx_channel_single_b210\results\circmean_and_circstd.csv
+```
 <!-- **************************************************************************************************************************** -->
 ## 03_dual_tx
 
