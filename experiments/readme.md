@@ -12,13 +12,6 @@ The goal is to **investigate** how the TX or RX **gain** configuration affects t
   - By varying the RX gain, one can check if this introduces additional phase shifts.
 <!-- **************************************************************************************************************************** -->
 
-# Processing data
-
-Create csv file
-```
-python store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\02_dual_rx_channel_single_b210\client\rawdata --out-dir C:\Users\jarne\Documents\GitHub\NI-B210-Sync\experiments\02_dual_rx_channel_single_b210\results
-```
-
 <!-- **************************************************************************************************************************** -->
 ## 01_dual_rx_channel_single_b210
 
@@ -114,6 +107,17 @@ Same as 01 but with setup 2 (ie one cable is longer than the other to induce an 
   </tr>
 </table>
 
+### Processing data
+
+- **Create csv file** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
+  Mount RPI folder en parse the location of the raw data `W:\NI-B210-Sync\experiments\02_dual_rx_channel_single_b210\client\rawdata`
+
+```
+python experiments\02_dual_rx_channel_single_b210\processing\store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\02_dual_rx_channel_single_b210\client\rawdata --out-dir experiments\02_dual_rx_channel_single_b210\\results
+```
+
+- Create plots
+- 
 
 <!-- **************************************************************************************************************************** -->
 ## 03_dual_tx
