@@ -268,6 +268,7 @@ These figures clearly show that an **additional phase difference**
 
 Scripts to extract relevant rates and configuration from trace logging.
 
+🔎 Baseband clock PLL settings: Script performs a sweep over different master clock rates. This clarifies how the B210 configures following parameters:
 - **rate** → requested clock rate
 - **vcorate** → oscillator frequency
 - **vcodiv** → divider value
