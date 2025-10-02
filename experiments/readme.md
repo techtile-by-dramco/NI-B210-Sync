@@ -133,7 +133,7 @@ Same as 02 but now the RX gains are fixed and the TX gains are varied.
 
 <table>
   <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/setup-3.jpg" width="200"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/02_dual_rx_channel_single_b210/setup-2.jpg" width="200"></td>
     <td>
   
 | ⚙️ Bash Settings   | Value | Unit |
@@ -203,7 +203,7 @@ Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase
 
 <table>
   <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/setup-3.jpg" width="200"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/02_dual_rx_channel_single_b210/setup-2.jpg" width="200"></td>
     <td>
   
 | ⚙️ Bash Settings   | Value | Unit |
