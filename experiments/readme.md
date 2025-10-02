@@ -237,6 +237,11 @@ Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase
 python .\experiments\04_dual_rx_matrix_single_b210\processing\plot_mean_2d.py --csv_file .\experiments\04_dual_rx_matrix_single_b210\results\circmean_and_circstd_1.csv 
 ```
 
+- **Create plots** plot_mean_3d
+```
+python .\experiments\04_dual_rx_matrix_single_b210\processing\plot_mean_3d.py --csv_file .\experiments\04_dual_rx_matrix_single_b210\results\circmean_and_circstd_1.csv
+```
+
 ### Results [G] (multiple iterations)
 
 <table>
@@ -250,6 +255,9 @@ python .\experiments\04_dual_rx_matrix_single_b210\processing\plot_mean_2d.py --
   </tr>
 </table>
 
+These figures clearly show that an **additional phase difference** 
+- can arise between RX A and RX B when both receivers operate at different gain levels. ⚠️⚠️⚠️
+- as long as the gain is the same for both, there is almost no phase difference. ✅✅✅
 
 <!-- **************************************************************************************************************************** -->
 ## 05
