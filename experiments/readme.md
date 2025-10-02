@@ -244,6 +244,10 @@ python .\experiments\04_dual_rx_matrix_single_b210\processing\plot_mean_2d.py --
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/04_dual_rx_matrix_single_b210/circular_mean_heatmap.png" width="400"></td>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/04_dual_rx_matrix_single_b210/circular_std_heatmap.png" width="400"></td>
   </tr>
+    <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/04_dual_rx_matrix_single_b210/circular_mean_heatmap_3d.png" width="400"></td>
+    <td></td>
+  </tr>
 </table>
 
 
