@@ -259,6 +259,10 @@ These figures clearly show that an **additional phase difference**
 - can arise between RX A and RX B when both receivers operate at different gain levels. ⚠️⚠️⚠️
 - as long as the gain is the same for both, there is almost no phase difference. ✅✅✅
 
+❓Questions❓
+- Do we consistently obtain the same phase differences between channel A and channel B as a function of RX Gain A and RX Gain B.
+- If yes, we can make a lookup table/model?
+
 <!-- **************************************************************************************************************************** -->
 ## 05
 
