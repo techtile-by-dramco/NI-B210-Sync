@@ -177,19 +177,66 @@ python .\experiments\03_dual_tx_channel_single_b210\processing\plot_unit_circle.
 python .\experiments\03_dual_tx_channel_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\03_dual_tx_channel_single_b210\results\circmean_and_circstd.csv
 ```
 
-### Results
+### Results [Jarne] (one iterations)
 
 <table>
   <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/phase_difference_vs_gainB_with_variance.png" width="400"></td>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/phase_difference_polar_plot.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/phase_difference_vs_gainB_with_variance.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/phase_difference_polar_plot.png" width="400"></td>
+  </tr>
+</table>
+
+### Results [Gilles] (multiple iterations)
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/archive/phase_difference_vs_gainB_with_variance.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/archive/phase_difference_polar_plot.png" width="400"></td>
   </tr>
 </table>
 
 <!-- **************************************************************************************************************************** -->
-## 04
+## 04_dual_rx_matrix_single_b210
 
-Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase differences
+Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase differences. Keeping TX constant.
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/setup-3.jpg" width="200"></td>
+    <td>
+  
+| ⚙️ Bash Settings   | Value | Unit |
+|--------------|----------|-|
+| TX_GAIN      | 38       | dB |
+| GAIN_A_START | 7        | dB |
+| GAIN_A_STOP  | 55       | dB |
+| GAIN_B_START | 7        | dB |
+| GAIN_B_STOP  | 55       | dB |
+| GAIN_STEP    | 1        | dB |
+| ITERATIONS   | 1        | - |
+
+</td><td>
+  
+| ⚙️ Python Settings | Value | Unit |
+|--------------|----------|-|
+| CLOCK_TIMEOUT  | 1000   | ms |
+| INIT_DELAY     | 0.2    | s |
+| RATE           | 250e3  | Hz |
+| FREQ           | 920e6  | Hz |
+| CAPTURE_TIME   | 2      | s |
+| / | | |
+
+</td></tr></table>
+
+### Results [Gilles] (multiple iterations)
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/04_dual_rx_matrix_single_b210/circular_mean_heatmap.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/04_dual_rx_matrix_single_b210/circular_std_heatmap.png" width="400"></td>
+  </tr>
+</table>
+
 
 <!-- **************************************************************************************************************************** -->
 ## 05
