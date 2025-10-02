@@ -143,7 +143,8 @@ Same as 02 but now the RX gains are fixed and the TX gains are varied.
 | GAIN_B_START | 1        | dB |
 | GAIN_B_STOP  | 63       | dB |
 | GAIN_STEP    | 1        | dB |
-| ITERATIONS   | 1        | - |
+| ITERATIONS [J]   | 1    | - |
+| ITERATIONS [G]   | 100  | - |
 
 </td><td>
   
@@ -177,7 +178,7 @@ python .\experiments\03_dual_tx_channel_single_b210\processing\plot_unit_circle.
 python .\experiments\03_dual_tx_channel_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\03_dual_tx_channel_single_b210\results\circmean_and_circstd.csv
 ```
 
-### Results [Jarne] (one iterations)
+### Results [J] (one iterations)
 
 <table>
   <tr>
@@ -186,7 +187,7 @@ python .\experiments\03_dual_tx_channel_single_b210\processing\plot_mean_std_ang
   </tr>
 </table>
 
-### Results [Gilles] (multiple iterations)
+### Results [G] (multiple iterations)
 
 <table>
   <tr>
@@ -213,7 +214,8 @@ Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase
 | GAIN_B_START | 7        | dB |
 | GAIN_B_STOP  | 55       | dB |
 | GAIN_STEP    | 1        | dB |
-| ITERATIONS   | 1        | - |
+| ITERATIONS [J]   | 1    | - |
+| ITERATIONS [G]   | 100  | - |
 
 </td><td>
   
@@ -228,12 +230,23 @@ Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase
 
 </td></tr></table>
 
-### Results [Gilles] (multiple iterations)
+### Processing data
+
+- **Create plots** plot_mean_2d
+```
+python .\experiments\04_dual_rx_matrix_single_b210\processing\plot_mean_2d.py --csv_file .\experiments\04_dual_rx_matrix_single_b210\results\circmean_and_circstd_1.csv 
+```
+
+### Results [G] (multiple iterations)
 
 <table>
   <tr>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/04_dual_rx_matrix_single_b210/circular_mean_heatmap.png" width="400"></td>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/04_dual_rx_matrix_single_b210/circular_std_heatmap.png" width="400"></td>
+  </tr>
+    <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/04_dual_rx_matrix_single_b210/circular_mean_heatmap_3d.png" width="400"></td>
+    <td></td>
   </tr>
 </table>
 
