@@ -164,7 +164,7 @@ Same as 02 but now the RX gains are fixed and the TX gains are varied.
   Mount RPI folder en parse the location of the raw data `W:\NI-B210-Sync\experiments\02_dual_rx_channel_single_b210\client\rawdata`
 
 ```
-python experiments\03_dual_tx_channel_single_b210\processing\store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\03_dual_tx_channel_single_b210\client\rawdata --out-dir experiments\03_dual_rx_channel_single_b210\results
+python experiments\03_dual_tx_channel_single_b210\processing\store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\03_dual_tx_channel_single_b210\client\rawdata --out-dir experiments\03_dual_tx_channel_single_b210\results
 ```
 
 - **Create plots** plot_unit_circle
