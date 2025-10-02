@@ -264,7 +264,7 @@ These figures clearly show that an **additional phase difference**
 - If yes, we can make a lookup table/model?
 
 <!-- **************************************************************************************************************************** -->
-## 05 VCO Rates
+## 05_vco_rates
 
 Scripts to extract relevant rates and configuration from trace logging.
 
