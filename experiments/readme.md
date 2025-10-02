@@ -177,7 +177,7 @@ python .\experiments\03_dual_tx_channel_single_b210\processing\plot_unit_circle.
 python .\experiments\03_dual_tx_channel_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\03_dual_tx_channel_single_b210\results\circmean_and_circstd.csv
 ```
 
-### Results [Jarne]
+### Results [Jarne] (one iterations)
 
 <table>
   <tr>
@@ -186,7 +186,7 @@ python .\experiments\03_dual_tx_channel_single_b210\processing\plot_mean_std_ang
   </tr>
 </table>
 
-### Results [Gilles]
+### Results [Gilles] (multiple iterations)
 
 <table>
   <tr>
