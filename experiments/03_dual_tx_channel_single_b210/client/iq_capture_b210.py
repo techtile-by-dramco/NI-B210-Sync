@@ -6,9 +6,9 @@ import threading
 import time
 import yaml
 from datetime import datetime, timedelta
-
 import numpy as np
 import uhd
+import os
 
 # === Fixed Measurement Parameters ===
 CLOCK_TIMEOUT = 1000  # ms
@@ -27,6 +27,8 @@ TX_CHANNELS = [TX_A, TX_B]
 RX_CHANNELS = [RX_A, RX_B]
 
 TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+
+SAVE_DIR = "rawdata"
 
 # Logging
 class LogFormatter(logging.Formatter):
@@ -120,6 +122,8 @@ def tune_usrp(usrp, freq, channels, at_time):
 
 # Function to save metadata as YAML
 def save_metadata_to_yaml(filename, metadata):
+    os.makedirs(SAVE_DIR, exist_ok=True)
+    filepath = os.path.join(SAVE_DIR, filename)
     with open(filename, 'w') as f:
         yaml.dump(metadata, f, default_flow_style=False)
     logger.info(f"Metadata saved to {filename}")
@@ -316,11 +320,8 @@ def measure(usrp, tx_streamer, rx_streamer, tx_gain_a, tx_gain_b, gain_a, gain_b
     rx_thr = threading.Thread(target=rx_ref, args=(usrp, rx_streamer, quit_event_rx, CAPTURE_TIME, results, start_time_rx))
     tx_thr = threading.Thread(target=tx_ref, args=(usrp, tx_streamer, quit_event_tx, [0.0, 0.0], [0.8, 0.8], start_time_tx))
 
-
     tx_thr.start()
     rx_thr.start()
-   
-
 
     rx_start_real = start_time_rx.get_real_secs()
     now = usrp.get_time_now().get_real_secs()

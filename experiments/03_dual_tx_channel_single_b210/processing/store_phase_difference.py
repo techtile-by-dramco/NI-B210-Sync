@@ -67,6 +67,9 @@ def store_phase_difference(in_dir, out_dir, fs):
     # Loop through the files in the directory
     for filename in os.listdir(in_dir):
         if filename.endswith(".npy"):
+
+            print(filename)
+
             # Load phase difference data
             iq_data = load_phase_difference(os.path.join(in_dir, filename))
             
