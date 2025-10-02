@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Define the parameters
-RX_GAIN=30        # Fixed TX gain
-GAIN_A=50         # Fixed RX gain for A (CH0)
-GAIN_B_START=1    # Starting value for RX gain B
-GAIN_B_STOP=63    # Ending value for RX gain B
-GAIN_STEP=1       # Step size for RX gain B
-ITERATIONS=100      # Number of iterations per gain value
+RX_GAIN=30        # Fixed RX gain for both A and B
+GAIN_A=50         # Fixed TX gain for A (CH0)
+GAIN_B_START=1    # Starting value for TX gain B
+GAIN_B_STOP=63    # Ending value for TX gain B
+GAIN_STEP=1       # Step size for TX gain B
+ITERATIONS=1      # Number of iterations per gain value
 
 # Experiment and measurement identifiers
 EXP_ID="exp_test"
