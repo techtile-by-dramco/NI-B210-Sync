@@ -98,15 +98,6 @@ Same as 01 but with setup 2 (ie one cable is longer than the other to induce an 
 
 </td></tr></table>
 
-### Results
-
-<table>
-  <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/02_dual_rx_channel_single_b210/phase_difference_vs_gainB_with_variance.png" width="400"></td>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/02_dual_rx_channel_single_b210/phase_difference_polar_plot.png" width="400"></td>
-  </tr>
-</table>
-
 ### Processing data
 
 - **Create csv file** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
@@ -125,10 +116,75 @@ python .\experiments\02_dual_rx_channel_single_b210\processing\plot_unit_circle.
 ```
 python .\experiments\02_dual_rx_channel_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\02_dual_rx_channel_single_b210\results\circmean_and_circstd.csv
 ```
+
+### Results
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/02_dual_rx_channel_single_b210/phase_difference_vs_gainB_with_variance.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/02_dual_rx_channel_single_b210/phase_difference_polar_plot.png" width="400"></td>
+  </tr>
+</table>
+
 <!-- **************************************************************************************************************************** -->
 ## 03_dual_tx
 
 Same as 02 but now the RX gains are fixed and the TX gains are varied.
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/setup-3.jpg" width="200"></td>
+    <td>
+  
+| ⚙️ Bash Settings   | Value | Unit |
+|--------------|----------|-|
+| TX_GAIN      | 30       | dB |
+| GAIN_A       | 50       | dB |
+| GAIN_B_START | 1        | dB |
+| GAIN_B_STOP  | 63       | dB |
+| GAIN_STEP    | 1        | dB |
+| ITERATIONS   | 1        | - |
+
+</td><td>
+  
+| ⚙️ Python Settings | Value | Unit |
+|--------------|----------|-|
+| CLOCK_TIMEOUT  | 1000   | ms |
+| INIT_DELAY     | 0.2    | s |
+| RATE           | 250e3  | Hz |
+| FREQ           | 920e6  | Hz |
+| CAPTURE_TIME   | 2      | s |
+| / | | |
+
+</td></tr></table>
+
+### Processing data
+
+- **Create csv file** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
+  Mount RPI folder en parse the location of the raw data `W:\NI-B210-Sync\experiments\02_dual_rx_channel_single_b210\client\rawdata`
+
+```
+python experiments\03_dual_rx_channel_single_b210\processing\store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\03_dual_tx_channel_single_b210\client\rawdata --out-dir experiments\03_dual_rx_channel_single_b210\results
+```
+
+- **Create plots** plot_unit_circle
+```
+python .\experiments\03_dual_rx_channel_single_b210\processing\plot_unit_circle.py --csv_file .\experiments\03_dual_tx_channel_single_b210\results\circmean_and_circstd.csv 
+```
+
+- **Create plots** plot_unit_circle
+```
+python .\experiments\03_dual_rx_channel_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\03_dual_tx_channel_single_b210\results\circmean_and_circstd.csv
+```
+
+### Results
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/phase_difference_vs_gainB_with_variance.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/phase_difference_polar_plot.png" width="400"></td>
+  </tr>
+</table>
 
 <!-- **************************************************************************************************************************** -->
 ## 04
