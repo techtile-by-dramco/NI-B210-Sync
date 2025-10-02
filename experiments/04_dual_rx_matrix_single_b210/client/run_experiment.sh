@@ -2,12 +2,12 @@
 
 # Define the parameters
 TX_GAIN=38        # Fixed TX gain
-GAIN_A_START=7    # Starting value for RX gain B
-GAIN_A_STOP=55    # Ending value for RX gain B
+GAIN_A_START=7    # Starting value for RX gain A
+GAIN_A_STOP=55    # Ending value for RX gain A
 GAIN_B_START=7    # Starting value for RX gain B
 GAIN_B_STOP=55    # Ending value for RX gain B
-GAIN_STEP=1       # Step size for RX gain B
-ITERATIONS=100      # Number of iterations per gain value
+GAIN_STEP=1       # Step size for RX
+ITERATIONS=1      # Number of iterations per gain value
 
 # Experiment and measurement identifiers
 EXP_ID="exp_test"
