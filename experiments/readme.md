@@ -127,7 +127,7 @@ python .\experiments\02_dual_rx_channel_single_b210\processing\plot_mean_std_ang
 </table>
 
 <!-- **************************************************************************************************************************** -->
-## 03_dual_tx
+## 03_dual_tx_channel_single_b210
 
 Same as 02 but now the RX gains are fixed and the TX gains are varied.
 
