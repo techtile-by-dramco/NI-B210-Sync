@@ -177,12 +177,21 @@ python .\experiments\03_dual_tx_channel_single_b210\processing\plot_unit_circle.
 python .\experiments\03_dual_tx_channel_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\03_dual_tx_channel_single_b210\results\circmean_and_circstd.csv
 ```
 
-### Results
+### Results [Jarne]
 
 <table>
   <tr>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/phase_difference_vs_gainB_with_variance.png" width="400"></td>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/phase_difference_polar_plot.png" width="400"></td>
+  </tr>
+</table>
+
+### Results [Gilles]
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/archive/phase_difference_vs_gainB_with_variance.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/archive/phase_difference_polar_plot.png" width="400"></td>
   </tr>
 </table>
 
