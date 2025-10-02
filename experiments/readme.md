@@ -230,6 +230,13 @@ Same as 02 but now both the RX A and RX B are varied, yielding a matrix of phase
 
 </td></tr></table>
 
+### Processing data
+
+- **Create plots** plot_mean_2d
+```
+python .\experiments\04_dual_rx_matrix_single_b210\processing\plot_mean_2d.py --csv_file .\experiments\04_dual_rx_matrix_single_b210\results\circmean_and_circstd_1.csv 
+```
+
 ### Results [G] (multiple iterations)
 
 <table>
