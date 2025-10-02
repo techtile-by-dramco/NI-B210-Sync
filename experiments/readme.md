@@ -181,8 +181,8 @@ python .\experiments\03_dual_tx_channel_single_b210\processing\plot_mean_std_ang
 
 <table>
   <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/phase_difference_vs_gainB_with_variance.png" width="400"></td>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_rx_channel_single_b210/phase_difference_polar_plot.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/phase_difference_vs_gainB_with_variance.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/03_dual_tx_channel_single_b210/phase_difference_polar_plot.png" width="400"></td>
   </tr>
 </table>
 
