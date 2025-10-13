@@ -297,3 +297,5 @@ Fixed RX gains
 
 4 USRPs are connected to one splitter with equal length cables. Phase differences are checked on the scope and they were aligned <1°. 
 
+One constant reference signal --> connected to 4 USRPs that runs same script as experiment 02/03??? --> RX gain is swept
+
