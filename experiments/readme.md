@@ -315,7 +315,8 @@ Asjustments iq_capture_b210.py compare to exp e.g. 02
 
 <table>
   <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/02_dual_rx_channel_single_b210/setup-2.jpg" width="200"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/pictures/setup_6_front.jpg" width="200"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/pictures/setup_6_rear.jpg" width="200"></td>
     <td>
   
 | ⚙️ Bash Settings   | Value | Unit |
