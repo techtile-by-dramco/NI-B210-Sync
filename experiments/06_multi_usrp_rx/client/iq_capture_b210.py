@@ -110,7 +110,9 @@ def tune_usrp(usrp, freq, channels, at_time):
 
 # Function to save metadata as YAML
 def save_metadata_to_yaml(filename, metadata):
-    with open(filename, 'w') as f:
+    os.makedirs(SAVE_DIR, exist_ok=True)
+    filepath = os.path.join(SAVE_DIR, filename)
+    with open(filepath, 'w') as f:
         yaml.dump(metadata, f, default_flow_style=False)
     logger.info(f"Metadata saved to {filename}")
   
@@ -232,6 +234,9 @@ def rx_ref(usrp, rx_streamer, quit_event, duration, result_container, start_time
 def measure(usrp,  rx_streamer, gain_a, gain_b, exp_id, meas_id):
     usrp.set_rx_gain(gain_a, RX_A) # Already set during the setup phase
     usrp.set_rx_gain(gain_b, RX_B) # Already set during the setup phase
+
+    os.makedirs(SAVE_DIR, exist_ok=True)
+
     filename = f"data_{socket.gethostname()[4:]}_{exp_id}_{meas_id}_gainA{gain_a}_gainB{gain_b}_{TIMESTAMP}.npy"
     quit_event_rx = threading.Event()
     results = []
