@@ -427,7 +427,17 @@ python .\experiments\06_multi_usrp_rx\processing\plot_mean_std_angles.py --csv_f
 
 
 <!-- **************************************************************************************************************************** -->
-## 07
+## 07 multi_usrp_rx_time
+
+One testtile that transmit a sine wave
+```
+python3 examples/tx_waveforms.py  --args "type=b200" --freq 920e6 --rate 1e6 --duration 1e8 --channels 0 --wave-freq 0e5 --wave-ampl 0.8 --gain 70
+```
+Transmit tiles connected to 8 way splitter. Eight outputs are connected to every input channel of every USRP (same as 06).
+
+Four USRPs measures every houre the phase difference between his two channels.
+
+Measure 100 houres
 
 <!-- **************************************************************************************************************************** -->
 ## 08 
