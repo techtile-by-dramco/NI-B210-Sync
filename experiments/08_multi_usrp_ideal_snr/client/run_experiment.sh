@@ -22,7 +22,7 @@ HOST_T04="192.108.1.82"
 
 echo "Hello"
 
-for ((GAIN_TX=GAIN_TX_START; GAIN_TX<=GAIN_TX_STOP; GAIN_TX-=GAIN_STEP)); do
+for ((GAIN_TX=GAIN_TX_START; GAIN_TX>=GAIN_TX_STOP; GAIN_TX-=GAIN_STEP)); do
     echo "Running with TX gain = $GAIN_TX"
     ssh pi@$HOST_T04 "python3 examples/tx_waveforms.py \
         --args 'type=b200' \
