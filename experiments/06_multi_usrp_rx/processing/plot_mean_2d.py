@@ -2,9 +2,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
+import os
 
 # Function to read the CSV file and plot the circular mean as a heatmap
-def plot_circular_mean_heatmap(csv_file):
+def plot_circular_mean_heatmap(csv_file, save_path):
     # Load the CSV file containing circmean and circstd
     data = pd.read_csv(csv_file)
 
@@ -49,8 +50,9 @@ def plot_circular_mean_heatmap(csv_file):
         # Save the figure
         plot_filename = f'{hostname}_circular_mean_heatmap.png'
         plt.tight_layout()  # Adjust layout to prevent overlapping
-        plt.savefig(plot_filename)
-        plt.show()
+        # plt.savefig(plot_filename) OLD WAY
+        plt.savefig(os.path.join(save_path, plot_filename))
+        # plt.show()
 
         print(f"Heatmap plot saved as {plot_filename}")
 
@@ -76,8 +78,9 @@ def plot_circular_mean_heatmap(csv_file):
         # Save the figure
         plot_filename = f'{hostname}_circular_std_heatmap.png'
         plt.tight_layout()  # Adjust layout to prevent overlapping
-        plt.savefig(plot_filename)
-        plt.show()
+        # plt.savefig(plot_filename) OLD WAY
+        plt.savefig(os.path.join(save_path, plot_filename))
+        # plt.show()
 
 # Main function to run the script
 def main():
@@ -86,8 +89,11 @@ def main():
                         help="Path to the CSV file with circmean and circstd values (default: './results/circmean_and_circstd_rx_gain_a_b.csv')")
     args = parser.parse_args()
 
+    # Define the directory path where the generated figure will be saved
+    save_path = os.path.dirname(os.path.dirname(args.csv_file))
+
     # Plot circular mean heatmap
-    plot_circular_mean_heatmap(args.csv_file)
+    plot_circular_mean_heatmap(args.csv_file, save_path)
 
 if __name__ == "__main__":
     main()
