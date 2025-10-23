@@ -18,6 +18,8 @@ MEAS_ID=1
 
 HOST_T04="192.108.1.82"
 
+echo "Hallo"
+
 
 for ((GAIN_TX=GAIN_TX_START; GAIN_TX<=GAIN_TX_STOP; GAIN_TX+=GAIN_STEP)); do
     echo "Running with TX gain = $GAIN_TX"
