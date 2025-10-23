@@ -376,11 +376,38 @@ python .\experiments\06_multi_usrp_rx\processing\plot_unit_circle.py --csv_file 
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T05_phase_difference_polar_plot.png" width="400"></td>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T06_phase_difference_polar_plot.png" width="400"></td>
   </tr>
-    <tr>
+  <tr>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T07_phase_difference_polar_plot.png" width="400"></td>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T08_phase_difference_polar_plot.png" width="400"></td>
   </tr>
 </table>
+
+### Results [J] (plot_mean_2d)
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T05_circular_mean_heatmap.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T06_circular_mean_heatmap.png" width="400"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T07_circular_mean_heatmap.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T08_circular_mean_heatmap.png" width="400"></td>
+  </tr>
+</table>
+
+### Results [J] (plot_std_2d)
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T05_circular_std_heatmap.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T06_circular_std_heatmap.png" width="400"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T07_circular_std_heatmap.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/T08_circular_std_heatmap.png" width="400"></td>
+  </tr>
+</table>
+
 
 
 <!-- **************************************************************************************************************************** -->
