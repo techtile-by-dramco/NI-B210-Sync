@@ -440,7 +440,11 @@ Four USRPs measures every houre the phase difference between his two channels.
 Measure 100 houres
 
 <!-- **************************************************************************************************************************** -->
-## 08 
+## 08 multi_usrp_ideal_snr
+
+In part 06 (last figure), we observe a low SNR at an RX gain of (for example) 35 (across all USRPs) and a TX gain of 70 at T04. We're wondering why this happens:
+- Is it because there's an ideal SNR between the transmitter and receiver?
+- Or is this something fixed, independent of the strength of the TX signal?
 
 <!-- **************************************************************************************************************************** -->
 ## 09 
