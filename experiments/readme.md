@@ -291,11 +291,16 @@ Scripts to extract relevant rates and configuration from trace logging.
 |        61000000.0| 488000000.0|       8.0 | 976000000.0 |      2 |   24 | 835584 |488000000.0|
 
 <!-- **************************************************************************************************************************** -->
-## 06 
+## 06_multi_usrp_rx
+
+One testtile that transmit a sine wave
+```
+python3 examples/tx_waveforms.py  --args "type=b200" --freq 920e6 --rate 1e6 --duration 1e8 --channels 0 --wave-freq 0e5 --wave-ampl 0.8 --gain 70
+```
 
 Measurements above --> only one USRP used --> Two times loop back --> and results of RX channels were compared.
 
-Fixed RX gains
+Fixd TX signal
 
 4 USRPs are connected to one splitter with equal length cables. Phase differences are checked on the scope and they were aligned <1°. 
 
@@ -339,6 +344,20 @@ Asjustments iq_capture_b210.py compare to exp e.g. 02
 | / | | |
 
 </td></tr></table>
+
+### Processing data
+
+- **Create csv files** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
+  Mount RPI folder en parse the location of the raw data, e.g.:
+  - `W:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata`
+  - `X:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata`
+  - `V:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata`
+  - `U:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata`
+
+```
+python experiments\06_multi_usrp_rx\processing\store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata --out-dir experiments\06_multi_usrp_rx\results
+```
+
 
 <!-- **************************************************************************************************************************** -->
 ## 07
