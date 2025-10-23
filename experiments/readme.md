@@ -421,7 +421,9 @@ python .\experiments\06_multi_usrp_rx\processing\plot_mean_std_angles.py --csv_f
   </tr>
 </table>
 
+### Results [J] (phase_difference_vs_gainB_with_variance)
 
+<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/phase_difference_vs_gainB_with_variance.png" width="800">
 
 
 <!-- **************************************************************************************************************************** -->
