@@ -369,6 +369,19 @@ python .\experiments\06_multi_usrp_rx\processing\plot_unit_circle.py --csv_file 
 python .\experiments\06_multi_usrp_rx\processing\plot_unit_circle.py --csv_file .\experiments\06_multi_usrp_rx\results\T08_circmean_and_circstd.csv 
 ```
 
+- **Create plots** plot_mean_2d
+```
+python .\experiments\06_multi_usrp_rx\processing\plot_mean_2d.py --csv_file .\experiments\06_multi_usrp_rx\results\T05_circmean_and_circstd.csv 
+python .\experiments\06_multi_usrp_rx\processing\plot_mean_2d.py --csv_file .\experiments\06_multi_usrp_rx\results\T06_circmean_and_circstd.csv 
+python .\experiments\06_multi_usrp_rx\processing\plot_mean_2d.py --csv_file .\experiments\06_multi_usrp_rx\results\T07_circmean_and_circstd.csv 
+python .\experiments\06_multi_usrp_rx\processing\plot_mean_2d.py --csv_file .\experiments\06_multi_usrp_rx\results\T08_circmean_and_circstd.csv 
+```
+
+- **Create plots** plot_mean_std_angles
+```
+python .\experiments\06_multi_usrp_rx\processing\plot_mean_std_angles.py --csv_file .\experiments\06_multi_usrp_rx\results\circmean_and_circstd.csv
+```
+
 ### Results [J] (plot_unit_circle)
 
 <table>
