@@ -45,7 +45,7 @@ def plot_circular_mean_heatmap(csv_file, save_path):
         plt.ylabel('RX Gain A')
 
         # Set title
-        plt.title('Circular Mean vs RX Gain A and RX Gain B')
+        plt.title(f'{hostname} Circular Mean vs RX Gain A and RX Gain B')
 
         # Save the figure
         plot_filename = f'{hostname}_circular_mean_heatmap.png'
@@ -73,7 +73,7 @@ def plot_circular_mean_heatmap(csv_file, save_path):
         plt.ylabel('RX Gain A')
 
         # Set title
-        plt.title('Circular Mean vs RX Gain A and RX Gain B')
+        plt.title(f'{hostname} Circular std vs RX Gain A and RX Gain B')
 
         # Save the figure
         plot_filename = f'{hostname}_circular_std_heatmap.png'
