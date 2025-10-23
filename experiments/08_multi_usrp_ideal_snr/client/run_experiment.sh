@@ -16,11 +16,10 @@ MEAS_ID=1
 
 # HOSTT05 = RPI-T08.local
 
-HOST_T04 = "192.108.1.82"
+HOST_T04="192.108.1.82"
 
 
-for ((GAIN_TX=GAIN_TX_START; GAIN_TX<=GAIN_TX_STOP; GAIN_TX+=GAIN_STEP))
-    do
+for ((GAIN_TX=GAIN_TX_START; GAIN_TX<=GAIN_TX_STOP; GAIN_TX+=GAIN_STEP)); do
     echo "Running with TX gain = $GAIN_TX"
     ssh pi@$HOST_T04 "python3 examples/tx_waveforms.py \
         --args 'type=b200' \
@@ -31,7 +30,7 @@ for ((GAIN_TX=GAIN_TX_START; GAIN_TX<=GAIN_TX_STOP; GAIN_TX+=GAIN_STEP))
         --wave-freq 0e5 \
         --wave-ampl 0.8 \
         --gain $GAIN_TX"
-    done
+done
 
 # for ((i=1; i<=ITERATIONS; i++))
 #     do
