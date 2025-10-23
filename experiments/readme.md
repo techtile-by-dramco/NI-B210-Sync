@@ -356,28 +356,16 @@ Asjustments iq_capture_b210.py compare to exp e.g. 02
 
 ```
 python experiments\06_multi_usrp_rx\processing\store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata --out-dir experiments\06_multi_usrp_rx\results
-```
-```
 python experiments\06_multi_usrp_rx\processing\store_phase_difference.py --in-dir x:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata --out-dir experiments\06_multi_usrp_rx\results
-```
-```
 python experiments\06_multi_usrp_rx\processing\store_phase_difference.py --in-dir V:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata --out-dir experiments\06_multi_usrp_rx\results
-```
-```
 python experiments\06_multi_usrp_rx\processing\store_phase_difference.py --in-dir U:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata --out-dir experiments\06_multi_usrp_rx\results
 ```
 
 - **Create plots** plot_unit_circle
 ```
 python .\experiments\06_multi_usrp_rx\processing\plot_unit_circle.py --csv_file .\experiments\06_multi_usrp_rx\results\T05_circmean_and_circstd.csv 
-```
-```
 python .\experiments\06_multi_usrp_rx\processing\plot_unit_circle.py --csv_file .\experiments\06_multi_usrp_rx\results\T06_circmean_and_circstd.csv 
-```
-```
 python .\experiments\06_multi_usrp_rx\processing\plot_unit_circle.py --csv_file .\experiments\06_multi_usrp_rx\results\T07_circmean_and_circstd.csv 
-```
-```
 python .\experiments\06_multi_usrp_rx\processing\plot_unit_circle.py --csv_file .\experiments\06_multi_usrp_rx\results\T08_circmean_and_circstd.csv 
 ```
 
