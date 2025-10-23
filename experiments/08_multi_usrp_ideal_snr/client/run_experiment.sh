@@ -30,6 +30,7 @@ for ((GAIN_TX=GAIN_TX_START; GAIN_TX<=GAIN_TX_STOP; GAIN_TX+=GAIN_STEP)); do
         --wave-freq 0e5 \
         --wave-ampl 0.8 \
         --gain $GAIN_TX"
+    sleep 5
 done
 
 # for ((i=1; i<=ITERATIONS; i++))
