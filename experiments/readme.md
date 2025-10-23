@@ -345,6 +345,20 @@ Asjustments iq_capture_b210.py compare to exp e.g. 02
 
 </td></tr></table>
 
+### Processing data
+
+- **Create csv files** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
+  Mount RPI folder en parse the location of the raw data, e.g.:
+  - `W:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata`
+  - `X:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata`
+  - `V:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata`
+  - `U:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata`
+
+```
+python experiments\06_multi_usrp_rx\processing\store_phase_difference.py --in-dir W:\NI-B210-Sync\experiments\06_multi_usrp_rx\client\rawdata --out-dir experiments\06_multi_usrp_rx\results
+```
+
+
 <!-- **************************************************************************************************************************** -->
 ## 07
 
