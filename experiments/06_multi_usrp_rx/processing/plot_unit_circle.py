@@ -5,9 +5,11 @@ from matplotlib.patches import Wedge
 from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
 import argparse
+import os
+import re
 
 # Function to create a circular plot with color bands based on RX Gain B
-def plot_circular_with_gain(csv_file):
+def plot_circular_with_gain(csv_file, save_path, tile_name):
     # Load the CSV file containing circmean and circstd
     data = pd.read_csv(csv_file)
 
@@ -77,15 +79,16 @@ def plot_circular_with_gain(csv_file):
     cbar_high = plt.colorbar(sm_high, ax=ax, pad=0.15, orientation='vertical', fraction=0.03)
     cbar_high.set_label("Gain > 33")
 
-    plt.title("Phase by Gain with Hard-Colormap Split at 33", va='bottom')
+    plt.title(f"{tile_name} - Phase by Gain with Hard-Colormap Split at 33", va='bottom')
     plt.tight_layout()
     ax.set_rticks([])  # Hide radial ticks
     ax.set_yticklabels([])  # Hide radial labels
 
     # Save the polar plot
-    polar_plot_filename = 'phase_difference_polar_plot.png'
-    plt.savefig(polar_plot_filename)
-    plt.show()
+    polar_plot_filename = f'{tile_name}_phase_difference_polar_plot.png'
+    # plt.savefig(polar_plot_filename) OLD WAY
+    plt.savefig(os.path.join(save_path, polar_plot_filename))
+    # plt.show()
     plt.close()
 
     print(f"Polar plot saved as {polar_plot_filename}")
@@ -97,8 +100,19 @@ def main():
                         help="Path to the CSV file with circmean and circstd values (default: './results/circmean_and_circstd.csv')")
     args = parser.parse_args()
 
+    # Define the directory path where the generated figure will be saved
+    save_path = os.path.dirname(os.path.dirname(args.csv_file))
+
+    # Default tile name variable
+    tile_name = "A00"
+
+    # Search for tile name
+    match = re.search(r'([A-Za-z]\d{2})_', args.csv_file)
+    if match:
+        tile_name = match.group(0).strip('_')
+
     # Create a circular plot based on RX Gain B color bands
-    plot_circular_with_gain(args.csv_file)
+    plot_circular_with_gain(args.csv_file, save_path, tile_name)
 
 if __name__ == "__main__":
     main()

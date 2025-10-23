@@ -9,6 +9,7 @@ from collections import defaultdict
 from matplotlib.patches import Wedge
 from matplotlib.colors import Normalize
 import csv
+import re
 
 # Function to apply a bandpass filter to the IQ data
 def butter_bandpass(lowcut, highcut, fs, order=5):
@@ -71,10 +72,19 @@ def store_phase_difference(in_dir, out_dir):
     phase_differences = defaultdict(list)
     gain_b_values = []
     gain_a_values = []
+
+    # Default tile name variable
+    tile_name = "A00"
     
     # Loop through the files in the directory
     for filename in os.listdir(in_dir):
         if filename.endswith(".npy"):
+            
+            # Search for tile name
+            match = re.search(r'_([A-Za-z]\d{2})_', filename)
+            if match:
+                tile_name = match.group(0).strip('_')
+
             # Load phase difference data
             iq_data = load_iq_data(os.path.join(in_dir, filename))
             
@@ -109,7 +119,7 @@ def store_phase_difference(in_dir, out_dir):
             print(f"{hostname} {gain_a}dB {gain_b}dB {np.rad2deg(circmean(phase_diff)):.2f}° {np.rad2deg(circstd(phase_diff)):.2f}°")
 
     # Prepare CSV file to store the circmean and circstd for each gain value
-    csv_filename = os.path.join(out_dir, "circmean_and_circstd.csv")
+    csv_filename = os.path.join(out_dir, f"{tile_name}_circmean_and_circstd.csv")
     with open(csv_filename, mode='w', newline='') as csvfile:
         fieldnames = ['hostname','RX Gain A','RX Gain B', 'Circular Mean (degrees)', 'Circular Std Dev (degrees)']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
