@@ -70,6 +70,8 @@ def extract_hostname_from_filename(filename):
 # Function to plot phase difference vs RX gain B as a banded circular plot
 def store_phase_difference(in_dir, out_dir):
     phase_differences = defaultdict(list)
+    amplitude_max_i = defaultdict()
+    amplitude_max_q = defaultdict()
     gain_b_values = []
     gain_a_values = []
 
@@ -113,9 +115,16 @@ def store_phase_difference(in_dir, out_dir):
             
             # Compute the phase difference for the file
             phase_diff = compute_phase_difference(iq_data, fs)
+
+            i_vals = np.real(iq_data)
+            q_vals = np.imag(iq_data)
+            max_i = np.max(np.abs(i_vals))
+            max_q = np.max(np.abs(q_vals))
             
             # Append the phase difference for this RX gain B
             phase_differences[(hostname, gain_a, gain_b)].extend(phase_diff)
+            amplitude_max_i[(hostname, gain_a, gain_b)] = max_i
+            amplitude_max_q[(hostname, gain_a, gain_b)] = max_q
             print(f"{hostname} {gain_a}dB {gain_b}dB {np.rad2deg(circmean(phase_diff)):.2f}° {np.rad2deg(circstd(phase_diff)):.2f}°")
 
     # Prepare CSV file to store the circmean and circstd for each gain value
@@ -140,7 +149,9 @@ def store_phase_difference(in_dir, out_dir):
                              'RX Gain A': gain_a, 
                              'RX Gain B': gain_b, 
                              'Circular Mean (degrees)': circ_mean_deg, 
-                             'Circular Std Dev (degrees)': circ_var_deg})
+                             'Circular Std Dev (degrees)': circ_var_deg,
+                             'max_i':amplitude_max_i[(hostname, gain_a, gain_b)],
+                             'max_q':amplitude_max_q[(hostname, gain_a, gain_b)]})
         
         print(f"Circular mean and std dev saved as {csv_filename}")
 
