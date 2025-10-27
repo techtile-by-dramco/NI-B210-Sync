@@ -132,12 +132,12 @@ python .\experiments\06_multi_usrp_rx_splitter_type_2\processing\plot_mean_std_a
 
 <table>
   <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/T05_phase_difference_vs_gainB_with_variance" width="400"></td>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/T06_phase_difference_vs_gainB_with_variance" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/T05_phase_difference_vs_gainB_with_variance.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/T06_phase_difference_vs_gainB_with_variance.png" width="400"></td>
   </tr>
   <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/T07_phase_difference_vs_gainB_with_variance" width="400"></td>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/T08_phase_difference_vs_gainB_with_variance" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/T07_phase_difference_vs_gainB_with_variance.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/T08_phase_difference_vs_gainB_with_variance.png" width="400"></td>
   </tr>
 </table>
 
