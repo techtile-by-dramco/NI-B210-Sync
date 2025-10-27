@@ -439,6 +439,9 @@ Four USRPs measures every houre the phase difference between his two channels.
 
 Measure 100 houres
 
+### Results [G]
+<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/07_multi_usrp_rx_time_old/results/phase_with_error_bars.png" width="800">
+
 <!-- **************************************************************************************************************************** -->
 ## 08 multi_usrp_ideal_snr
 
