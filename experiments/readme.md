@@ -421,10 +421,13 @@ python .\experiments\06_multi_usrp_rx\processing\plot_mean_std_angles.py --csv_f
   </tr>
 </table>
 
-### Results [J] (phase_difference_vs_gainB_with_variance)
+### Results [J] (phase_difference_vs_gainB_with_variance) [TX gain T04 was 70]
 
 <img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/phase_difference_vs_gainB_with_variance.png" width="800">
 
+### Results [G] (phase_difference_vs_gainB_with_variance)
+
+<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_old/phase_difference_vs_gainB_with_variance.png" width="800">
 
 <!-- **************************************************************************************************************************** -->
 ## 07 multi_usrp_rx_time
@@ -438,6 +441,9 @@ Transmit tiles connected to 8 way splitter. Eight outputs are connected to every
 Four USRPs measures every houre the phase difference between his two channels.
 
 Measure 100 houres
+
+### Results [G]
+<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/07_multi_usrp_rx_time_old/results/phase_with_error_bars.png" width="800">
 
 <!-- **************************************************************************************************************************** -->
 ## 08 multi_usrp_ideal_snr
