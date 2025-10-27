@@ -131,7 +131,3 @@ python .\experiments\06_multi_usrp_rx_splitter_type_2\processing\plot_mean_std_a
 ### Results [J] (phase_difference_vs_gainB_with_variance) [TX gain T04 was 70]
 
 <img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/phase_difference_vs_gainB_with_variance.png" width="800">
-
-### Results [G] (phase_difference_vs_gainB_with_variance)
-
-<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2_old/phase_difference_vs_gainB_with_variance.png" width="800">
