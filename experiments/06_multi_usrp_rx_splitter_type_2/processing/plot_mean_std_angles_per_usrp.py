@@ -33,6 +33,9 @@ def plot_phase_difference_vs_gain(csv_file, save_path):
         circ_mean_deg = df_fixed_rx['Circular Mean (degrees)']
         circ_std_deg = df_fixed_rx['Circular Std Dev (degrees)']
 
+        max_i = df_fixed_rx['max_i']
+        max_q = df_fixed_rx['max_q']
+
 
         # plt.scatter(gain_b_values, circ_mean_deg, marker='o', label=hostname)
 
@@ -51,6 +54,9 @@ def plot_phase_difference_vs_gain(csv_file, save_path):
 
         # Create the plot
         plt.figure(figsize=(8, 6))
+
+        plt.plot(gain_b_values, max_i, color=c, linestyle="--")
+        plt.plot(gain_b_values, max_q, color=c, linestyle="--")
 
         plt.scatter(gain_b_values, circ_mean_deg, marker='1', label=hostname, color=c)
         # Add error bars for the variance (converted to degrees)
