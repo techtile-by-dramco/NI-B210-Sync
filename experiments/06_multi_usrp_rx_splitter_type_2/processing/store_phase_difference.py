@@ -130,7 +130,7 @@ def store_phase_difference(in_dir, out_dir):
     # Prepare CSV file to store the circmean and circstd for each gain value
     csv_filename = os.path.join(out_dir, f"{tile_name}_circmean_and_circstd.csv")
     with open(csv_filename, mode='w', newline='') as csvfile:
-        fieldnames = ['hostname','RX Gain A','RX Gain B', 'Circular Mean (degrees)', 'Circular Std Dev (degrees)']
+        fieldnames = ['hostname','RX Gain A','RX Gain B', 'Circular Mean (degrees)', 'Circular Std Dev (degrees)', 'max_i', 'max_q']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()

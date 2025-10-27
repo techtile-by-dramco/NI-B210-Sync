@@ -29,6 +29,10 @@ def plot_phase_difference_vs_gain(csv_file, save_path):
         circ_mean_deg = df_fixed_rx['Circular Mean (degrees)']
         circ_std_deg = df_fixed_rx['Circular Std Dev (degrees)']
 
+        max_i = df_fixed_rx['max_i']
+        max_q = df_fixed_rx['max_q']
+
+
         # plt.scatter(gain_b_values, circ_mean_deg, marker='o', label=hostname)
 
         
@@ -47,19 +51,18 @@ def plot_phase_difference_vs_gain(csv_file, save_path):
         # Create the plot
         plt.figure(figsize=(8, 6))
 
-        plt.scatter(gain_b_values, circ_mean_deg, marker='1', label=hostname, color=c)
-        # Add error bars for the variance (converted to degrees)
-        plt.errorbar(gain_b_values, circ_mean_deg, yerr=circ_std_deg, fmt='1',color=c)
+        plt.scatter(gain_b_values, max_i, marker='o', color=c)
+        plt.scatter(gain_b_values, max_q, marker='x', color=c)
 
         # Format and display the plot
-        plt.title(f'{hostname} - Phase Difference vs RX Gain B with Circular Variance (Mean over all files)')
+        plt.title(f'{hostname} - Max I/Q vs RX Gain B')
         plt.xlabel('RX Gain B')
-        plt.ylabel('Average Phase Difference (Degrees)')
+        plt.ylabel('Max I/Q')
         plt.grid(True)
         plt.legend()
         
         # Save the figure
-        plot_filename = f'{hostname}_phase_difference_vs_gainB_with_variance.png'
+        plot_filename = f'{hostname}_max_iq_vs_gainB.png'
         # plt.savefig(plot_filename) OLD WAY
         plt.savefig(os.path.join(save_path, plot_filename))
         plt.show()
