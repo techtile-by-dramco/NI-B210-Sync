@@ -84,6 +84,14 @@ python .\experiments\06_multi_usrp_rx_splitter_type_2\processing\plot_mean_2d.py
 python .\experiments\06_multi_usrp_rx_splitter_type_2\processing\plot_mean_2d.py --csv_file .\experiments\06_multi_usrp_rx_splitter_type_2\results\T08_circmean_and_circstd.csv 
 ```
 
+- **Create plots** plot_mean_std_angles_per_usrp
+```
+python .\experiments\06_multi_usrp_rx_splitter_type_2\processing\plot_mean_std_angles_per_usrp.py --csv_file .\experiments\06_multi_usrp_rx_splitter_type_2\results\T05_circmean_and_circstd.csv 
+python .\experiments\06_multi_usrp_rx_splitter_type_2\processing\plot_mean_std_angles_per_usrp.py --csv_file .\experiments\06_multi_usrp_rx_splitter_type_2\results\T06_circmean_and_circstd.csv 
+python .\experiments\06_multi_usrp_rx_splitter_type_2\processing\plot_mean_std_angles_per_usrp.py --csv_file .\experiments\06_multi_usrp_rx_splitter_type_2\results\T07_circmean_and_circstd.csv 
+python .\experiments\06_multi_usrp_rx_splitter_type_2\processing\plot_mean_std_angles_per_usrp.py --csv_file .\experiments\06_multi_usrp_rx_splitter_type_2\results\T08_circmean_and_circstd.csv 
+```
+
 - **Create plots** plot_mean_std_angles
 ```
 python .\experiments\06_multi_usrp_rx_splitter_type_2\processing\plot_mean_std_angles.py --csv_file .\experiments\06_multi_usrp_rx_splitter_type_2\results\circmean_and_circstd.csv
