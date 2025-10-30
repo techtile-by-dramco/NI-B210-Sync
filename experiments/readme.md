@@ -311,7 +311,7 @@ The following adjustments iq_capture_b210.py were made compare to exp e.g. 02
   - tune_usrp is simplified --> only rx instructions
   - tx_ref function is removed
 
-More information and results about this experiement [here](https://github.com/techtile-by-dramco/NI-B210-Sync/tree/main/experiments/06_multi_usrp).
+More information and results about this experiement [here](https://github.com/techtile-by-dramco/NI-B210-Sync/tree/main/experiments/06_multi_usrp_rx).
 
 <!-- **************************************************************************************************************************** -->
 ## 06_multi_usrp_rx_splitter_type_2
