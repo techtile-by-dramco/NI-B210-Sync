@@ -355,7 +355,9 @@ In part 06 (last figure), we observe a low SNR at an RX gain of (for example) 35
 <!-- **************************************************************************************************************************** -->
 ## 20_loopback_single_b210
 
-One USRP compare internal loopback with external loopback
+With one USRP compare internal loopback with external loopback.
+
+The .bin file used for the internal loopback "usrp_b210_fpga.bin" [see here](https://github.com/techtile-by-dramco/usrp/blob/main/fpga/usrp_b210_fpga.bin). This FPGA bin file is made by dramco.
 
 <table>
   <tr>
@@ -398,7 +400,14 @@ python .\experiments\20_loopback_single_b210\processing\plot_mean_std_angles.py 
 <img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/20_loopback_single_b210/phase_difference_vs_time_with_variance.png" width="800">
 
 <!-- **************************************************************************************************************************** -->
-## 21_multi_usrp_loopback
+## 21_loopback_single_b210
+
+With one USRP compare internal loopback with external loopback.
+
+The .bin file used for the internal loopback "usrp_b210_fpga_loopback.bin" [see here](https://github.com/techtile-by-dramco/usrp/blob/main/fpga/usrp_b210_fpga_loopback.bin). This FPGA bin file is made by dramco.
+
+<!-- **************************************************************************************************************************** -->
+## 22_multi_usrp_loopback
 
 Four USRPs compare internal loopback with external loopback
 Should give same phase difference since path is exactly the same.
