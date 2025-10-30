@@ -351,3 +351,29 @@ In part 06 (last figure), we observe a low SNR at an RX gain of (for example) 35
 
 <!-- **************************************************************************************************************************** -->
 ## 10 
+
+<!-- **************************************************************************************************************************** -->
+## 20_loopback_single_b210
+
+One USRP compare internal loopback with external loopback
+
+- **Create csv file** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
+  Mount RPI folder en parse the location of the raw data `W:\NI-B210-Sync\experiments\20_loopback_single_b210\client\rawdata`
+
+```
+python experiments\20_loopback_single_b210\processing\store_individual_phases.py --in-dir W:\NI-B210-Sync\experiments\20_loopback_single_b210\client\rawdata --out-dir experiments\20_loopback_single_b210\results
+```
+
+- **Create plots** plot_mean_3d
+```
+python .\experiments\20_loopback_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\20_loopback_single_b210\results\circmean_and_circstd.csv
+```
+
+
+
+<!-- **************************************************************************************************************************** -->
+## 21_multi_usrp_loopback
+
+Four USRPs compare internal loopback with external loopback
+Should give same phase difference since path is exactly the same.
+
