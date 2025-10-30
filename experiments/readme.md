@@ -406,6 +406,23 @@ With one USRP compare internal loopback with external loopback.
 
 The .bin file used for the internal loopback "usrp_b210_fpga_loopback.bin" [see here](https://github.com/techtile-by-dramco/usrp/blob/main/fpga/usrp_b210_fpga_loopback.bin). This FPGA bin file is made by dramco.
 
+Same experiment as 20_loopback_single_b210.
+
+- **Create csv file** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
+  Mount RPI folder en parse the location of the raw data `W:\NI-B210-Sync\experiments\20_loopback_single_b210\client\rawdata`
+
+```
+python experiments\21_loopback_single_b210\processing\store_individual_phases.py --in-dir W:\NI-B210-Sync\experiments\21_loopback_single_b210\client\rawdata --out-dir experiments\21_loopback_single_b210\results
+```
+
+- **Create plots** plot_mean_3d
+```
+python .\experiments\21_loopback_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\21_loopback_single_b210\results\circmean_and_circstd.csv
+```
+
+### Results [J]
+<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/21_loopback_single_b210/phase_difference_vs_time_with_variance.png" width="800">
+
 <!-- **************************************************************************************************************************** -->
 ## 22_multi_usrp_loopback
 
