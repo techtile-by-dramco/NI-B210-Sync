@@ -357,6 +357,31 @@ In part 06 (last figure), we observe a low SNR at an RX gain of (for example) 35
 
 One USRP compare internal loopback with external loopback
 
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/20_loopback_single_b210/pictures/setup.jpg" width="200"></td>
+    <td>
+  
+| ⚙️ Bash Settings   | Value | Unit |
+|--------------|----------|-|
+| TX_GAIN      | 38       | dB |
+| GAIN_A       | 30       | dB |
+| GAIN_B       | 30        | dB |
+| GAIN_STEP    | 1        | dB |
+| ITERATIONS   | 10      | - |
+
+</td><td>
+  
+| ⚙️ Python Settings | Value | Unit |
+|--------------|----------|-|
+| CLOCK_TIMEOUT  | 1000   | ms |
+| INIT_DELAY     | 0.2    | s |
+| RATE           | 250e3  | Hz |
+| FREQ           | 920e6  | Hz |
+| CAPTURE_TIME   | 2      | s |
+| / | | |
+</td></tr></table>
+
 - **Create csv file** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
   Mount RPI folder en parse the location of the raw data `W:\NI-B210-Sync\experiments\20_loopback_single_b210\client\rawdata`
 
@@ -369,7 +394,8 @@ python experiments\20_loopback_single_b210\processing\store_individual_phases.py
 python .\experiments\20_loopback_single_b210\processing\plot_mean_std_angles.py --csv_file .\experiments\20_loopback_single_b210\results\circmean_and_circstd.csv
 ```
 
-
+### Results [J]
+<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/20_loopback_single_b210/phase_difference_vs_time_with_variance.png" width="800">
 
 <!-- **************************************************************************************************************************** -->
 ## 21_multi_usrp_loopback
