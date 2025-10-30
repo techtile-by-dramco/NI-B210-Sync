@@ -430,6 +430,16 @@ python .\experiments\06_multi_usrp_rx\processing\plot_mean_std_angles.py --csv_f
 <img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_old/phase_difference_vs_gainB_with_variance.png" width="800">
 
 <!-- **************************************************************************************************************************** -->
+## 06_multi_usrp_rx_splitter_type_2
+
+Same expirement als 06_multi_usrp_rx but with another RF splitter.
+RF splitter [ZC16PD-252-S+](https://www.minicircuits.com/pdfs/ZC16PD-252-S+.pdf) used in "06_multi_usrp_rx" has PHASE UNBALANCE up to 18 degrees and it depends on the frequency band.
+
+Therefore we used/made a more accurates splitter design.
+
+More information about this experiement [here](https://github.com/techtile-by-dramco/NI-B210-Sync/tree/main/experiments/06_multi_usrp_rx_splitter_type_2).
+
+<!-- **************************************************************************************************************************** -->
 ## 07 multi_usrp_rx_time
 
 One testtile that transmit a sine wave
