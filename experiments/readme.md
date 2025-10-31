@@ -462,3 +462,8 @@ python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py 
 python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir V:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
 python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir U:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
 ```
+
+- **Create plots** plot_mean_std_angles
+```
+python .\experiments\22_multi_usrp_loopback\processing\plot_mean_std_angles.py --csv_file .\experiments\22_multi_usrp_loopback\results\circmean_and_circstd.csv
+```
