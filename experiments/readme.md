@@ -435,4 +435,7 @@ Should give same phase difference since path is exactly the same.
 
 ```
 python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir W:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
+python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir X:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
+python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir V:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
+python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir U:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
 ```
