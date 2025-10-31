@@ -20,28 +20,29 @@ def plot_phase_difference_vs_gain(csv_file, save_path):
 
         # Extract the values
         id_values = df['Meas id']
+        gain_b_values = df['RX Gain B']
         circ_mean_deg = df['Circular Mean (degrees)']
         circ_std_deg = df['Circular Std Dev (degrees)']
 
-        plt.scatter(id_values, circ_mean_deg, color=c, marker='o', label=f'{hostname} Phase Difference')
+        plt.scatter(gain_b_values, circ_mean_deg, color=c, marker='o', label=f'{hostname} Phase Difference')
     
         # Add error bars for the variance (converted to degrees)
-        plt.errorbar(id_values, circ_mean_deg, yerr=circ_std_deg, fmt='o', color=c)
+        plt.errorbar(gain_b_values, circ_mean_deg, yerr=circ_std_deg, fmt='o', color=c)
 
     # Format and display the plot
-    plt.title('Phase Difference vs Time with Circular Variance (Mean over all files)')
-    plt.xlabel('Measurement ID')
+    plt.title('Loopback - Phase Difference vs RX Gain B with Circular Variance (Mean over all files)')
+    plt.xlabel('RX Gain B')
     plt.ylabel('Average Phase Difference (Degrees)')
     plt.grid(True)
     plt.legend()
-
+    
     # Save the figure
-    plot_filename = 'phase_difference_vs_time_with_variance.png'
+    plot_filename = 'phase_difference_vs_gainB_with_variance.png'
     # plt.savefig(plot_filename) OLD WAY
     plt.savefig(os.path.join(save_path, plot_filename))
     plt.show()
     plt.close()
-        
+    
     print(f"Plot saved as {plot_filename}")
 
 # Main function to run the script

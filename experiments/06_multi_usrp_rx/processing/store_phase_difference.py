@@ -140,7 +140,8 @@ def store_phase_difference(in_dir, out_dir):
                              'RX Gain A': gain_a, 
                              'RX Gain B': gain_b, 
                              'Circular Mean (degrees)': circ_mean_deg, 
-                             'Circular Std Dev (degrees)': circ_var_deg})
+                             'Circular Std Dev (degrees)': circ_var_deg
+                            })
         
         print(f"Circular mean and std dev saved as {csv_filename}")
 

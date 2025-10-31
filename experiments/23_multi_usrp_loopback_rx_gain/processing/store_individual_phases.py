@@ -36,7 +36,7 @@ def load_metadata_from_yml(filename):
         return None
 
 # Function to load phase difference data from .npy file
-def load_phase_difference(filename):
+def load_iq_data(filename):
     return np.load(filename)
 
 # Function to compute phase difference between two channels
@@ -69,7 +69,9 @@ def extract_hostname_from_filename(filename):
 # Function to plot phase difference vs RX gain B as a banded circular plot
 def store_phase_difference(in_dir, out_dir):
     phase_differences = defaultdict(list)
-    # gain_b_values = []
+    gain_b_values = []
+    gain_a_values = []
+
     id_values = []
 
     # Loop through the files in the directory
@@ -79,7 +81,7 @@ def store_phase_difference(in_dir, out_dir):
             print(filename)
 
             # Load phase difference data
-            iq_data = load_phase_difference(os.path.join(in_dir, filename))
+            iq_data = load_iq_data(os.path.join(in_dir, filename))
             
             # Load metadata from the corresponding YML file
             metadata = load_metadata_from_yml(os.path.join(in_dir, filename))
@@ -90,6 +92,11 @@ def store_phase_difference(in_dir, out_dir):
             # Extract measurement ID from metadata
             id = metadata['measurement_id']
             id_values.append(id)
+
+            # Extract RX gain B from metadata
+            gain_a = int(metadata['rx_gain_a'])
+            gain_b = int(metadata['rx_gain_b'])
+
             if "hostname" in metadata:
                 hostname = metadata['hostname']
             else:
@@ -97,6 +104,9 @@ def store_phase_difference(in_dir, out_dir):
             
             if hostname is None:
                 ValueError("no hostname found")
+
+            gain_a_values.append(gain_a)
+            gain_b_values.append(gain_b)
 
             fs = metadata['sampling_rate']
             
@@ -107,7 +117,7 @@ def store_phase_difference(in_dir, out_dir):
             print(f"Circ mean: {round(np.rad2deg(circmean(phase_diff, high=np.pi, low=-np.pi)),2)}°")
             
             # Append the phase difference for this RX gain B
-            phase_differences[(hostname, id)].extend(phase_diff)
+            phase_differences[(hostname, id, gain_a, gain_b)].extend(phase_diff)
 
     # CSV file path
     csv_filename = os.path.join(out_dir, "circmean_and_circstd.csv")
@@ -118,7 +128,7 @@ def store_phase_difference(in_dir, out_dir):
     # Prepare CSV file to store the circmean and circstd for each gain value
     csv_filename = os.path.join(out_dir, f"circmean_and_circstd.csv")
     with open(csv_filename, mode='a', newline='') as csvfile:
-        fieldnames = ['hostname', 'Meas id', 'Circular Mean (degrees)', 'Circular Std Dev (degrees)']
+        fieldnames = ['hostname', 'Meas id', 'RX Gain A', 'RX Gain B', 'Circular Mean (degrees)', 'Circular Std Dev (degrees)']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         # Write header only if file does not exists
@@ -126,7 +136,7 @@ def store_phase_difference(in_dir, out_dir):
             writer.writeheader()
 
         # Add wedges for each phase difference and gain
-        for (hostname, id), phase_rad in phase_differences.items():
+        for (hostname, id, gain_a, gain_b), phase_rad in phase_differences.items():
 
             # Compute circmean and circstd for the current RX gain B
             circ_mean = circmean(phase_rad, high=np.pi, low=-np.pi)  # Circular mean in radians
@@ -136,7 +146,9 @@ def store_phase_difference(in_dir, out_dir):
 
             # Write to CSV file
             writer.writerow({'hostname': hostname,
-                             'Meas id': id, 
+                             'Meas id': id,
+                             'RX Gain A': gain_a, 
+                             'RX Gain B': gain_b, 
                              'Circular Mean (degrees)': circ_mean_deg, 
                              'Circular Std Dev (degrees)': circ_var_deg
                             })
