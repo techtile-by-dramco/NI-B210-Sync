@@ -22,6 +22,6 @@ for ((i=1; i<=ITERATIONS; i++))
     do
         echo "Running iteration $i with RX gain B = $GAIN_B"
         # Call the Python script with the current parameters
-        python3 iq_capture_b210.py --exp $EXP_ID --meas $MEAS_ID --tx_gain $TX_GAIN --gain_a $GAIN_A --gain_b $GAIN_B
+        python3 iq_capture_b210.py --exp $EXP_ID --meas $i --tx_gain $TX_GAIN --gain_a $GAIN_A --gain_b $GAIN_B
     done
 done
