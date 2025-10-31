@@ -34,5 +34,5 @@ CAPTURE_TIME: !!float 5
 TX_TIME: !!float 7200  
 # Total transmission time in seconds (here, 2 hours).
 
-server_ip: "10.128.48.13"  
+server_ip: "10.128.48.3"  
 # IP address of the server to connect to.
