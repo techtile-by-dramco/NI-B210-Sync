@@ -503,6 +503,15 @@ Same experiment as "22_multi_usrp_loopback" but just one iteration and a sweep i
 | / | | |
 </td></tr></table>
 
+- **Create csv file** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
+  Mount RPI folder en parse the location of the raw data `W:\NI-B210-Sync\experiments\23_multi_usrp_loopback_rx_gain\client\rawdata`
+
+```
+python experiments\23_multi_usrp_loopback_rx_gain\processing\store_individual_phases.py --in-dir W:\NI-B210-Sync\experiments\23_multi_usrp_loopback_rx_gain\client\rawdata --out-dir experiments\23_multi_usrp_loopback_rx_gain\results
+python experiments\23_multi_usrp_loopback_rx_gain\processing\store_individual_phases.py --in-dir X:\NI-B210-Sync\experiments\23_multi_usrp_loopback_rx_gain\client\rawdata --out-dir experiments\23_multi_usrp_loopback_rx_gain\results
+python experiments\23_multi_usrp_loopback_rx_gain\processing\store_individual_phases.py --in-dir V:\NI-B210-Sync\experiments\23_multi_usrp_loopback_rx_gain\client\rawdata --out-dir experiments\23_multi_usrp_loopback_rx_gain\results
+python experiments\23_multi_usrp_loopback_rx_gain\processing\store_individual_phases.py --in-dir U:\NI-B210-Sync\experiments\23_multi_usrp_loopback_rx_gain\client\rawdata --out-dir experi
+
 
 <!-- **************************************************************************************************************************** -->
 # Sync experiments
