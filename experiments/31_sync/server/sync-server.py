@@ -65,6 +65,9 @@ print(f"Starting experiment: {unique_id}")
 # Path to save the experiment data as a YAML file
 output_path = f"../data/exp-{unique_id}.yml"
 
+# Create the directory if it doesn't exist
+os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
 with open(output_path, "w") as f:
     # Write experiment metadata to the YAML file
     f.write(f"experiment: {unique_id}\n")
