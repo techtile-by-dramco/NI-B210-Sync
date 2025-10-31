@@ -513,6 +513,11 @@ python experiments\23_multi_usrp_loopback_rx_gain\processing\store_individual_ph
 python experiments\23_multi_usrp_loopback_rx_gain\processing\store_individual_phases.py --in-dir U:\NI-B210-Sync\experiments\23_multi_usrp_loopback_rx_gain\client\rawdata --out-dir experiments\23_multi_usrp_loopback_rx_gain\results
 ```
 
+- **Create plots** plot_mean_std_angles
+```
+python .\experiments\23_multi_usrp_loopback_rx_gain\processing\plot_mean_std_angles.py --csv_file .\experiments\23_multi_usrp_loopback_rx_gain\results\circmean_and_circstd.csv
+```
+
 <!-- **************************************************************************************************************************** -->
 # Sync experiments
 <!-- **************************************************************************************************************************** -->
