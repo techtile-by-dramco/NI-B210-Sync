@@ -429,3 +429,10 @@ python .\experiments\21_loopback_single_b210\processing\plot_mean_std_angles.py 
 Four USRPs compare internal loopback with external loopback
 Should give same phase difference since path is exactly the same.
 
+
+- **Create csv file** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
+  Mount RPI folder en parse the location of the raw data `W:\NI-B210-Sync\experiments\20_loopback_single_b210\client\rawdata`
+
+```
+python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir W:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
+```
