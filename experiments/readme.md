@@ -352,6 +352,8 @@ In part 06 (last figure), we observe a low SNR at an RX gain of (for example) 35
 <!-- **************************************************************************************************************************** -->
 ## 10 
 
+# Loopback experiments
+
 <!-- **************************************************************************************************************************** -->
 ## 20_loopback_single_b210
 
@@ -467,3 +469,37 @@ python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py 
 ```
 python .\experiments\22_multi_usrp_loopback\processing\plot_mean_std_angles.py --csv_file .\experiments\22_multi_usrp_loopback\results\circmean_and_circstd.csv
 ```
+### Results [J]
+<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/22_multi_usrp_loopback/phase_difference_vs_time_with_variance.png" width="800">
+
+<!-- **************************************************************************************************************************** -->
+## 23_multi_usrp_loopback_rx_gain
+
+Same experiment as "22_multi_usrp_loopback" but just one iteration and a sweep in RX gain of channel B.
+
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/22_multi_usrp_loopback/pictures/setup.jpg" width="200"></td>
+    <td>
+  
+| ⚙️ Bash Settings   | Value | Unit |
+|--------------|----------|-|
+| TX_GAIN      | 38       | dB |
+| GAIN_A       | 30       | dB |
+| GAIN_B_START | 7        | dB |
+| GAIN_B_STOP  | 48       | dB |
+| GAIN_STEP    | 1        | dB |
+| ITERATIONS   | 1        | - |
+
+</td><td>
+  
+| ⚙️ Python Settings | Value | Unit |
+|--------------|----------|-|
+| CLOCK_TIMEOUT  | 1000   | ms |
+| INIT_DELAY     | 0.2    | s |
+| RATE           | 250e3  | Hz |
+| FREQ           | 920e6  | Hz |
+| CAPTURE_TIME   | 2      | s |
+| / | | |
+</td></tr></table>
+
