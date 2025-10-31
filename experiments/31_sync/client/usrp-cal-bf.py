@@ -51,12 +51,6 @@ HOSTNAME = socket.gethostname()[4:]
 file_open = False
 server_ip = None  # populated by settings.yml
 
-
-with open(os.path.join(os.path.dirname(__file__), "cal-settings.yml"), "r") as file:
-    vars = yaml.safe_load(file)
-    globals().update(vars)  # update the global variables with the vars in yaml
-
-
 # =============================================================================
 #                           Custom Log Formatter
 # =============================================================================
@@ -748,6 +742,18 @@ def main():
     global meas_id, file_name_state
 
     parse_arguments()
+
+    try:
+        # Attempt to open and load calibration settings from the YAML file
+        with open(os.path.join(os.path.dirname(__file__), "cal-settings.yml"), "r") as file:
+            vars = yaml.safe_load(file)
+            globals().update(vars)  # update the global variables with the vars in yaml
+    except FileNotFoundError:
+        logger.error("Calibration file 'cal-settings.yml' not found in the current directory.")
+    except yaml.YAMLError as e:
+        logger.error(f"Error parsing 'cal-settings.yml': {e}")
+    except Exception as e:
+        logger.error(f"Unexpected error while loading calibration settings: {e}")
 
     try:
         # Get current path
