@@ -369,7 +369,6 @@ The .bin file used for the internal loopback "usrp_b210_fpga.bin" [see here](htt
 | TX_GAIN      | 38       | dB |
 | GAIN_A       | 30       | dB |
 | GAIN_B       | 30        | dB |
-| GAIN_STEP    | 1        | dB |
 | ITERATIONS   | 10      | - |
 
 </td><td>
@@ -429,3 +428,42 @@ python .\experiments\21_loopback_single_b210\processing\plot_mean_std_angles.py 
 Four USRPs compare internal loopback with external loopback
 Should give same phase difference since path is exactly the same.
 
+<table>
+  <tr>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/22_multi_usrp_loopback/pictures/setup.jpg" width="200"></td>
+    <td>
+  
+| ⚙️ Bash Settings   | Value | Unit |
+|--------------|----------|-|
+| TX_GAIN      | 38       | dB |
+| GAIN_A       | 30       | dB |
+| GAIN_B       | 30        | dB |
+| ITERATIONS   | 50      | - |
+
+</td><td>
+  
+| ⚙️ Python Settings | Value | Unit |
+|--------------|----------|-|
+| CLOCK_TIMEOUT  | 1000   | ms |
+| INIT_DELAY     | 0.2    | s |
+| RATE           | 250e3  | Hz |
+| FREQ           | 920e6  | Hz |
+| CAPTURE_TIME   | 2      | s |
+| / | | |
+</td></tr></table>
+
+
+- **Create csv file** Mount the whole RPI folder structure via Samba to your PC to do the processing locally.
+  Mount RPI folder en parse the location of the raw data `W:\NI-B210-Sync\experiments\20_loopback_single_b210\client\rawdata`
+
+```
+python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir W:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
+python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir X:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
+python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir V:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
+python experiments\22_multi_usrp_loopback\processing\store_individual_phases.py --in-dir U:\NI-B210-Sync\experiments\22_multi_usrp_loopback\client\rawdata --out-dir experiments\22_multi_usrp_loopback\results
+```
+
+- **Create plots** plot_mean_std_angles
+```
+python .\experiments\22_multi_usrp_loopback\processing\plot_mean_std_angles.py --csv_file .\experiments\22_multi_usrp_loopback\results\circmean_and_circstd.csv
+```
