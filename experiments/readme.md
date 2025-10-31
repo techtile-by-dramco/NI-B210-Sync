@@ -430,7 +430,7 @@ Should give same phase difference since path is exactly the same.
 
 <table>
   <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/20_loopback_single_b210/pictures/setup.jpg" width="200"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/22_multi_usrp_loopback/pictures/setup.jpg" width="200"></td>
     <td>
   
 | ⚙️ Bash Settings   | Value | Unit |
