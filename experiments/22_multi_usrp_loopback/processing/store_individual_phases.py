@@ -61,11 +61,16 @@ def compute_phase_difference(iq_data, fs):
 
     return phase_diff
 
+def extract_hostname_from_filename(filename):
+    import re
+    match = re.search(r"data_(t\d{2})_", filename, re.IGNORECASE)
+    return match.group(1).upper() if match else None
+
 # Function to plot phase difference vs RX gain B as a banded circular plot
-def store_phase_difference(in_dir, out_dir, fs):
-    phase_differences_by_gain = defaultdict(list)
+def store_phase_difference(in_dir, out_dir):
+    phase_differences = defaultdict(list)
     # gain_b_values = []
-    meas_id_values = []
+    id_values = []
 
     # Loop through the files in the directory
     for filename in os.listdir(in_dir):
@@ -83,8 +88,17 @@ def store_phase_difference(in_dir, out_dir, fs):
                 continue
             
             # Extract measurement ID from metadata
-            meas_id = metadata['measurement_id']
-            meas_id_values.append(meas_id)
+            id = metadata['measurement_id']
+            id_values.append(id)
+            if "hostname" in metadata:
+                hostname = metadata['hostname']
+            else:
+                hostname = extract_hostname_from_filename(filename)
+            
+            if hostname is None:
+                ValueError("no hostname found")
+
+            fs = metadata['sampling_rate']
             
             # Compute the phase difference for the file
             phase_diff = compute_phase_difference(iq_data, fs)
@@ -93,18 +107,26 @@ def store_phase_difference(in_dir, out_dir, fs):
             print(f"Circ mean: {round(np.rad2deg(circmean(phase_diff, high=np.pi, low=-np.pi)),2)}°")
             
             # Append the phase difference for this RX gain B
-            phase_differences_by_gain[meas_id].extend(phase_diff)
+            phase_differences[(hostname, id)].extend(phase_diff)
+
+    # CSV file path
+    csv_filename = os.path.join(out_dir, "circmean_and_circstd.csv")
+
+    # Check of file already exists
+    file_exists = os.path.isfile(csv_filename)
 
     # Prepare CSV file to store the circmean and circstd for each gain value
-    csv_filename = os.path.join(out_dir, "circmean_and_circstd.csv")
-    with open(csv_filename, mode='w', newline='') as csvfile:
-        fieldnames = ['Meas id', 'Circular Mean (degrees)', 'Circular Std Dev (degrees)']
+    csv_filename = os.path.join(out_dir, f"circmean_and_circstd.csv")
+    with open(csv_filename, mode='a', newline='') as csvfile:
+        fieldnames = ['hostname', 'Meas id', 'Circular Mean (degrees)', 'Circular Std Dev (degrees)']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-        writer.writeheader()
+        # Write header only if file does not exists
+        if not file_exists:
+            writer.writeheader()
 
         # Add wedges for each phase difference and gain
-        for id, phase_rad in phase_differences_by_gain.items():
+        for (hostname, id), phase_rad in phase_differences.items():
 
             # Compute circmean and circstd for the current RX gain B
             circ_mean = circmean(phase_rad, high=np.pi, low=-np.pi)  # Circular mean in radians
@@ -113,7 +135,11 @@ def store_phase_difference(in_dir, out_dir, fs):
             circ_var_deg = np.rad2deg(np.sqrt(circ_var))  # Convert variance to standard deviation (in degrees)
 
             # Write to CSV file
-            writer.writerow({'Meas id': id, 'Circular Mean (degrees)': circ_mean_deg, 'Circular Std Dev (degrees)': circ_var_deg})
+            writer.writerow({'hostname': hostname,
+                             'Meas id': id, 
+                             'Circular Mean (degrees)': circ_mean_deg, 
+                             'Circular Std Dev (degrees)': circ_var_deg
+                            })
         
         print(f"Circular mean and std dev saved as {csv_filename}")
 
@@ -122,11 +148,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--in-dir", type=str, default='./data/', help="Directory containing IQ data files and metadata (default: current directory)")
     parser.add_argument("--out-dir", type=str, default='./results/', help="Directory output")
-    parser.add_argument("--fs", type=int, default=250000, help="Sampling frequency (Hz)")
     args = parser.parse_args()
     
     # Plot phase difference vs RX gain B with circular variance
-    store_phase_difference(args.in_dir, args.out_dir, args.fs)
+    store_phase_difference(args.in_dir, args.out_dir)
 
 if __name__ == "__main__":
     main()
