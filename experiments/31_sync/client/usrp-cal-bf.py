@@ -401,7 +401,7 @@ def rx_thread(usrp, rx_streamer, quit_event, duration, res, start_time=None):
             start_time,
         ),
     )
-    _rx_thread.setName("RX_thread")
+    _rx_thread.name = "RX_thread"
     _rx_thread.start()
     return _rx_thread
 
@@ -435,7 +435,7 @@ def tx_thread(
         args=(usrp, tx_streamer, quit_event, phase, amplitude, start_time),
     )
 
-    tx_thr.setName("TX_thread")
+    tx_thr.name = "TX_thread"
     tx_thr.start()
 
     return tx_thr
@@ -511,7 +511,7 @@ def tx_ref(usrp, tx_streamer, quit_event, phase, amplitude, start_time=None):
 def tx_meta_thread(tx_streamer, quit_event):
     tx_meta_thr = threading.Thread(target=tx_async_th, args=(tx_streamer, quit_event))
 
-    tx_meta_thr.setName("TX_META_thread")
+    tx_meta_thr.name = "TX_META_thread"
     tx_meta_thr.start()
     return tx_meta_thr
 
