@@ -702,6 +702,10 @@ def tx_phase_coh(usrp, tx_streamer, quit_event, phase_corr, at_time, long_time=T
     phases[LOOPBACK_TX_CH] = phase_corr
     amplitudes[LOOPBACK_TX_CH] = 0.8
 
+    logger.debug(f"Phases: {phases}")
+    logger.debug(f"amplitudes: {amplitudes}")
+    logger.debug(f"TX Gain: {FREE_TX_GAIN}")
+
     # Set the transmit gain for the active channel
     usrp.set_tx_gain(FREE_TX_GAIN, LOOPBACK_TX_CH)
 
