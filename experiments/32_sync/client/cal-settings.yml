@@ -1,0 +1,38 @@
+RX_TX_SAME_CHANNEL: !!bool True  
+# If True, loopback is performed using the same channel for transmit and receive.
+
+CLOCK_TIMEOUT: !!float 1000  
+# Timeout in milliseconds (1000 ms = 1 second) for locking to an external clock.
+
+INIT_DELAY: !!float 0.2  
+# Initial delay of 200 ms before starting transmission.
+
+RATE: !!float 250e3  
+# Transmission/sample rate in Hz (250 kHz).
+
+LOOPBACK_TX_GAIN: !!float 50  
+# Transmit gain for loopback tests, empirically determined.
+
+FREE_TX_GAIN: !!float 70  
+# Transmit gain when transmitting freely (not in loopback mode).
+
+LOOPBACK_RX_GAIN: !!float 45  
+# Receive gain for loopback tests, empirically determined.
+
+REF_RX_GAIN: !!float 45  
+# Reference receiver gain, empirically determined.
+
+FREQ: !!float 920e6  
+# Operating frequency in Hz (920 MHz).
+
+MIN_PLL_VAR: !!float 0.0001  
+# Minimum allowed PLL variance for stable frequency locking.
+
+CAPTURE_TIME: !!float 5  
+# Duration for capturing data in seconds.
+
+TX_TIME: !!float 7200  
+# Total transmission time in seconds (here, 2 hours).
+
+server_ip: "10.128.48.3"  
+# IP address of the server to connect to.
