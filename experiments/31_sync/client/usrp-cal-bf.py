@@ -901,19 +901,16 @@ def main():
 
         print("DONE")
 
-    # except Exception as e:
-    #     # Handle any exception gracefully
-    #     logger.debug("Sending signal to stop!")
-    #     logger.error(e)
-    #     quit_event.set()
+    except Exception as e:
+        # Handle any exception gracefully
+        logger.debug("Sending signal to stop!")
+        logger.error(e)
+        quit_event.set()
 
-    # finally:
-    #     # Allow threads and streams to close properly
-    #     time.sleep(1)
-    #     sys.exit(0)
-
-    quit_event.set()
-
+    finally:
+        # Allow threads and streams to close properly
+        time.sleep(1)
+        sys.exit(0)
 
 if __name__ == "__main__":
     while 1:
