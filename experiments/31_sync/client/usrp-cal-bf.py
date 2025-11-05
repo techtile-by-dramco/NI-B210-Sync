@@ -910,7 +910,7 @@ def main():
     finally:
         # Allow threads and streams to close properly
         time.sleep(1)
-        # sys.exit(0)
+        sys.exit(0)
 
 if __name__ == "__main__":
     while 1:
