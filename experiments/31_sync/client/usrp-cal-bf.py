@@ -579,28 +579,53 @@ def measure_pilot(usrp, rx_streamer, quit_event, result_queue, at_time=None):
 def measure_loopback(
     usrp, tx_streamer, rx_streamer, quit_event, result_queue, at_time=None
 ):
+    # ------------------------------------------------------------
+    # Function: measure_loopback
+    # Purpose:
+    #   This function performs a loopback measurement using a USRP device.
+    #   It transmits a known signal on one channel and simultaneously
+    #   receives it on another channel (loopback). The result is captured,
+    #   stored, and processed later.
+    # ------------------------------------------------------------
+
     logger.debug("########### Measure LOOPBACK ###########")
 
-    # TX
-    amplitudes = [0.0, 0.0]
-    amplitudes[LOOPBACK_TX_CH] = 0.8
+    # ------------------------------------------------------------
+    # 1. Configure transmit signal amplitudes
+    # ------------------------------------------------------------
+    amplitudes = [0.0, 0.0]              # Initialize amplitude array for both channels
+    amplitudes[LOOPBACK_TX_CH] = 0.8     # Enable TX on the selected loopback channel
 
+    # ------------------------------------------------------------
+    # 2. Set the transmission start time
+    # ------------------------------------------------------------
     start_time = uhd.types.TimeSpec(at_time)
-
     logger.debug(starting_in(usrp, at_time))
 
+    # ------------------------------------------------------------
+    # 3. (Legacy) Access user settings interface for low-level FPGA control
+    #    Used to switch the USRP into "loopback mode" by writing to
+    #    a register in the user settings interface.
+    #    NOTE: This interface is no longer available in UHD 4.x.
+    # ------------------------------------------------------------
     user_settings = None
     try:
         user_settings = usrp.get_user_settings_iface(1)
         if user_settings:
+            # Read current register value (for debug)
             logger.debug(user_settings.peek32(0))
+            # Write a value to activate loopback mode
             user_settings.poke32(0, SWITCH_LOOPBACK_MODE)
+            # Read again to verify the register value was updated
             logger.debug(user_settings.peek32(0))
         else:
-            logger.error(" Cannot write to user settings.")
+            logger.error("Cannot write to user settings.")
     except Exception as e:
         logger.error(e)
 
+    # ------------------------------------------------------------
+    # 4. Start transmit (TX), metadata, and receive (RX) threads
+    # ------------------------------------------------------------
     tx_thr = tx_thread(
         usrp,
         tx_streamer,
@@ -610,8 +635,10 @@ def measure_loopback(
         start_time=start_time,
     )
 
+    # Thread responsible for handling TX metadata (timestamps, etc.)
     tx_meta_thr = tx_meta_thread(tx_streamer, quit_event)
 
+    # Thread that captures received samples during loopback
     rx_thr = rx_thread(
         usrp,
         rx_streamer,
@@ -621,21 +648,30 @@ def measure_loopback(
         start_time=start_time,
     )
 
+    # ------------------------------------------------------------
+    # 5. Wait for the capture duration plus some safety margin (delta)
+    # ------------------------------------------------------------
     time.sleep(CAPTURE_TIME + delta(usrp, at_time))
 
-    quit_event.set()
-
+    # ------------------------------------------------------------
+    # 6. Signal all threads to stop and wait for them to finish
+    # ------------------------------------------------------------
+    quit_event.set()   # Triggers thread termination
     tx_thr.join()
-
     rx_thr.join()
-
     tx_meta_thr.join()
 
-    # reset RF switches ctrl
+    # ------------------------------------------------------------
+    # 7. Reset the RF switch control (disable loopback mode)
+    # ------------------------------------------------------------
     if user_settings:
         user_settings.poke32(0, SWITCH_RESET_MODE)
 
+    # ------------------------------------------------------------
+    # 8. Clear the quit event flag to prepare for the next measurement
+    # ------------------------------------------------------------
     quit_event.clear()
+
 
 
 def tx_phase_coh(usrp, tx_streamer, quit_event, phase_corr, at_time, long_time=True):
@@ -836,16 +872,16 @@ def main():
         # STEP 3: Load cable phase correction from YAML configuration (if available)
         # -------------------------------------------------------------------------
         phi_cable = 0
-        with open(os.path.join(os.path.dirname(__file__), "config-phase-offsets.yml"), "r") as phases_yaml:
-            try:
-                phases_dict = yaml.safe_load(phases_yaml)
-                if HOSTNAME in phases_dict.keys():
-                    phi_cable = phases_dict[HOSTNAME]
-                    logger.debug(f"Applying phase correction: {phi_cable}")
-                else:
-                    logger.error("Phase offset not found in config-phase-offsets.yml")
-            except yaml.YAMLError as exc:
-                print(exc)
+        # with open(os.path.join(os.path.dirname(__file__), "config-phase-offsets.yml"), "r") as phases_yaml:
+        #     try:
+        #         phases_dict = yaml.safe_load(phases_yaml)
+        #         if HOSTNAME in phases_dict.keys():
+        #             phi_cable = phases_dict[HOSTNAME]
+        #             logger.debug(f"Applying phase correction: {phi_cable}")
+        #         else:
+        #             logger.error("Phase offset not found in config-phase-offsets.yml")
+        #     except yaml.YAMLError as exc:
+        #         print(exc)
 
         # -------------------------------------------------------------------------
         # STEP 4: Benchmark without phase-aligned beamforming
