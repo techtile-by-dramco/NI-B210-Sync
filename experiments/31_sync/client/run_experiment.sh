@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the parameters
-ITERATIONS=1       # Number of iterations per gain value
+ITERATIONS=10       # Number of iterations per gain value
 
 for ((i=1; i<=ITERATIONS; i++))
     do
