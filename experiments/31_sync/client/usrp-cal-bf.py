@@ -26,7 +26,7 @@ RX_TX_SAME_CHANNEL = True # True if loopback occurs between the same RF channel
 CLOCK_TIMEOUT = 1000      # Timeout for external clock locking (in ms)
 INIT_DELAY = 0.2          # Initial delay before starting transmission (200 ms)
 RATE = 250e3              # Sampling rate in samples per second (250 kSps)
-LOOPBACK_TX_GAIN = 70     # Empirically determined transmit gain for loopback tests
+LOOPBACK_TX_GAIN = 50 #70     # Empirically determined transmit gain for loopback tests
 RX_GAIN = 22              # Empirically determined receive gain (22 dB without splitter, 27 dB with splitter)
 CAPTURE_TIME = 10         # Duration of each capture in seconds
 FREQ = 0                  # Base frequency offset (Hz); 0 means use default center frequency
@@ -910,7 +910,7 @@ def main():
     finally:
         # Allow threads and streams to close properly
         time.sleep(1)
-        # sys.exit(0)
+        sys.exit(0)
 
 if __name__ == "__main__":
     while 1:
