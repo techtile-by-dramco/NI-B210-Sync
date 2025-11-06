@@ -879,7 +879,7 @@ def main():
         file_name_state = file_name + "_pilot"
         measure_pilot(
             usrp,
-            rx_streamer,
+            tx_streamer,
             rx_streamer,
             quit_event,
             result_queue,
