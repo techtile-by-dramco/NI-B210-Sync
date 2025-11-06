@@ -1058,22 +1058,22 @@ def main():
         # STEP 1: Perform loopback measurement with reference signal
         # -------------------------------------------------------------------------
 
-        # --- Perform pilot measurement ---
-        file_name_state = file_name + "_pilot"
-        measure_pilot(
-            usrp,
-            tx_streamer,
-            rx_streamer,
-            quit_event,
-            result_queue,
-            at_time=start_next_cmd
-        )
+        # # --- Perform pilot measurement ---
+        # file_name_state = file_name + "_pilot"
+        # measure_pilot(
+        #     usrp,
+        #     tx_streamer,
+        #     rx_streamer,
+        #     quit_event,
+        #     result_queue,
+        #     at_time=start_next_cmd
+        # )
 
-        # Retrieve pilot phase result
-        phi_P = result_queue.get()
+        # # Retrieve pilot phase result
+        # phi_P = result_queue.get()
 
-        # Print pilot phase
-        logger.info("Phase pilot reference signal: %s", phi_P)
+        # # Print pilot phase
+        # logger.info("Phase pilot reference signal: %s", phi_P)
 
         start_next_cmd += cmd_time + 1.0  # Schedule next command after delay
 
@@ -1081,23 +1081,23 @@ def main():
         # STEP 2: Perform internal loopback measurement with reference signal
         # -------------------------------------------------------------------------
 
-        # file_name_state = file_name + "_loopback"
-        # measure_loopback(
-        #     usrp,
-        #     tx_streamer,
-        #     rx_streamer,
-        #     quit_event,
-        #     result_queue,
-        #     at_time=start_next_cmd,
-        # )
+        file_name_state = file_name + "_loopback"
+        measure_loopback(
+            usrp,
+            tx_streamer,
+            rx_streamer,
+            quit_event,
+            result_queue,
+            at_time=start_next_cmd,
+        )
 
-        # # Retrieve loopback phase result
-        # phi_LB = result_queue.get()
+        # Retrieve loopback phase result
+        phi_LB = result_queue.get()
 
-        # # Print loopback phase
-        # logger.info("Phase pilot reference signal: %s", phi_LB)
+        # Print loopback phase
+        logger.info("Phase pilot reference signal: %s", phi_LB)
 
-        # start_next_cmd += cmd_time + 2.0  # Schedule next command
+        start_next_cmd += cmd_time + 2.0  # Schedule next command
 
         # -------------------------------------------------------------------------
         # STEP 3: Load cable phase correction from YAML configuration (if available)
@@ -1122,7 +1122,7 @@ def main():
             tx_streamer,
             quit_event,
             # phase_corr=phi_LB + phi_P + np.deg2rad(phi_cable),
-            phase_corr=phi_P + np.deg2rad(phi_cable),
+            phase_corr=phi_LB + np.deg2rad(phi_cable),
             at_time=start_next_cmd,
             long_time=False, # Set long_time True if you want to transmit longer than 10 seconds
         )
