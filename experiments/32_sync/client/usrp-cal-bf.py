@@ -645,17 +645,98 @@ def measure_pilot(usrp, tx_streamer, rx_streamer, quit_event, result_queue, at_t
     """
     logger.debug("########### Measure PILOT ###########")
 
-    # ------------------------------------------------------------
+    # # ------------------------------------------------------------
+    # # 1. Configure transmit signal amplitudes
+    # # ------------------------------------------------------------
+    # amplitudes = [0.0, 0.0]              # Initialize amplitude array for both channels
+    # amplitudes[LOOPBACK_TX_CH] = 0.8     # Enable TX on the selected loopback channel
+
+    # # Define start time for the measurement
+    # start_time = uhd.types.TimeSpec(at_time)
+    # logger.debug(starting_in(usrp, at_time))
+
+
+    # user_settings = None
+    # try:
+    #     user_settings = usrp.get_user_settings_iface(1)
+    #     if user_settings:
+    #         # Read current register value (for debug)
+    #         logger.debug(user_settings.peek32(0))
+    #         # Write a value to activate loopback mode
+    #         user_settings.poke32(0, SWITCH_LOOPBACK_MODE)
+    #         # Read again to verify the register value was updated
+    #         logger.debug(user_settings.peek32(0))
+    #     else:
+    #         logger.error("Cannot write to user settings.")
+    # except Exception as e:
+    #     logger.error(e)
+
+    
+    # tx_thr = tx_thread(
+    #     usrp,
+    #     tx_streamer,
+    #     quit_event,
+    #     amplitude=amplitudes,
+    #     phase=[0.0, 0.0],
+    #     start_time=start_time,
+    # )
+
+    
+    # # Thread responsible for handling TX metadata (timestamps, etc.)
+    # tx_meta_thr = tx_meta_thread(tx_streamer, quit_event)
+
+    
+
+
+    # # Start RX thread for data acquisition
+    # rx_thr = rx_thread(
+    #     usrp=usrp,
+    #     rx_streamer=rx_streamer,
+    #     quit_event=quit_event,
+    #     duration=CAPTURE_TIME,
+    #     res=result_queue,
+    #     start_time=start_time,
+    # )
+
+    # # Wait until capture completes (capture time + device delay)
+    # time.sleep(CAPTURE_TIME + delta(usrp, at_time))
+
+    # # Stop RX thread and wait for it to terminate
+    # quit_event.set()
+
+    # tx_thr.join()
+    # rx_thr.join()
+
+    # tx_meta_thr.join()
+
+    # # ------------------------------------------------------------
+    # # 7. Reset the RF switch control (disable loopback mode)
+    # # ------------------------------------------------------------
+    # if user_settings:
+    #     user_settings.poke32(0, SWITCH_RESET_MODE)
+
+    # # Clear event for next use
+    # quit_event.clear()
+
+
+   # ------------------------------------------------------------
     # 1. Configure transmit signal amplitudes
     # ------------------------------------------------------------
     amplitudes = [0.0, 0.0]              # Initialize amplitude array for both channels
     amplitudes[LOOPBACK_TX_CH] = 0.8     # Enable TX on the selected loopback channel
 
-    # Define start time for the measurement
+    # ------------------------------------------------------------
+    # 2. Set the transmission start time
+    # ------------------------------------------------------------
     start_time = uhd.types.TimeSpec(at_time)
     logger.debug(starting_in(usrp, at_time))
 
-
+    # ------------------------------------------------------------
+    # 3. (Legacy) Access user settings interface for low-level FPGA control
+    #    Used to switch the USRP into "loopback mode" by writing to
+    #    a register in the user settings interface.
+    #    NOTE: This interface is no longer available in UHD 4.x.
+    # ------------------------------------------------------------
     user_settings = None
     try:
         user_settings = usrp.get_user_settings_iface(1)
@@ -671,7 +752,9 @@ def measure_pilot(usrp, tx_streamer, rx_streamer, quit_event, result_queue, at_t
     except Exception as e:
         logger.error(e)
 
-    
+    # ------------------------------------------------------------
+    # 4. Start transmit (TX), metadata, and receive (RX) threads
+    # ------------------------------------------------------------
     tx_thr = tx_thread(
         usrp,
         tx_streamer,
@@ -681,32 +764,30 @@ def measure_pilot(usrp, tx_streamer, rx_streamer, quit_event, result_queue, at_t
         start_time=start_time,
     )
 
-    
     # Thread responsible for handling TX metadata (timestamps, etc.)
     tx_meta_thr = tx_meta_thread(tx_streamer, quit_event)
 
-    
-
-
-    # Start RX thread for data acquisition
+    # Thread that captures received samples during loopback
     rx_thr = rx_thread(
-        usrp=usrp,
-        rx_streamer=rx_streamer,
-        quit_event=quit_event,
+        usrp,
+        rx_streamer,
+        quit_event,
         duration=CAPTURE_TIME,
         res=result_queue,
         start_time=start_time,
     )
 
-    # Wait until capture completes (capture time + device delay)
+    # ------------------------------------------------------------
+    # 5. Wait for the capture duration plus some safety margin (delta)
+    # ------------------------------------------------------------
     time.sleep(CAPTURE_TIME + delta(usrp, at_time))
 
-    # Stop RX thread and wait for it to terminate
-    quit_event.set()
-
+    # ------------------------------------------------------------
+    # 6. Signal all threads to stop and wait for them to finish
+    # ------------------------------------------------------------
+    quit_event.set()   # Triggers thread termination
     tx_thr.join()
     rx_thr.join()
-
     tx_meta_thr.join()
 
     # ------------------------------------------------------------
@@ -715,7 +796,9 @@ def measure_pilot(usrp, tx_streamer, rx_streamer, quit_event, result_queue, at_t
     if user_settings:
         user_settings.poke32(0, SWITCH_RESET_MODE)
 
-    # Clear event for next use
+    # ------------------------------------------------------------
+    # 8. Clear the quit event flag to prepare for the next measurement
+    # ------------------------------------------------------------
     quit_event.clear()
 
 
