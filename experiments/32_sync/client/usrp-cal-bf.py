@@ -607,6 +607,14 @@ def measure_pilot(usrp, tx_streamer, rx_streamer, quit_event, result_queue, at_t
     tx_thr.join()
     rx_thr.join()
 
+    tx_meta_thr.join()
+
+    # ------------------------------------------------------------
+    # 7. Reset the RF switch control (disable loopback mode)
+    # ------------------------------------------------------------
+    if user_settings:
+        user_settings.poke32(0, SWITCH_RESET_MODE)
+
     # Clear event for next use
     quit_event.clear()
 
