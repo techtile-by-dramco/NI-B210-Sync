@@ -228,106 +228,6 @@ def rx_ref(usrp, rx_streamer, quit_event, duration, result_queue, start_time=Non
             avg_ampl[1],
         )
 
-# def rx_ref(usrp, rx_streamer, quit_event, duration, result_queue, start_time=None, phase_mode="diff"):
-#     """
-#     Receive thread for RX data acquisition and phase extraction.
-
-#     Parameters:
-#         usrp           : MultiUSRP object
-#         rx_streamer    : RX streamer instance
-#         quit_event     : threading.Event to stop RX
-#         duration       : capture duration [s]
-#         result_queue   : queue to push computed result
-#         start_time     : optional UHD TimeSpec for scheduled start
-#         phase_mode     : 'ch0', 'ch1', or 'diff' (default='diff')
-#                          selects which phase value to push into result_queue
-#     """
-#     logger.debug(f"GAIN IS CH0: {usrp.get_rx_gain(0)} CH1: {usrp.get_rx_gain(1)}")
-
-#     num_channels = rx_streamer.get_num_channels()
-#     max_samps_per_packet = rx_streamer.get_max_num_samps()
-#     buffer_length = int(duration * RATE * 2)
-#     iq_data = np.empty((num_channels, buffer_length), dtype=np.complex64)
-
-#     recv_buffer = np.zeros((num_channels, max_samps_per_packet), dtype=np.complex64)
-#     rx_md = uhd.types.RXMetadata()
-
-#     # --- Stream start setup ---
-#     stream_cmd = uhd.types.StreamCMD(uhd.types.StreamMode.start_cont)
-#     stream_cmd.stream_now = False
-#     timeout = 1.0
-
-#     if start_time is not None:
-#         stream_cmd.time_spec = start_time
-#         time_diff = start_time.get_real_secs() - usrp.get_time_now().get_real_secs()
-#         if time_diff > 0:
-#             timeout = 1.0 + time_diff
-#     else:
-#         stream_cmd.time_spec = uhd.types.TimeSpec(
-#             usrp.get_time_now().get_real_secs() + INIT_DELAY + 0.1
-#         )
-
-#     rx_streamer.issue_stream_cmd(stream_cmd)
-
-#     try:
-#         num_rx = 0
-#         while not quit_event.is_set():
-#             try:
-#                 num_rx_i = rx_streamer.recv(recv_buffer, rx_md, timeout)
-#                 if rx_md.error_code != uhd.types.RXMetadataErrorCode.none:
-#                     logger.error(rx_md.error_code)
-#                 elif num_rx_i > 0:
-#                     if num_rx + num_rx_i <= buffer_length:
-#                         iq_data[:, num_rx : num_rx + num_rx_i] = recv_buffer[:, :num_rx_i]
-#                         num_rx += num_rx_i
-#                     else:
-#                         logger.warning("Received more samples than buffer length.")
-#             except RuntimeError as ex:
-#                 logger.error("Runtime error in receive: %s", ex)
-#                 return
-#     except KeyboardInterrupt:
-#         pass
-#     finally:
-#         logger.debug("CTRL+C pressed or duration reached, stopping stream.")
-#         rx_streamer.issue_stream_cmd(uhd.types.StreamCMD(uhd.types.StreamMode.stop_cont))
-
-#         iq_samples = iq_data[:, int(RATE // 10) : num_rx]
-
-#         # --- Phase analysis ---
-#         phase_ch0, freq_slope_ch0 = tools.get_phases_and_apply_bandpass(iq_samples[0, :])
-#         phase_ch1, freq_slope_ch1 = tools.get_phases_and_apply_bandpass(iq_samples[1, :])
-
-#         logger.debug("Frequency offset CH0: %.4f", freq_slope_ch0 / (2 * np.pi))
-#         logger.debug("Frequency offset CH1: %.4f", freq_slope_ch1 / (2 * np.pi))
-
-#         phase_diff = tools.to_min_pi_plus_pi(phase_ch0 - phase_ch1, deg=False)
-#         circ_mean = tools.circmean(phase_diff, deg=False)
-#         mean_diff = np.mean(phase_diff)
-
-#         logger.debug("Diff cirmean and mean: %.6f", circ_mean - mean_diff)
-
-#         # --- Select which phase value to return ---
-#         if phase_mode == "ch0":
-#             value = np.mean(phase_ch0)
-#         elif phase_mode == "ch1":
-#             value = np.mean(phase_ch1)
-#         else:  # default = diff
-#             value = mean_diff
-
-#         result_queue.put(value)
-#         logger.debug(f"Placed phase value in queue ({phase_mode}): {value:.6f}")
-
-#         # --- Amplitude diagnostics ---
-#         avg_ampl = np.mean(np.abs(iq_samples), axis=1)
-#         max_I = np.max(np.abs(np.real(iq_samples)), axis=1)
-#         max_Q = np.max(np.abs(np.imag(iq_samples)), axis=1)
-
-#         logger.debug(
-#             "MAX AMPL IQ CH0: I %.6f Q %.6f CH1:I %.6f Q %.6f",
-#             max_I[0], max_Q[0], max_I[1], max_Q[1],
-#         )
-#         logger.debug("AVG AMPL IQ CH0: %.6f CH1: %.6f", avg_ampl[0], avg_ampl[1])
-
 
 def setup_clock(usrp, clock_src, num_mboards):
     usrp.set_clock_source(clock_src)
@@ -1127,6 +1027,13 @@ def main():
         # -------------------------------------------------------------------------
         # STEP 4: Benchmark without phase-aligned beamforming
         # -------------------------------------------------------------------------
+        
+        alive_socket = context.socket(zmq.REQ)
+        alive_socket.connect(f"tcp://{ip}:{5558}")
+        logger.debug("Sending TX MODE")
+        alive_socket.send_string("{HOSTNAME} TX")
+        alive_socket.close()
+
         tx_phase_coh(
             usrp,
             tx_streamer,
@@ -1134,7 +1041,7 @@ def main():
             # phase_corr=phi_LB + phi_P + np.deg2rad(phi_cable),
             phase_corr=phi_LB + np.deg2rad(phi_cable),
             at_time=start_next_cmd,
-            long_time=True, # Set long_time True if you want to transmit longer than 10 seconds
+            long_time=False, # Set long_time True if you want to transmit longer than 10 seconds
         )
 
         print("DONE")

@@ -8,6 +8,7 @@ import time
 import sys
 import os
 from datetime import datetime
+from helper import *
 
 # =============================================================================
 #                           Experiment Configuration
@@ -63,10 +64,10 @@ WAIT_TIMEOUT = 60.0 * 10.0
 print(f"Starting experiment: {unique_id}")
 
 # Path to save the experiment data as a YAML file
-output_path = f"../data/exp-{unique_id}.yml"
-
-# Create the directory if it doesn't exist
-os.makedirs(os.path.dirname(output_path), exist_ok=True)
+current_file_path = os.path.abspath(__file__) 
+current_dir = os.path.dirname(current_file_path)
+parent_path = os.path.dirname(current_dir)
+output_path = os.path.join(parent_path, f"data/exp-{unique_id}.yml")
 
 with open(output_path, "w") as f:
     # Write experiment metadata to the YAML file
@@ -123,3 +124,36 @@ with open(output_path, "w") as f:
         # Broadcast synchronization message to all subscribers
         sync_socket.send_string(f"{meas_id} {unique_id}")  # str(meas_id)
         print(f"SYNC {meas_id}")
+
+
+        # *** EXTENSION *** JVM
+
+        # Wait for all subscribers to send a TX MODE message
+        print(f"Waiting for {num_subscribers} subscribers to send a TX Mode ...")
+
+        # Track number of messages received from subscribers
+        messages_received = 0
+        start_processing = None
+
+        while messages_received < num_subscribers:
+            # Poll the socket for incoming messages with a 1-second timeout
+            socks = dict(poller.poll(1000))
+
+            # If some messages were received but no new message comes within WAIT_TIMEOUT, break
+            if messages_received > 2 and time.time() - new_msg_received > WAIT_TIMEOUT:
+                break
+
+            if alive_socket in socks and socks[alive_socket] == zmq.POLLIN:
+                # Record time when a new message is received
+                new_msg_received = time.time()
+
+                # Receive the message string from the subscriber
+                message = alive_socket.recv_string()
+                messages_received += 1
+
+                # Print received message and write it to the YAML file
+                print(f"{message} ({messages_received}/{num_subscribers})")
+
+        print(f"Measure phases")
+
+        save_phases()
