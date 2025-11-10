@@ -435,6 +435,13 @@ def wait_till_go_from_server(ip, _connect=True):
     alive_socket.close()
     sync_socket.close()
 
+def send_usrp_in_tx_mode(ip):
+    tx_mode_socket = context.socket(zmq.REQ)
+    tx_mode_socket.connect(f"tcp://{ip}:{5559}")
+    logger.debug("USRP IN TX MODE")
+    tx_mode_socket.send_string(HOSTNAME)
+    tx_mode_socket.close()
+
 
 def setup(usrp, server_ip, connect=True):
     rate = RATE
@@ -951,6 +958,9 @@ def tx_phase_coh(usrp, tx_streamer, quit_event, phase_corr, at_time, long_time=T
     # Start the metadata monitoring thread
     tx_meta_thr = tx_meta_thread(tx_streamer, quit_event)
 
+    # Send USRP is in TX mode for scope measurements
+    send_usrp_in_tx_mode(server_ip)
+
     # Allow transmission to continue for the configured duration
     if long_time:
         time.sleep(TX_TIME + delta(usrp, at_time))
@@ -1124,7 +1134,7 @@ def main():
             # phase_corr=phi_LB + phi_P + np.deg2rad(phi_cable),
             phase_corr=phi_LB + np.deg2rad(phi_cable),
             at_time=start_next_cmd,
-            long_time=False, # Set long_time True if you want to transmit longer than 10 seconds
+            long_time=True, # Set long_time True if you want to transmit longer than 10 seconds
         )
 
         print("DONE")
