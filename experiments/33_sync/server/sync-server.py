@@ -154,6 +154,11 @@ with open(output_path, "w") as f:
                 # Print received message and write it to the YAML file
                 print(f"{message} ({messages_received}/{num_subscribers})")
 
+
+        print(f"Wait 2s ...")
+
+        time.sleep(1)
+
         print(f"Measure phases")
 
         save_phases()

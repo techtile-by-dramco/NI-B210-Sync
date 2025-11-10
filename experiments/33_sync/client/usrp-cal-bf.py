@@ -1031,7 +1031,7 @@ def main():
         alive_socket = context.socket(zmq.REQ)
         alive_socket.connect(f"tcp://{server_ip}:{5558}")
         logger.debug("Sending TX MODE")
-        alive_socket.send_string("{HOSTNAME} TX")
+        alive_socket.send_string(f"{HOSTNAME} TX")
         alive_socket.close()
 
         tx_phase_coh(
