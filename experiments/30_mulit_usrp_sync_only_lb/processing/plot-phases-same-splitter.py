@@ -27,6 +27,6 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 
-plt.savefig(parent_path + "/scope_phases_same_plitter.png")
+plt.savefig(parent_path + "/scope_phases_same_splitter.png")
 
 # plt.show()
