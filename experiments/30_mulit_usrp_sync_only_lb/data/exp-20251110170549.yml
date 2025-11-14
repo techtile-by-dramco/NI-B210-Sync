@@ -1,0 +1,20 @@
+experiment: 20251110170549
+num_subscribers: 4
+measurments:
+  - meas_id: 0
+    active_tiles:
+     - T05
+     - T07
+     - T08
+     - T06
+  - meas_id: 1
+    active_tiles:
+     - T08
+     - T05
+     - T07
+     - T06
+  - meas_id: 2
+    active_tiles:
+     - T05
+     - T07
+     - T06

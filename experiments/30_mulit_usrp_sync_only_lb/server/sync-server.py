@@ -154,10 +154,15 @@ with open(output_path, "w") as f:
                 # Print received message and write it to the YAML file
                 print(f"{message} ({messages_received}/{num_subscribers})")
 
+                # Process the request (example placeholder)
+                response = "Response from server"
 
-        print(f"Wait 2s ...")
+                # Send response back to the subscriber
+                alive_socket.send_string(response)
 
-        time.sleep(1)
+        print(f"Wait 10s ...")
+
+        time.sleep(10)
 
         print(f"Measure phases")
 
