@@ -25,12 +25,12 @@ plt.plot(df['ts'], df['CH2']-df['CH4'], label='CH2-CH4')
          
 plt.xlabel("Timestamp")
 plt.ylabel("Phase (deg)")
-plt.title("Phase differences (outputs same splitter)")
+plt.title("Phase differences (outputs different splitter)")
 plt.legend()
 plt.xticks(rotation=45)
 plt.tight_layout()
 
 
-plt.savefig(parent_path + "/scope_phases_different_plitter.png")
+plt.savefig(parent_path + "/scope_phases_different_splitter.png")
 
 # plt.show()
