@@ -16,11 +16,12 @@ df['ts'] = pd.to_datetime(df['ts'], format='%Y%m%d_%H%M%S')
 
 plt.figure(figsize=(10,6))
 
-# plt.plot(df['ts'], df['CH3'], label='CH1-CH3')
-# plt.plot(df['ts'], df['CH2']-df['CH4'], label='CH2-CH4')
+plt.plot(df['ts'], df['CH3'], label='CH1-CH3')
+plt.plot(df['ts'], df['CH2']-df['CH4'], label='CH2-CH4')
 
-plt.plot(df['ts'], abs(df['CH3']), label='CH1-CH3')
-plt.plot(df['ts'], abs(df['CH2']-df['CH4']), label='CH2-CH4')
+# abs
+# plt.plot(df['ts'], abs(df['CH3']), label='CH1-CH3')
+# plt.plot(df['ts'], abs(df['CH2']-df['CH4']), label='CH2-CH4')
          
 plt.xlabel("Timestamp")
 plt.ylabel("Phase (deg)")
