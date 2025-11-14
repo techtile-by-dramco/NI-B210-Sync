@@ -5,11 +5,11 @@
 - A total of 100 iterations are performed.
 - During each synchronization cycle, the oscilloscope measures the phase relationship of channels 2, 3, and 4 with respect to channel 1.
 
-### Results
+### Results [raw & abs(raw)]
 
 <table>
   <tr>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/30_mulit_usrp_sync_only_lb/scope_phases.png" width="400"></td>
-    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/30_mulit_usrp_sync_only_lb/scope_phases_abs.png" width="400"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/30_mulit_usrp_sync_only_lb/scope_phases.png" width="600"></td>
+    <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/30_mulit_usrp_sync_only_lb/scope_phases_abs.png" width="600"></td>
   </tr>
 </table>
