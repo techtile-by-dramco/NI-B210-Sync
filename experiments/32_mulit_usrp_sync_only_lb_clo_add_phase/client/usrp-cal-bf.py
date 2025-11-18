@@ -1013,16 +1013,16 @@ def main():
         # STEP 3: Load cable phase correction from YAML configuration (if available)
         # -------------------------------------------------------------------------
         phi_cable = 0
-        # with open(os.path.join(os.path.dirname(__file__), "phase-reference-calibration.yml"), "r") as phases_yaml:
-        #     try:
-        #         phases_dict = yaml.safe_load(phases_yaml)
-        #         if HOSTNAME in phases_dict.keys():
-        #             phi_cable = phases_dict[HOSTNAME]
-        #             logger.debug(f"Applying phase correction: {phi_cable}")
-        #         else:
-        #             logger.error("Phase offset not found in phase-reference-calibration.yml")
-        #     except yaml.YAMLError as exc:
-        #         print(exc)
+        with open(os.path.join(os.path.dirname(__file__), "phase-reference-calibration.yml"), "r") as phases_yaml:
+            try:
+                phases_dict = yaml.safe_load(phases_yaml)
+                if HOSTNAME in phases_dict.keys():
+                    phi_cable = phases_dict[HOSTNAME]
+                    logger.debug(f"Applying phase correction: {phi_cable}")
+                else:
+                    logger.error("Phase offset not found in phase-reference-calibration.yml")
+            except yaml.YAMLError as exc:
+                print(exc)
 
         # -------------------------------------------------------------------------
         # STEP 4: Add additional phase to ensure right measurement with the scope
