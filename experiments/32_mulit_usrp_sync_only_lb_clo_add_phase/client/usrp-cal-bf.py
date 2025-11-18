@@ -197,6 +197,9 @@ def rx_ref(usrp, rx_streamer, quit_event, duration, result_queue, start_time=Non
         logger.debug("Frequency offset CH0: %.4f", freq_slope_ch0 / (2 * np.pi))
         logger.debug("Frequency offset CH1: %.4f", freq_slope_ch1 / (2 * np.pi))
 
+        logger.debug("Phase offset CH0: %.4f", np.rad2deg(phase_ch0))
+        logger.debug("Phase offset CH1: %.4f", np.rad2deg(phase_ch1))
+
         phase_diff = tools.to_min_pi_plus_pi(phase_ch0 - phase_ch1, deg=False)
 
         # phase_diff = phase_ch0 - phase_ch1
