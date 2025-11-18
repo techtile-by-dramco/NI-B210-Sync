@@ -7,6 +7,9 @@
 - The build-in measurement functie is used to measure the phases.
 - To prevent incorrect phase results, additional **phase offsets** were added: T05: 0°, T06: 45°, T07: 90°, and T08: 135°.
 
+<img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/31_mulit_usrp_sync_only_lb_add_phase/pictures/circuit-setup.png" width="1000">
+
+
 ### Results [raw & phase offset removed]
 
 <table>
@@ -24,8 +27,6 @@
 
 ### Conclusion
 
-We can again observe that the outputs of the 2-way splitters exhibit a very good phase relationship. 
-As a result, the phase relationship between CH1–CH2 and CH3–CH4 yields very good results. 
-Consequently, CH1–CH3, CH1–CH4, CH2–CH3, and CH2–CH4 produce less accurate results.
-
-<img src="" width="600">
+- We can again observe that the outputs of the 2-way splitters exhibit a very good phase relationship. 
+- As a result, the phase relationship between CH1–CH2 and CH3–CH4 yields very good results. 
+- Consequently, CH1–CH3, CH1–CH4, CH2–CH3, and CH2–CH4 produce less accurate phase results.
