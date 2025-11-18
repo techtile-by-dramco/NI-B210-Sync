@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from io import StringIO
 import os
+import numpy as np
 
 # Path to save the experiment data as a YAML file
 current_file_path = os.path.abspath(__file__) 
@@ -22,6 +23,14 @@ plt.figure(figsize=(10,6))
 plt.plot(df['ts'], df['CH2'], label='CH1-CH2')
 plt.plot(df['ts'], df['CH3'], label='CH1-CH3')
 plt.plot(df['ts'], df['CH4'], label='CH1-CH4')
+
+# plt.plot(df['ts'], df['CH2']+45-360, label='CH1-CH2')
+# plt.plot(df['ts'], df['CH3']+90-360, label='CH1-CH3')
+# plt.plot(df['ts'], df['CH4']+135-360, label='CH1-CH4')
+
+print(f"CH1 - CH2 --> Mean: {np.mean(df['CH2']+45-360)} --> Std: {np.std(df['CH2']+45-360)}")
+print(f"CH1 - CH3 --> Mean: {np.mean(df['CH3']+90-360)} --> Std: {np.std(df['CH3']+90-360)}")
+print(f"CH1 - CH4 --> Mean: {np.mean(df['CH4']+135-360)} --> Std: {np.std(df['CH4']+135-360)}")
          
 plt.xlabel("Timestamp")
 plt.ylabel("Phase (deg)")
@@ -30,6 +39,6 @@ plt.legend()
 plt.xticks(rotation=45)
 plt.tight_layout()
 
-# plt.savefig(parent_path + "/scope_phases.png")
+plt.savefig(parent_path + "/scope_phases.png")
 
-plt.show()
+# plt.show()
