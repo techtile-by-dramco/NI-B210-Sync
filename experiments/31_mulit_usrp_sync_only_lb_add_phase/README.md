@@ -21,3 +21,11 @@
 | CH1 - CH2    | 0.5744586887005192   | 0.9478001175555331    |
 | CH1 - CH3    | 7.081923336931293    | 0.9869667338113204    |
 | CH1 - CH4    | 7.959343748393683    | 0.9218934521364133    |
+
+### Conclusion
+
+We can again observe that the outputs of the 2-way splitters exhibit a very good phase relationship. 
+As a result, the phase relationship between CH1–CH2 and CH3–CH4 yields very good results. 
+Consequently, CH1–CH3, CH1–CH4, CH2–CH3, and CH2–CH4 produce less accurate results.
+
+<img src="" width="600">
