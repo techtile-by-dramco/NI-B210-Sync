@@ -5,7 +5,7 @@
 - A total of 100 iterations are performed.
 - During each synchronization cycle, the oscilloscope measures the phase relationship of channels 2, 3, and 4 with respect to channel 1.
 - The build-in measurement functie is used to measure the phases.
-- “To prevent incorrect phase results, additional phases were added: T05: 0°, T06: 45°, T07: 90°, and T08: 135°.
+- To prevent incorrect phase results, additional **phase offsets** were added: T05: 0°, T06: 45°, T07: 90°, and T08: 135°.
 
 ### Results [raw & phase offset removed]
 
