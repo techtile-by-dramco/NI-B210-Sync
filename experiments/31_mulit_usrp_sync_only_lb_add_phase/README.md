@@ -27,8 +27,6 @@
 
 ### Conclusion
 
-We can again observe that the outputs of the 2-way splitters exhibit a very good phase relationship. 
-As a result, the phase relationship between CH1–CH2 and CH3–CH4 yields very good results. 
-Consequently, CH1–CH3, CH1–CH4, CH2–CH3, and CH2–CH4 produce less accurate results.
-
-<img src="" width="600">
+- We can again observe that the outputs of the 2-way splitters exhibit a very good phase relationship. 
+- As a result, the phase relationship between CH1–CH2 and CH3–CH4 yields very good results. 
+- Consequently, CH1–CH3, CH1–CH4, CH2–CH3, and CH2–CH4 produce less accurate results.
