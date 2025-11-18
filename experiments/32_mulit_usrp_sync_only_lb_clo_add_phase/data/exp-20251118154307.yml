@@ -1,4 +1,4 @@
-experiment: 20251118154121
+experiment: 20251118154307
 num_subscribers: 4
 measurments:
   - meas_id: 0
@@ -9,7 +9,7 @@ measurments:
      - T08
   - meas_id: 1
     active_tiles:
+     - T07
+     - T08
      - T06
      - T05
-     - T08
-     - T07
