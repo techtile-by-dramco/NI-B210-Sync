@@ -1005,7 +1005,8 @@ def main():
         phi_LB = result_queue.get()
 
         # Print loopback phase
-        logger.info("Phase pilot reference signal: %s", phi_LB)
+        logger.info("Phase pilot reference signal in rad: %s", phi_LB)
+        logger.info("Phase pilot reference signal in degrees: %s", np.rad2deg(phi_LB))
 
         start_next_cmd += cmd_time + 2.0  # Schedule next command
 
