@@ -42,8 +42,8 @@ class Scope:
         # Link measurements to channels
         print("[i] Mapping measurement sources…")
         for i in range(3):
-            self.scope.write(f"MEASUrement:{self.meas_list[i]}:SOUrce1 CH1")
-            self.scope.write(f"MEASUrement:{self.meas_list[i]}:SOUrce2 {self.channels[i+1]}")
+            self.scope.write(f"MEASUrement:{self.meas_list[i]}:SOUrce1 {self.channels[i+1]}")
+            self.scope.write(f"MEASUrement:{self.meas_list[i]}:SOUrce2 CH1")
     
     def check_status(self):
         no_meas = len(self.scope.query("MEASUrement:LIST?").strip().split(","))
