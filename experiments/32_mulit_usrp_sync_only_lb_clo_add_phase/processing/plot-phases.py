@@ -28,9 +28,13 @@ plt.plot(df['ts'], df['CH4'], label='CH1-CH4')
 # plt.plot(df['ts'], df['CH3']+90-360, label='CH1-CH3')
 # plt.plot(df['ts'], df['CH4']+135-360, label='CH1-CH4')
 
-print(f"CH1 - CH2 --> Mean: {np.mean(df['CH2']+45-360)} --> Std: {np.std(df['CH2']+45-360)}")
-print(f"CH1 - CH3 --> Mean: {np.mean(df['CH3']+90-360)} --> Std: {np.std(df['CH3']+90-360)}")
-print(f"CH1 - CH4 --> Mean: {np.mean(df['CH4']+135-360)} --> Std: {np.std(df['CH4']+135-360)}")
+# print(f"CH1 - CH2 --> Mean: {np.mean(df['CH2']+45-360)} --> Std: {np.std(df['CH2']+45-360)}")
+# print(f"CH1 - CH3 --> Mean: {np.mean(df['CH3']+90-360)} --> Std: {np.std(df['CH3']+90-360)}")
+# print(f"CH1 - CH4 --> Mean: {np.mean(df['CH4']+135-360)} --> Std: {np.std(df['CH4']+135-360)}")
+
+print(f"CH1 - CH2 --> Mean: {np.mean(df['CH2'])} --> Std: {np.std(df['CH2'])}")
+print(f"CH1 - CH3 --> Mean: {np.mean(df['CH3'])} --> Std: {np.std(df['CH3'])}")
+print(f"CH1 - CH4 --> Mean: {np.mean(df['CH4'])} --> Std: {np.std(df['CH4'])}")
          
 plt.xlabel("Timestamp")
 plt.ylabel("Phase (deg)")
