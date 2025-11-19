@@ -7,7 +7,7 @@ for ((i=1; i<=ITERATIONS; i++))
     do
         echo "Running iteration $i"
         python3 usrp-cal-bf.py
-        echo "Sleeping 5 seconds before next iteration..."
-        sleep 5
+        echo "Sleeping 1 seconds before next iteration..."
+        sleep 1
 
 done

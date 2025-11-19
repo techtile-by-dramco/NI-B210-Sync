@@ -24,7 +24,7 @@ if len(sys.argv) > 1:
     delay = int(sys.argv[1])
     num_subscribers = int(sys.argv[2])
 else:
-    delay = 10
+    delay = 2
     num_subscribers = 4
 
 # Creates a socket instance
