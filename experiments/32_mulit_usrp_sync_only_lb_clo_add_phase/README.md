@@ -7,6 +7,11 @@
 - The build-in measurement functie is used to measure the phases.
 - To prevent incorrect phase results, additional **phase offsets** were added: T05: 0°, T06: 45°, T07: 90°, and T08: 135°.
 
+
+⚠️⚠️⚠️ To make this work, it is essential that the phase differences between the reference cables are measured with respect to one common reference, and then applied in the following way: CH2 − CH1, CH3 − CH1, CH4 − CH1. ⚠️⚠️⚠️
+
+
+
 ### Results [raw & phase offset removed]
 
 <table>
@@ -28,4 +33,4 @@ We can again observe that the outputs of the 2-way splitters exhibit a very good
 As a result, the phase relationship between CH1–CH2 and CH3–CH4 yields very good results. 
 Consequently, CH1–CH3, CH1–CH4, CH2–CH3, and CH2–CH4 produce less accurate results.
 
-<img src="" width="600">
+⚠️ Here, the phase was always measured relative to CH1, in the following way: CH2 − CH1, CH2 − CH1, CH3 − CH1.
