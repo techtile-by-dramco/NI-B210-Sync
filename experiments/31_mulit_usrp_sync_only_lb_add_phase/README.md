@@ -1,10 +1,9 @@
 # 31_mulit_usrp_sync_only_lb_add_phase
 
-One testtile that transmit a sine wave
+- One testtile that transmit a sine wave
 ```
 python3 examples/tx_waveforms.py  --args "type=b200" --freq 920e6 --rate 1e6 --duration 1e8 --channels 0 --wave-freq 0e5 --wave-ampl 0.8 --gain 70
 ```
-
 - Four USRPs are synchronized using the reference signal applied to the RX port of channel 0.
 - The RX/TX port of channel 1 is connected to the oscilloscope.
 - A total of 100 iterations are performed.

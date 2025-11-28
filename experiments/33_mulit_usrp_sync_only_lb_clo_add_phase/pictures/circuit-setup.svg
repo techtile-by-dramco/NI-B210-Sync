@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="450"
+   viewBox="0 0 1660 450"
+   width="1660"
+   version="1.1"
+   id="svg19"
+   sodipodi:docname="circuit-symbol-splitter-divider.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   inkscape:export-filename="circuit-symbol-splitter-divider.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs19" />
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.55845885"
+     inkscape:cx="821.90478"
+     inkscape:cy="573.90084"
+     inkscape:window-width="1920"
+     inkscape:window-height="1129"
+     inkscape:window-x="1672"
+     inkscape:window-y="991"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg19" />
+  <rect
+     style="fill:#dbdbdc;fill-opacity:1;stroke:none;stroke-miterlimit:2;stroke-opacity:1"
+     id="rect20"
+     width="1660"
+     height="450"
+     x="0"
+     y="0" />
+  <g
+     stroke="#000000"
+     stroke-width="3"
+     id="g16"
+     transform="translate(617.201,5.0440292)">
+    <path
+       d="m 272.299,54.5 h 216 v 143 h -216 z"
+       fill="none"
+       id="path2" />
+    <path
+       d="m 129.299,125.5 h 216"
+       fill="none"
+       id="path3" />
+    <path
+       d="m 345.299,125.5 48,-48"
+       fill="none"
+       id="path4" />
+    <path
+       d="m 393.299,77.5 h 239"
+       fill="none"
+       id="path5" />
+    <path
+       d="m 345.299,125.5 49,49"
+       fill="none"
+       id="path6" />
+    <path
+       d="m 394.299,174.5 h 238"
+       fill="none"
+       id="path7" />
+    <path
+       d="m 639.799,182 c -4.142,0 -7.5,-3.358 -7.5,-7.5 0,-4.142 3.358,-7.5 7.5,-7.5 4.142,0 7.5,3.358 7.5,7.5 0,4.142 -3.358,7.5 -7.5,7.5 z"
+       fill="none"
+       id="path8" />
+    <path
+       d="m 639.799,85 c -4.142,0 -7.5,-3.358 -7.5,-7.5 0,-4.142 3.358,-7.5 7.5,-7.5 4.142,0 7.5,3.358 7.5,7.5 0,4.142 -3.358,7.5 -7.5,7.5 z"
+       fill="none"
+       id="path9" />
+    <path
+       d="m 121.799,133 c -4.142,0 -7.5,-3.358 -7.5,-7.5 0,-4.142 3.358,-7.5 7.5,-7.5 4.142,0 7.5,3.358 7.5,7.5 0,4.142 -3.358,7.5 -7.5,7.5 z"
+       fill="none"
+       id="path10" />
+    <path
+       d="m 188.099,125.5 h 37.6"
+       fill="none"
+       id="path11" />
+    <path
+       d="m 225.699,125.5 -2.8,4.2 11.2,-4.2 -11.2,-4.2 z"
+       id="path12" />
+    <path
+       d="m 532.099,77.5 h 37.6"
+       fill="none"
+       id="path13" />
+    <path
+       d="m 569.699,77.5 -2.8,4.2 11.2,-4.2 -11.2,-4.2 z"
+       id="path14" />
+    <path
+       d="m 532.099,174.5 h 37.6"
+       fill="none"
+       id="path15" />
+    <path
+       d="m 569.699,174.5 -2.8,4.2 11.2,-4.2 -11.2,-4.2 z"
+       id="path16" />
+  </g>
+  <text
+     id="text16"
+     x="1028.3931"
+     y="130.54404"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1001.98"
+       y="138.04404"
+       id="tspan16">-3dB</tspan></text>
+  <text
+     id="text17"
+     x="746.34302"
+     y="99.603027"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="731.97998"
+       y="107.10303"
+       id="tspan17">P1</tspan></text>
+  <text
+     id="text18"
+     x="1256.5"
+     y="50.603027"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1242.137"
+       y="58.103027"
+       id="tspan18">P2</tspan></text>
+  <text
+     id="text18-0"
+     x="1523.9706"
+     y="84.095543"
+     style="fill:#ff0000;fill-opacity:1"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1509.6075"
+       y="91.595543"
+       id="tspan18-9"
+       style="fill:#ff0000;fill-opacity:1">SCOPE CH1</tspan></text>
+  <text
+     id="text18-0-4"
+     x="92.948792"
+     y="231.96738"
+     style="fill:#ff0000;fill-opacity:1"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="78.585747"
+       y="239.46738"
+       id="tspan18-9-8"
+       style="fill:#ff0000;fill-opacity:1">REF</tspan></text>
+  <text
+     id="text18-0-5"
+     x="1523.9706"
+     y="180.97346"
+     style="fill:#ff0000;fill-opacity:1"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1509.6075"
+       y="188.47346"
+       id="tspan18-9-0"
+       style="fill:#ff0000;fill-opacity:1">SCOPE CH2</tspan></text>
+  <text
+     id="text18-0-5-5"
+     x="1523.9706"
+     y="283.97348"
+     style="fill:#ff0000;fill-opacity:1"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1509.6075"
+       y="291.47348"
+       id="tspan18-9-0-0"
+       style="fill:#ff0000;fill-opacity:1">SCOPE CH3</tspan></text>
+  <text
+     id="text18-0-5-6"
+     x="1523.9706"
+     y="380.97348"
+     style="fill:#ff0000;fill-opacity:1"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1509.6075"
+       y="388.47348"
+       id="tspan18-9-0-8"
+       style="fill:#ff0000;fill-opacity:1">SCOPE CH4</tspan></text>
+  <text
+     id="text19"
+     x="1256.5"
+     y="147.54404"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1242.137"
+       y="155.04404"
+       id="tspan19">P3</tspan></text>
+  <g
+     stroke="#000000"
+     stroke-width="3"
+     id="g16-8"
+     transform="translate(617.201,205.04404)">
+    <path
+       d="m 272.299,54.5 h 216 v 143 h -216 z"
+       fill="none"
+       id="path2-1" />
+    <path
+       d="m 129.299,125.5 h 216"
+       fill="none"
+       id="path3-1" />
+    <path
+       d="m 345.299,125.5 48,-48"
+       fill="none"
+       id="path4-9" />
+    <path
+       d="m 393.299,77.5 h 239"
+       fill="none"
+       id="path5-0" />
+    <path
+       d="m 345.299,125.5 49,49"
+       fill="none"
+       id="path6-7" />
+    <path
+       d="m 394.299,174.5 h 238"
+       fill="none"
+       id="path7-8" />
+    <path
+       d="m 639.799,182 c -4.142,0 -7.5,-3.358 -7.5,-7.5 0,-4.142 3.358,-7.5 7.5,-7.5 4.142,0 7.5,3.358 7.5,7.5 0,4.142 -3.358,7.5 -7.5,7.5 z"
+       fill="none"
+       id="path8-6" />
+    <path
+       d="m 639.799,85 c -4.142,0 -7.5,-3.358 -7.5,-7.5 0,-4.142 3.358,-7.5 7.5,-7.5 4.142,0 7.5,3.358 7.5,7.5 0,4.142 -3.358,7.5 -7.5,7.5 z"
+       fill="none"
+       id="path9-7" />
+    <path
+       d="m 121.799,133 c -4.142,0 -7.5,-3.358 -7.5,-7.5 0,-4.142 3.358,-7.5 7.5,-7.5 4.142,0 7.5,3.358 7.5,7.5 0,4.142 -3.358,7.5 -7.5,7.5 z"
+       fill="none"
+       id="path10-5" />
+    <path
+       d="m 188.099,125.5 h 37.6"
+       fill="none"
+       id="path11-3" />
+    <path
+       d="m 225.699,125.5 -2.8,4.2 11.2,-4.2 -11.2,-4.2 z"
+       id="path12-6" />
+    <path
+       d="m 532.099,77.5 h 37.6"
+       fill="none"
+       id="path13-5" />
+    <path
+       d="m 569.699,77.5 -2.8,4.2 11.2,-4.2 -11.2,-4.2 z"
+       id="path14-2" />
+    <path
+       d="m 532.099,174.5 h 37.6"
+       fill="none"
+       id="path15-4" />
+    <path
+       d="m 569.699,174.5 -2.8,4.2 11.2,-4.2 -11.2,-4.2 z"
+       id="path16-2" />
+  </g>
+  <text
+     id="text16-3"
+     x="1028.3929"
+     y="330.54404"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1001.98"
+       y="338.04404"
+       id="tspan16-8">-3dB</tspan></text>
+  <text
+     id="text17-6"
+     x="746.34302"
+     y="299.60303"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="731.97998"
+       y="307.10303"
+       id="tspan17-4">P1</tspan></text>
+  <text
+     id="text18-7"
+     x="1256.5"
+     y="250.60303"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1242.137"
+       y="258.10303"
+       id="tspan18-5">P2</tspan></text>
+  <text
+     id="text19-0"
+     x="1256.5"
+     y="347.54404"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="1242.137"
+       y="355.04404"
+       id="tspan19-6">P3</tspan></text>
+  <g
+     stroke="#000000"
+     stroke-width="3"
+     id="g16-8-1"
+     transform="translate(37.201,105.04404)">
+    <path
+       d="m 272.299,54.5 h 216 v 143 h -216 z"
+       fill="none"
+       id="path2-1-7" />
+    <path
+       d="m 129.299,125.5 h 216"
+       fill="none"
+       id="path3-1-3" />
+    <path
+       d="m 345.299,125.5 48,-48"
+       fill="none"
+       id="path4-9-1" />
+    <path
+       d="m 393.299,77.5 h 239"
+       fill="none"
+       id="path5-0-9" />
+    <path
+       d="m 345.299,125.5 49,49"
+       fill="none"
+       id="path6-7-2" />
+    <path
+       d="m 394.299,174.5 h 238"
+       fill="none"
+       id="path7-8-9" />
+    <path
+       d="m 639.799,182 c -4.142,0 -7.5,-3.358 -7.5,-7.5 0,-4.142 3.358,-7.5 7.5,-7.5 4.142,0 7.5,3.358 7.5,7.5 0,4.142 -3.358,7.5 -7.5,7.5 z"
+       fill="none"
+       id="path8-6-7" />
+    <path
+       d="m 639.799,85 c -4.142,0 -7.5,-3.358 -7.5,-7.5 0,-4.142 3.358,-7.5 7.5,-7.5 4.142,0 7.5,3.358 7.5,7.5 0,4.142 -3.358,7.5 -7.5,7.5 z"
+       fill="none"
+       id="path9-7-1" />
+    <path
+       d="m 121.799,133 c -4.142,0 -7.5,-3.358 -7.5,-7.5 0,-4.142 3.358,-7.5 7.5,-7.5 4.142,0 7.5,3.358 7.5,7.5 0,4.142 -3.358,7.5 -7.5,7.5 z"
+       fill="none"
+       id="path10-5-3" />
+    <path
+       d="m 188.099,125.5 h 37.6"
+       fill="none"
+       id="path11-3-2" />
+    <path
+       d="m 225.699,125.5 -2.8,4.2 11.2,-4.2 -11.2,-4.2 z"
+       id="path12-6-9" />
+    <path
+       d="m 532.099,77.5 h 37.6"
+       fill="none"
+       id="path13-5-6" />
+    <path
+       d="m 569.699,77.5 -2.8,4.2 11.2,-4.2 -11.2,-4.2 z"
+       id="path14-2-4" />
+    <path
+       d="m 532.099,174.5 h 37.6"
+       fill="none"
+       id="path15-4-6" />
+    <path
+       d="m 569.699,174.5 -2.8,4.2 11.2,-4.2 -11.2,-4.2 z"
+       id="path16-2-6" />
+  </g>
+  <text
+     id="text16-3-4"
+     x="448.39294"
+     y="230.54404"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="421.97998"
+       y="238.04404"
+       id="tspan16-8-0">-3dB</tspan></text>
+  <text
+     id="text17-6-9"
+     x="166.34302"
+     y="199.60303"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="151.97998"
+       y="207.10303"
+       id="tspan17-4-1">P1</tspan></text>
+  <text
+     id="text18-7-9"
+     x="676.5"
+     y="150.60303"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="662.13696"
+       y="158.10303"
+       id="tspan18-5-1">P2</tspan></text>
+  <text
+     id="text19-0-7"
+     x="676.5"
+     y="247.54404"><tspan
+       fill="#656565"
+       font-family="Avenir-Medium"
+       font-size="25px"
+       x="662.13696"
+       y="255.04404"
+       id="tspan19-6-8">P3</tspan></text>
+  <g
+     id="g20"
+     transform="translate(50)">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.09101;stroke-miterlimit:2;stroke-opacity:1"
+       id="rect19"
+       width="205.2357"
+       height="69.907379"
+       x="1238.7679"
+       y="33.097015" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1305.5337"
+       y="54.771515"
+       id="text20"><tspan
+         sodipodi:role="line"
+         id="tspan20"
+         x="1305.5337"
+         y="54.771515"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">USRP B210</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1249.8289"
+       y="88.26403"
+       id="text20-9"><tspan
+         sodipodi:role="line"
+         id="tspan20-7"
+         x="1249.8289"
+         y="88.26403"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">RF A: RX2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1355.7708"
+       y="88.386101"
+       id="text20-9-9"><tspan
+         sodipodi:role="line"
+         id="tspan20-7-1"
+         x="1355.7708"
+         y="88.386101"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">RF B: TX/RX</tspan></text>
+  </g>
+  <g
+     id="g20-7"
+     transform="translate(50,90.032158)">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.09101;stroke-miterlimit:2;stroke-opacity:1"
+       id="rect19-5"
+       width="205.2357"
+       height="69.907379"
+       x="1238.7679"
+       y="33.097015" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1305.5337"
+       y="54.771515"
+       id="text20-5"><tspan
+         sodipodi:role="line"
+         id="tspan20-2"
+         x="1305.5337"
+         y="54.771515"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">USRP B210</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1249.8289"
+       y="88.26403"
+       id="text20-9-0"><tspan
+         sodipodi:role="line"
+         id="tspan20-7-3"
+         x="1249.8289"
+         y="88.26403"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">RF A: RX2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1355.7708"
+       y="88.386101"
+       id="text20-9-9-0"><tspan
+         sodipodi:role="line"
+         id="tspan20-7-1-9"
+         x="1355.7708"
+         y="88.386101"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">RF B: TX/RX</tspan></text>
+  </g>
+  <g
+     id="g20-6"
+     transform="translate(48.963997,195.00411)">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.09101;stroke-miterlimit:2;stroke-opacity:1"
+       id="rect19-1"
+       width="205.2357"
+       height="69.907379"
+       x="1238.7679"
+       y="33.097015" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1305.5337"
+       y="54.771515"
+       id="text20-3"><tspan
+         sodipodi:role="line"
+         id="tspan20-9"
+         x="1305.5337"
+         y="54.771515"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">USRP B210</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1249.8289"
+       y="88.26403"
+       id="text20-9-6"><tspan
+         sodipodi:role="line"
+         id="tspan20-7-4"
+         x="1249.8289"
+         y="88.26403"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">RF A: RX2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1355.7708"
+       y="88.386101"
+       id="text20-9-9-4"><tspan
+         sodipodi:role="line"
+         id="tspan20-7-1-5"
+         x="1355.7708"
+         y="88.386101"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">RF B: TX/RX</tspan></text>
+  </g>
+  <g
+     id="g20-3"
+     transform="translate(48.95179,299.97606)">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.09101;stroke-miterlimit:2;stroke-opacity:1"
+       id="rect19-57"
+       width="205.2357"
+       height="69.907379"
+       x="1238.7679"
+       y="33.097015" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1305.5337"
+       y="54.771515"
+       id="text20-96"><tspan
+         sodipodi:role="line"
+         id="tspan20-8"
+         x="1305.5337"
+         y="54.771515"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">USRP B210</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1249.8289"
+       y="88.26403"
+       id="text20-9-2"><tspan
+         sodipodi:role="line"
+         id="tspan20-7-5"
+         x="1249.8289"
+         y="88.26403"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">RF A: RX2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-family:'Sans Serif Collection';-inkscape-font-specification:'Sans Serif Collection';fill:none;fill-opacity:1;stroke:#000000;stroke-miterlimit:2;stroke-opacity:1"
+       x="1355.7708"
+       y="88.386101"
+       id="text20-9-9-8"><tspan
+         sodipodi:role="line"
+         id="tspan20-7-1-6"
+         x="1355.7708"
+         y="88.386101"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none">RF B: TX/RX</tspan></text>
+  </g>
+</svg>
