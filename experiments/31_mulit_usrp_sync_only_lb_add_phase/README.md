@@ -1,5 +1,10 @@
 # 31_mulit_usrp_sync_only_lb_add_phase
 
+One testtile that transmit a sine wave
+```
+python3 examples/tx_waveforms.py  --args "type=b200" --freq 920e6 --rate 1e6 --duration 1e8 --channels 0 --wave-freq 0e5 --wave-ampl 0.8 --gain 70
+```
+
 - Four USRPs are synchronized using the reference signal applied to the RX port of channel 0.
 - The RX/TX port of channel 1 is connected to the oscilloscope.
 - A total of 100 iterations are performed.
@@ -27,9 +32,10 @@
 
 ### Conclusion
 
+- The update procedure (script) to measure phase relations with the scope is solved in this experiment.
 - We can again observe that the outputs of the 2-way splitters exhibit a very good phase relationship. 
 - As a result, the phase relationship between CH1–CH2 and CH3–CH4 yields very good results. 
 - Consequently, CH1–CH3, CH1–CH4, CH2–CH3, and CH2–CH4 produce less accurate phase results.
 
 ⚠️ Here, the phase was always measured relative to CH1, in the following way:
-CH1 − CH2, CH1 − CH3, CH1 − CH4. 
+CH1 − CH2, CH1 − CH3, CH1 − CH4.
