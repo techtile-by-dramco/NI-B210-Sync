@@ -12,7 +12,7 @@ python3 examples/tx_waveforms.py  --args "type=b200" --freq 920e6 --rate 1e6 --d
 - To prevent incorrect phase results, additional **phase offsets** were added: T05: 0°, T06: 45°, T07: 90°, and T08: 135°.
 
 <img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/31_mulit_usrp_sync_only_lb_add_phase/pictures/circuit-setup.png" width="1000">
-
+Before splitter 1 is a 20 dB attentuator
 
 ### Results [raw & phase offset removed]
 

@@ -2,7 +2,7 @@
 
 - Type: CDA-2990
 - Brand: National Instruments
-- [Octoclock schemetic](https://files.ettus.com/schematics/octoclock/octoclock.pdf)
+- [Octoclock schematic](https://files.ettus.com/schematics/octoclock/octoclock.pdf)
 
 ## Assume following hierarchy (Techtile)
 
@@ -11,7 +11,7 @@
 How much time difference (phase shift) occurs between any of the outputs of "level 2"?
 ## The main conclusion is as follows:
 
-1. Octoclocks introduce a random time delay between their input and each of their outputs (both PPS and 10 MHz). This time delay can be on the order of 100 ps. However, the time delay remains the same after a power cycle.
+1. Octoclocks introduce a random time delay (but determinstic) between their input and each of their outputs (both PPS and 10 MHz). This time delay can be on the order of 100 ps. However, the time delay remains the same after a power cycle.
 2. The time delay is cumulative. Through hierarchical construction with multiple levels, worst-case time delays on the order of 0.5 ns can be experienced.
 
 ## Two possible ways to deal with this:
