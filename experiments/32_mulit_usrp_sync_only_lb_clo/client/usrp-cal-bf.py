@@ -1039,7 +1039,7 @@ def main():
                     phi_offset = phases_dict[HOSTNAME]
                     logger.debug(f"Applying phase correction: {phi_offset}")
                 else:
-                    logger.error("Phase offset not found in config-phase-offsets.yml")
+                    logger.error("Phase offset not found in beam-weights.yml")
             except yaml.YAMLError as exc:
                 print(exc)
 
