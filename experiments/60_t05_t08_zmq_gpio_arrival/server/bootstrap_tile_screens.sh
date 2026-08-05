@@ -5,7 +5,7 @@ set -euo pipefail
 
 readonly REPOSITORY_URL="https://github.com/techtile-by-dramco/NI-B210-Sync.git"
 readonly REMOTE_REPOSITORY_DIR='${HOME}/NI-B210-Sync'
-readonly REQUIREMENTS_PATH="experiments/60_t05_t08_zmq_gpio_arrival/requirements.txt"
+readonly REQUIREMENTS_PATH="experiments/60_t05_t08_zmq_gpio_arrival/requirements-pi.txt"
 readonly SCREEN_COMMAND_WRAPPER='"$@"
 status=$?
 printf "\nProcess exited with status %d; this Screen session is being kept open for inspection.\n" "${status}"

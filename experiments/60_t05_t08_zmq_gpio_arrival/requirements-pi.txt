@@ -1,0 +1,8 @@
+# Raspberry Pi client dependencies. Do not install this file on the server.
+-r requirements.txt
+
+# gpiozero requires a hardware pin factory in a virtual environment. The
+# adafruit package provides the import-compatible `lgpio` module for Python
+# 3.13+, while upstream lgpio supplies it for earlier Python versions.
+adafruit-lgpio>=0.2.2.0; python_version >= "3.13"
+lgpio>=0.2.2.0; python_version < "3.13"

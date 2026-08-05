@@ -152,15 +152,23 @@ server/client JSONL logs.
 
 ## Software setup
 
-Install the listed Python packages on the server and all four RPis:
+Install the common/server packages on the server and the Pi-specific packages on
+each Raspberry Pi:
 
 ```bash
+# Server
 python3 -m pip install -r experiments/60_t05_t08_zmq_gpio_arrival/requirements.txt
+
+# T05–T08 Raspberry Pis
+python3 -m pip install -r experiments/60_t05_t08_zmq_gpio_arrival/requirements-pi.txt
 ```
 
 `gpiozero` must have access to the local Raspberry Pi GPIO hardware.  It is
 intentionally imported only on a real client run, so connection plans can be
-checked from another machine using `--dry-run`.
+checked from another machine using `--dry-run`.  The Pi-specific requirements
+provide the `lgpio` backend required by `gpiozero` inside the virtual environment.
+The `pi` account must also be in the operating system's `gpio` group to access
+the GPIO devices.
 
 ### Bootstrap the tile sessions from the server
 
