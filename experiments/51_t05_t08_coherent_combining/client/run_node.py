@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 
 
-EXPERIMENT_DIR = Path(__file__).resolve().parent
+EXPERIMENT_DIR = Path(__file__).resolve().parents[1]
 EXPERIMENTS_DIR = EXPERIMENT_DIR.parent
 sys.path.insert(0, str(EXPERIMENTS_DIR))
 

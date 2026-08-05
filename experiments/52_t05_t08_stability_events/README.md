@@ -2,6 +2,8 @@
 
 This experiment implements the manuscript's temporal-stability study. It tracks a phase coefficient without changing configuration, then runs separate intervention trials for retuning, gain/port changes, device reopen, stream restart, cold start, and reference interruption. Its output supports a periodic drift threshold and an event-triggered recalibration policy.
 
+`client/` runs on T05–T08, `server/` runs the T04 source, and `processing/` runs offline analysis. The experiment root retains the shared `config.yml`, this connection guide, and ignored `runs/` output.
+
 Run long-term pilot/reference and loopback/reference measurements as **separate connection passes**. This avoids switching or transmitting into T04 during every interval.
 
 ## T04 RF source
@@ -11,8 +13,7 @@ Use T04 CH0 `TX/RX`, with its installed/default FPGA image, as the continuous RF
 After installing and measuring the complete distribution path, enter its output attenuation in `rf_source_output_attenuation_db`. Start the source on T04, for example:
 
 ```bash
-python3 experiments/t05_t08_common/run_t04_source.py \
-  --config experiments/52_t05_t08_stability_events/config.yml \
+python3 experiments/52_t05_t08_stability_events/server/run_t04_source.py \
   --tx-gain-db 0
 ```
 
@@ -75,14 +76,14 @@ Verify loopback operation and leakage at low gain before a long unattended run.
 The default is 1,440 measurements at one-minute intervals. Start one process per node:
 
 ```bash
-python3 experiments/52_t05_t08_stability_events/run_node.py \
+python3 experiments/52_t05_t08_stability_events/client/run_node.py \
   --tile T05 --mode external_pair --event fixed_repeat
 ```
 
 For a quick plan or bench check:
 
 ```bash
-python3 experiments/52_t05_t08_stability_events/run_node.py \
+python3 experiments/52_t05_t08_stability_events/client/run_node.py \
   --tile T05 --measurements 5 --interval 0 --dry-run
 ```
 
@@ -91,7 +92,7 @@ python3 experiments/52_t05_t08_stability_events/run_node.py \
 Use a fresh output file for each event. The script records measurements before and after the intervention in one lock interval wherever the event permits it:
 
 ```bash
-python3 experiments/52_t05_t08_stability_events/run_node.py \
+python3 experiments/52_t05_t08_stability_events/client/run_node.py \
   --tile T05 --mode internal_loopback --event lo_retune \
   --measurements 30 --event-at 15 --interval 10
 ```
@@ -103,7 +104,7 @@ An RX overflow, timeout, late first timestamp, TX error, or missing lock is stor
 ## Analyze and choose a policy
 
 ```bash
-python3 experiments/52_t05_t08_stability_events/analyze.py \
+python3 experiments/52_t05_t08_stability_events/processing/analyze.py \
   experiments/52_t05_t08_stability_events/runs/*.jsonl \
   --threshold-deg 5 --output-prefix stability
 ```

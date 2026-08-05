@@ -66,3 +66,27 @@ temporary_rx_gain_delta_db: 6
 temporary_tx_gain_delta_db: 6
 alternate_rx_antenna: RX2
 event_settle_s: 0.25
+
+# The Experiment 50 coordinator sends each RPi a common future B210 timestamp.
+# It permits only events that UHD can queue at that exact device time. Device
+# reopen, cold start, and reference interruption stay separate per-tile/manual
+# trials because host or operator latency cannot be synchronized this way.
+control_host: 0.0.0.0
+control_port: 55150
+socket_timeout_s: 120
+coordinated_start_lead_s: 2
+coordinated_event_guard_s: 1
+capture_alignment_tolerance_s: 4e-6
+coordinated_events:
+  external_pair:
+    - fixed_repeat
+    - stream_restart
+    - lo_retune
+    - rx_gain_change
+    - rx_port_change
+  internal_loopback:
+    - fixed_repeat
+    - stream_restart
+    - lo_retune
+    - rx_gain_change
+    - tx_gain_change

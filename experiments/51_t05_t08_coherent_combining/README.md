@@ -2,6 +2,8 @@
 
 This is the four-radio controlled end-to-end experiment requested by the manuscript. It measures residual calibration phase per radio and received power for one through four active transmitters. Each count is repeated with calibrated phases, zero baseband phase, and deterministic random phases. The result is compared with ideal coherent \(M^2\) and incoherent \(M\) power scaling.
 
+`client/` runs on T05–T08, `server/` runs both the coordinator and T04 source, and `processing/` runs offline analysis. The experiment root retains the shared `config.yml`, this connection guide, and ignored `runs/` output.
+
 ## Required equipment
 
 - T04 with its installed/default FPGA image, used only as the RF source;
@@ -24,8 +26,7 @@ T04 CH0 `TX/RX` provides the reference, pilot, and attenuated scope-reference br
 After installing and measuring the complete distribution path, enter its output attenuation in `rf_source_output_attenuation_db`. Start the source on T04, for example:
 
 ```bash
-python3 experiments/t05_t08_common/run_t04_source.py \
-  --config experiments/51_t05_t08_coherent_combining/config.yml \
+python3 experiments/51_t05_t08_coherent_combining/server/run_t04_source.py \
   --tx-gain-db 0
 ```
 
@@ -115,13 +116,13 @@ Measure each CH0 reference-cable phase relative to the T05 cable at 920.001 MHz.
 1. Start the coordinator on the computer that can reach all four RPis and the scope:
 
    ```bash
-   python3 experiments/51_t05_t08_coherent_combining/coordinator.py
+   python3 experiments/51_t05_t08_coherent_combining/server/coordinator.py
    ```
 
 2. On each RPi, start its node while the T04 pilot branch is connected. Example for T05:
 
    ```bash
-   python3 experiments/51_t05_t08_coherent_combining/run_node.py \
+   python3 experiments/51_t05_t08_coherent_combining/client/run_node.py \
      --tile T05 --coordinator 10.128.48.3
    ```
 
@@ -132,7 +133,7 @@ Use `--manual-power` if an automatic VISA connection is unavailable. Use `--dry-
 ## Analyze
 
 ```bash
-python3 experiments/51_t05_t08_coherent_combining/analyze.py \
+python3 experiments/51_t05_t08_coherent_combining/processing/analyze.py \
   experiments/51_t05_t08_coherent_combining/runs/<run>.jsonl \
   --output combining_summary.csv
 ```

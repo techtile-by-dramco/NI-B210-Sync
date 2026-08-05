@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 
 
-EXPERIMENTS_DIR = Path(__file__).resolve().parents[1]
+EXPERIMENTS_DIR = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(EXPERIMENTS_DIR))
 
 from t05_t08_common.phase import circular_mean, circular_std, wrap_phase

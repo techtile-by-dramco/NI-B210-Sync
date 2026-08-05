@@ -180,7 +180,14 @@ class B210Session:
     def timed_tune(self, frequency_hz: float, lead_s: float | None = None) -> None:
         lead = float(lead_s or self.config.get("command_lead_s", 0.25))
         at_time = self.usrp.get_time_now().get_real_secs() + lead
-        self.usrp.set_command_time(self.uhd.types.TimeSpec(at_time))
+        self._schedule_tune(frequency_hz, at_time)
+        time.sleep(lead + float(self.config.get("lo_settle_s", 0.1)))
+        self._verify_lo_locks()
+
+    def _schedule_tune(self, frequency_hz: float, at_time_s: float) -> None:
+        """Queue an integer-N tune for one exact B210 device time."""
+
+        self.usrp.set_command_time(self.uhd.types.TimeSpec(float(at_time_s)))
         try:
             request = self.uhd.types.TuneRequest(float(frequency_hz))
             request.args = self.uhd.types.DeviceAddr("mode_n=integer")
@@ -189,7 +196,8 @@ class B210Session:
                 self.usrp.set_tx_freq(request, channel)
         finally:
             self.usrp.clear_command_time()
-        time.sleep(lead + float(self.config.get("lo_settle_s", 0.1)))
+
+    def _verify_lo_locks(self) -> None:
         for channel in self.channels:
             for direction in ("rx", "tx"):
                 getter = getattr(self.usrp, f"get_{direction}_sensor")
@@ -199,6 +207,82 @@ class B210Session:
                     locked = _sensor_bool(getter("lo_locked"))
                 if not locked:
                     raise RadioError(f"{self.tile}: {direction.upper()} LO is not locked")
+
+    def _schedule_command(self, at_time_s: float, operation: Any) -> None:
+        """Queue one UHD property update at an exact B210 device time."""
+
+        self.usrp.set_command_time(self.uhd.types.TimeSpec(float(at_time_s)))
+        try:
+            operation()
+        finally:
+            self.usrp.clear_command_time()
+
+    def schedule_state_event(self, event: str, event_time_s: float) -> float:
+        """Queue a schedulable state intervention and return its completion time.
+
+        The caller must send this command before ``event_time_s``. Reopen,
+        power-cycle, and reference-cable interventions are deliberately rejected:
+        their completion is controlled by a host or operator, not UHD time.
+        """
+
+        if self.usrp is None:
+            raise RadioError("radio session is closed")
+        event_time_s = float(event_time_s)
+        if event_time_s <= self.usrp.get_time_now().get_real_secs():
+            raise RadioError(f"{self.tile}: event time is not in the future")
+        if event in ("fixed_repeat", "stream_restart"):
+            # A new timed RX command is the stream-restart intervention.
+            return event_time_s
+
+        settle_s = float(self.config.get("event_settle_s", 0.25))
+        completion_time_s = event_time_s + settle_s
+        if event == "lo_retune":
+            center = float(self.config["center_frequency_hz"])
+            self._schedule_tune(
+                center + float(self.config["retune_offset_hz"]), event_time_s
+            )
+            self._schedule_tune(center, completion_time_s)
+        elif event == "rx_gain_change":
+            nominal = float(self.config["measured_rx_gain_db"])
+            changed = nominal + float(self.config["temporary_rx_gain_delta_db"])
+            self._schedule_command(
+                event_time_s,
+                lambda: self.usrp.set_rx_gain(changed, self.measured_channel),
+            )
+            self._schedule_command(
+                completion_time_s,
+                lambda: self.usrp.set_rx_gain(nominal, self.measured_channel),
+            )
+        elif event == "tx_gain_change":
+            nominal = float(self.config["tx_gain_db"])
+            changed = nominal + float(self.config["temporary_tx_gain_delta_db"])
+            self._schedule_command(
+                event_time_s,
+                lambda: self.usrp.set_tx_gain(changed, self.measured_channel),
+            )
+            self._schedule_command(
+                completion_time_s,
+                lambda: self.usrp.set_tx_gain(nominal, self.measured_channel),
+            )
+        elif event == "rx_port_change":
+            nominal = str(self.config["measured_rx_antenna"])
+            alternate = str(self.config["alternate_rx_antenna"])
+            if nominal == alternate:
+                raise RadioError("alternate_rx_antenna must differ from measured_rx_antenna")
+            self._schedule_command(
+                event_time_s,
+                lambda: self.usrp.set_rx_antenna(alternate, self.measured_channel),
+            )
+            self._schedule_command(
+                completion_time_s,
+                lambda: self.usrp.set_rx_antenna(nominal, self.measured_channel),
+            )
+        else:
+            raise RadioError(
+                f"{event} cannot be scheduled at a common device time; "
+                "run it as a documented per-tile/manual trial"
+            )
+        return completion_time_s
 
     def set_measured_rx_gain(self, gain_db: float) -> None:
         self.usrp.set_rx_gain(float(gain_db), self.measured_channel)
