@@ -1,5 +1,15 @@
 # Methods to synchronise NI B210s for MIMO operation
 
+This repository contains the B210 synchronization research code, hardware notes, and reproducible experiments. Start with the [experiment index](experiments/readme.md). The new work uses T04 as the common RF source and T05–T08 as the devices under test; it is split into state characterization (`50`), controlled coherent combining (`51`), and stability/recalibration events (`52`). Each directory has a connection-first README and a `--dry-run` mode.
+
+Repository layout:
+
+- `experiments/` — acquisition, processing, results, and testbench instructions;
+- `phased-locked-loop/` — PLL hardware, firmware, and control scripts;
+- `octoclock-validation/` — reference-distribution validation;
+- `software/` and `tests/` — prototypes and lower-level tests; and
+- `manuscript/` — separate Overleaf Git checkout, intentionally ignored by this repository.
+
 ## Relevant sources
 - [Synchronizing multiple AD9361 devices](https://wiki.analog.com/resources/eval/user-guides/ad-fmcomms5-ebz/multi-chip-sync?force_rev=1)
 - [AD9361 Register Map Reference Manual](https://usermanual.wiki/Document/AD9361RegisterMapReferenceManualUG671.1082447504)
@@ -271,5 +281,3 @@ md.time_spec = time_to_send;
 //send a single packet
 size_t num_tx_samps = tx_streamer->send(buffs, samps_to_send, md);
 ```
-
-

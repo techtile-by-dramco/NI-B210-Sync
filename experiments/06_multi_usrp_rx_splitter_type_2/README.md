@@ -9,6 +9,20 @@ One testtile that transmit a sine wave
 python3 examples/tx_waveforms.py  --args "type=b200" --freq 920e6 --rate 1e6 --duration 1e8 --channels 0 --wave-freq 0e5 --wave-ampl 0.8 --gain 70
 ```
 
+### Connections
+
+```mermaid
+flowchart LR
+    OCTO["Common OctoClock"] -->|"10 MHz and PPS<br/>separate outputs"| ALL["T04 source and T05–T08 receivers"]
+    T04["T04 CH0 TX/RX<br/>920 MHz CW"] --> ATT["Rated attenuation"] --> SPLIT["Type-2 low-phase-imbalance<br/>RF distribution"]
+    SPLIT -->|"two outputs"| T05["T05 CH0 RX2<br/>and CH1 RX2"]
+    SPLIT -->|"two outputs"| T06["T06 CH0 RX2<br/>and CH1 RX2"]
+    SPLIT -->|"two outputs"| T07["T07 CH0 RX2<br/>and CH1 RX2"]
+    SPLIT -->|"two outputs"| T08["T08 CH0 RX2<br/>and CH1 RX2"]
+```
+
+Record the type-2 splitter output-to-port mapping rather than substituting the ZC16PD mapping from the preceding experiment. Measure safe input power at the highest T04 gain before connecting T05–T08.
+
 <table>
   <tr>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx_splitter_type_2/pictures/front.jpg" width="400"></td>

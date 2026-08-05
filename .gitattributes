@@ -1,0 +1,26 @@
+* text=auto
+
+# Keep scripts and documentation executable/readable on Linux testbench nodes.
+*.py text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.csv text eol=lf
+*.dat text eol=lf
+*.tex text eol=lf
+*.bib text eol=lf
+*.grc text eol=lf
+*.svg text eol=lf
+
+# Measurement assets and FPGA images are binary.
+*.bin binary
+*.nc binary
+*.npy binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.pdf binary
+*.zip binary

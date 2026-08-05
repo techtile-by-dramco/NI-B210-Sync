@@ -1,4 +1,51 @@
-This folder contains scripts and results to investigate the phase stability and coherency of the B210 for multi-device phase-coherent operation.
+# Experiment index
+
+This folder contains scripts and results investigating B210 phase stability and multi-device coherent operation. Historical experiments retain their original numbering and results; new work uses one directory per reproducible experiment.
+
+## T05–T08 testbench — current work
+
+| Experiment | Manuscript question | Status |
+|---|---|---|
+| [50 — state characterization](50_t05_t08_state_characterization/README.md) | Which initialization and configuration events change the B210 phase state? | Ready to conduct |
+| [51 — coherent combining](51_t05_t08_coherent_combining/README.md) | Does calibrated received power approach coherent \(M^2\) scaling for 1–4 transmitters? | Ready to conduct |
+| [52 — stability and events](52_t05_t08_stability_events/README.md) | How fast does phase drift, and which events require recalibration? | Ready to conduct |
+
+T04 is the common RF source for all three experiments; T05–T08 are the devices under test. Shared, tested acquisition, source, and analysis code lives in `t05_t08_common/`. Runtime output goes into an ignored `runs/` directory. Hardware runs reject and separately log missing reference lock, late first-sample timestamps, RX overflow/timeout, and TX asynchronous errors.
+
+The full-ceiling experiment from the manuscript is intentionally deferred: this first pass is limited to the controlled T05–T08 bench.
+
+## Historical experiment connection guides
+
+Each historical directory now has a local connection guide derived from its code, photographs, configuration, and the original notes below. Guides marked archived, inferred, or prototype identify missing information that must be checked before reconnecting hardware.
+
+- [01 — single-B210 RX-gain sweep](01_dual_rx_channel_single_b210/README.md)
+- [02 — RX-gain sweep with cable offset](02_dual_rx_channel_single_b210/README.md)
+- [03 — single-B210 TX-gain sweep](03_dual_tx_channel_single_b210/README.md)
+- [04 — two-dimensional RX-gain matrix](04_dual_rx_matrix_single_b210/README.md)
+- [05 — clock/VCO-rate trace sweep](05_vco_rates/README.md)
+- [06 — multi-USRP RX-gain sweep](06_multi_usrp_rx/README.md)
+- [06 archived setup](06_multi_usrp_rx_old/README.md)
+- [06 — type-2 splitter](06_multi_usrp_rx_splitter_type_2/README.md)
+- [07 — multi-USRP phase stability](07_multi_usrp_rx_time/README.md)
+- [07 archived setup](07_multi_usrp_rx_time_old/README.md)
+- [08 — source-power/SNR sweep](08_multi_usrp_ideal_snr/README.md)
+- [10 — archived dual-RX rerun](10_dual_rx_channel_single_b210/README.md)
+- [20 — single-B210 external/internal loopback](20_loopback_single_b210/README.md)
+- [21 — revised custom-FPGA loopback](21_loopback_single_b210/README.md)
+- [22 — four-B210 loopback comparison](22_multi_usrp_loopback/README.md)
+- [23 — four-B210 loopback RX-gain sweep](23_multi_usrp_loopback_rx_gain/README.md)
+- [30 — multi-USRP synchronized output](30_mulit_usrp_sync_only_lb/README.md)
+- [31 — synchronized output with phase offsets](31_mulit_usrp_sync_only_lb_add_phase/README.md)
+- [32 — synchronized output with cable correction](32_mulit_usrp_sync_only_lb_clo/README.md)
+- [33 — cable correction and phase offsets](33_mulit_usrp_sync_only_lb_clo_add_phase/README.md)
+- [40 — local synchronization prototype](40_sync/README.md)
+- [41 — pilot/loopback/transmission prototype](41_sync/README.md)
+- [42 — internal-loopback synchronization prototype](42_sync/README.md)
+- [XXX — archived synchronization template](XXX_mulit_usrp_sync_only_lb_clo/README.md)
+
+## Historical experiment notes
+
+The material below is the original lab notebook. Treat connection descriptions as experiment-specific; do not infer that gain, cable, or FPGA settings transfer to experiments 50–52.
 
 
 <!-- **************************************************************************************************************************** -->

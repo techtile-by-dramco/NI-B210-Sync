@@ -1,3 +1,22 @@
 *.npy
 metadata_*.yml
 *.filepart
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# New experiment output is written here by default.
+runs/
+
+# The paper is maintained as a separate Overleaf Git checkout.
+manuscript/
+manuscript.incomplete-backup/

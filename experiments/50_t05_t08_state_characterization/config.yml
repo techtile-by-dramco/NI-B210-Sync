@@ -1,0 +1,68 @@
+experiment: 50_t05_t08_state_characterization
+tiles: [T05, T06, T07, T08]
+
+# T04 is the common RF source. Its output is center_frequency_hz plus the
+# complex-baseband tone_frequency_hz. Set a serial in device_args if T04's host
+# can see more than one B210. Fill gain/attenuation only after a power check.
+rf_source_tile: T04
+rf_source_device_args: type=b200
+rf_source_tx_channel: 0
+rf_source_tx_antenna: TX/RX
+rf_source_tx_gain_db: null
+rf_source_tone_amplitude: 0.2
+rf_source_output_attenuation_db: null
+
+center_frequency_hz: 920e6
+tone_frequency_hz: 1e3
+sample_rate_hz: 250e3
+master_clock_rate_hz: 20e6
+rf_bandwidth_hz: 200e3
+clock_source: external
+time_source: external
+
+reference_channel: 0
+measured_channel: 1
+reference_rx_antenna: RX2
+measured_rx_antenna: TX/RX
+measured_tx_antenna: TX/RX
+reference_rx_gain_db: 35
+measured_rx_gain_db: 35
+tx_gain_db: 50
+tone_amplitude: 0.5
+reference_input_power_dbm: null  # Measure at the B210 connector and fill in.
+
+capture_time_s: 2
+discard_time_s: 0.1
+phase_block_samples: 4096
+lock_timeout_s: 5
+pps_settle_s: 2
+command_lead_s: 0.25
+stream_lead_s: 0.5
+lo_settle_s: 0.1
+
+# Run external_pair with T04 feeding an 8-way RF split to both RX inputs. Run
+# internal_loopback separately after changing the connections per README.
+measurement_mode: external_pair
+loopback_fpga: ../30_mulit_usrp_sync_only_lb/client/usrp_b210_fpga_loopback.bin
+
+automated_events:
+  external_pair:
+    - fixed_repeat
+    - stream_restart
+    - device_reopen
+    - lo_retune
+    - rx_gain_change
+    - rx_port_change
+  internal_loopback:
+    - fixed_repeat
+    - stream_restart
+    - device_reopen
+    - lo_retune
+    - rx_gain_change
+    - tx_gain_change
+
+retune_offset_hz: 2e6
+temporary_rx_gain_delta_db: 6
+temporary_tx_gain_delta_db: 6
+alternate_rx_antenna: RX2
+event_settle_s: 0.25

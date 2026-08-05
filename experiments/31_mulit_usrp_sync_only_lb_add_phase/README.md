@@ -11,6 +11,24 @@ python3 examples/tx_waveforms.py  --args "type=b200" --freq 920e6 --rate 1e6 --d
 - The build-in measurement functie is used to measure the phases.
 - To prevent incorrect phase results, additional **phase offsets** were added: T05: 0°, T06: 45°, T07: 90°, and T08: 135°.
 
+## Connections
+
+```mermaid
+flowchart LR
+    OCTO["Common OctoClock"] -->|"10 MHz and PPS<br/>separate outputs"| RADIOS["T04 and T05–T08"]
+    SERVER["ZMQ sync server"] <-->|"Ethernet"| HOSTS["T05–T08 client hosts"]
+    T04["T04 CH0 TX/RX<br/>920 MHz CW"] --> ATT["20 dB attenuator"] --> S1["2-way splitter 1"]
+    S1 --> S2A["2-way splitter 2A"]
+    S1 --> S2B["2-way splitter 2B"]
+    S2A -->|"two fixed cables"| REF12["Two radios CH0 RX2"]
+    S2B -->|"two fixed cables"| REF34["Two radios CH0 RX2"]
+    FPGA["Custom FPGA loopback"] --> LB["Each radio CH1<br/>internal TX-to-RX calibration"]
+    PHASE["Software TX offsets<br/>T05 0°, T06 45°<br/>T07 90°, T08 135°"] --> TXS["T05–T08 CH1 TX/RX"]
+    TXS -->|"one rated path per tile;<br/>record mapping"| SCOPE["Oscilloscope CH1–CH4<br/>50 Ω"]
+```
+
+The phase offsets are software settings, not extra cable sections. Confirm and record the tile-to-scope-channel mapping before collecting data.
+
 <img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/31_mulit_usrp_sync_only_lb_add_phase/pictures/circuit-setup.png" width="1000">
 Before splitter 1 is a 20 dB attentuator
 

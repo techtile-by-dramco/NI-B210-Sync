@@ -5,6 +5,20 @@ One testtile that transmit a sine wave
 python3 examples/tx_waveforms.py  --args "type=b200" --freq 920e6 --rate 1e6 --duration 1e8 --channels 0 --wave-freq 0e5 --wave-ampl 0.8 --gain 70
 ```
 
+### Connections
+
+```mermaid
+flowchart LR
+    OCTO["Common OctoClock"] -->|"10 MHz and PPS<br/>separate outputs"| ALL["T04 source and T05–T08 receivers"]
+    T04["T04 CH0 TX/RX<br/>920 MHz CW"] --> ATT["Rated attenuation"] --> SPLIT["ZC16PD-252-S+ splitter<br/>8 outputs used"]
+    SPLIT -->|"outputs 1–2"| T05["T05 CH0 RX2<br/>and CH1 RX2"]
+    SPLIT -->|"outputs 3–4"| T06["T06 CH0 RX2<br/>and CH1 RX2"]
+    SPLIT -->|"outputs 5–6"| T07["T07 CH0 RX2<br/>and CH1 RX2"]
+    SPLIT -->|"outputs 7–8"| T08["T08 CH0 RX2<br/>and CH1 RX2"]
+```
+
+Measure the T04 power after attenuation and splitter loss before connecting any receiver. Keep each splitter output and cable assigned to the same RX port for the complete sweep.
+
 <table>
   <tr>
     <td><img src="https://github.com/techtile-by-dramco/NI-B210-Sync/blob/main/experiments/06_multi_usrp_rx/pictures/setup_6_front.jpg" width="200"></td>

@@ -10,6 +10,23 @@ python3 examples/tx_waveforms.py  --args "type=b200" --freq 920e6 --rate 1e6 --d
 - A total of 100 iterations are performed.
 - During each synchronization cycle, the oscilloscope measures the phase relationship of channels 2, 3, and 4 with respect to channel 1.
 
+## Connections
+
+```mermaid
+flowchart LR
+    OCTO["Common OctoClock"] -->|"10 MHz and PPS<br/>separate outputs"| RADIOS["T04 and T05–T08"]
+    SERVER["ZMQ sync server"] <-->|"Ethernet"| HOSTS["T05–T08 client hosts"]
+    T04["T04 CH0 TX/RX<br/>920 MHz CW"] --> ATT["20 dB attenuator"] --> S1["2-way splitter 1"]
+    S1 --> S2A["2-way splitter 2A"]
+    S1 --> S2B["2-way splitter 2B"]
+    S2A -->|"two fixed cables"| REF12["Two radios CH0 RX2"]
+    S2B -->|"two fixed cables"| REF34["Two radios CH0 RX2"]
+    FPGA["Custom FPGA loopback"] --> LB["Each radio CH1<br/>internal TX-to-RX calibration"]
+    TXS["T05–T08 CH1 TX/RX"] -->|"four rated paths;<br/>preserve recorded mapping"| SCOPE["Oscilloscope CH1–CH4<br/>50 Ω"]
+```
+
+The surviving files do not unambiguously record which tile was assigned to each scope channel. Preserve the historical cable labels when analyzing old data, and explicitly record the mapping before a rerun.
+
 ### Results [raw & abs(raw)]
 
 <table>

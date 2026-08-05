@@ -1,0 +1,53 @@
+experiment: 52_t05_t08_stability_events
+tiles: [T05, T06, T07, T08]
+
+# T04 remains continuously active as the RF source for the complete stability
+# run. Fill gain/attenuation only after measuring the distribution path.
+rf_source_tile: T04
+rf_source_device_args: type=b200
+rf_source_tx_channel: 0
+rf_source_tx_antenna: TX/RX
+rf_source_tx_gain_db: null
+rf_source_tone_amplitude: 0.2
+rf_source_output_attenuation_db: null
+
+center_frequency_hz: 920e6
+tone_frequency_hz: 1e3
+sample_rate_hz: 250e3
+master_clock_rate_hz: 20e6
+rf_bandwidth_hz: 200e3
+clock_source: external
+time_source: external
+
+reference_channel: 0
+measured_channel: 1
+reference_rx_antenna: RX2
+measured_rx_antenna: TX/RX
+measured_tx_antenna: TX/RX
+reference_rx_gain_db: 35
+measured_rx_gain_db: 35
+tx_gain_db: 50
+tone_amplitude: 0.5
+reference_input_power_dbm: null  # Measure at the B210 connector and fill in.
+
+measurement_mode: external_pair
+capture_time_s: 2
+discard_time_s: 0.1
+phase_block_samples: 4096
+measurement_interval_s: 60
+measurements: 1440
+event_at_measurement: 10
+
+lock_timeout_s: 5
+pps_settle_s: 2
+command_lead_s: 0.25
+stream_lead_s: 0.5
+lo_settle_s: 0.1
+event_settle_s: 0.25
+loopback_fpga: ../30_mulit_usrp_sync_only_lb/client/usrp_b210_fpga_loopback.bin
+
+retune_offset_hz: 2e6
+temporary_rx_gain_delta_db: 6
+temporary_tx_gain_delta_db: 6
+alternate_rx_antenna: RX2
+phase_error_threshold_deg: 5
