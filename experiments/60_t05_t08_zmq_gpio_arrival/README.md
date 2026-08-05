@@ -162,7 +162,80 @@ python3 -m pip install -r experiments/60_t05_t08_zmq_gpio_arrival/requirements.t
 intentionally imported only on a real client run, so connection plans can be
 checked from another machine using `--dry-run`.
 
+### Bootstrap the tile sessions from the server
+
+The server-side helper can prepare T04–T08 in detached GNU Screen sessions.  On
+each Raspberry Pi it clones this repository when `~/NI-B210-Sync` is absent, or
+runs `git pull --ff-only` when the checkout already exists.  It then creates or
+reuses `.venv`, installs the Experiment 60 requirements, and leaves an interactive
+remote shell with the virtual environment activated:
+
+```bash
+experiments/60_t05_t08_zmq_gpio_arrival/server/bootstrap_tile_screens.sh
+```
+
+Before running it, install `screen` on the server and verify that key-based SSH
+to `pi@rpi-t04.local` through `pi@rpi-t08.local` works without a password or host
+authenticity prompt.  Existing named Screen sessions are preserved.  The
+fast-forward-only pull does not reset local changes or create a merge commit; it
+stops if the local branch and its upstream have diverged.  A non-Git file or
+directory at `~/NI-B210-Sync` causes setup for that tile to stop instead of
+overwriting it.
+
+Inspect or attach to the sessions with:
+
+```bash
+screen -ls
+screen -r T05
+```
+
+Detach from a session with <kbd>Ctrl-A</kbd>, then <kbd>D</kbd>.  T04 is prepared
+to match the usual T04–T08 provisioning workflow, but Experiment 60 runs GPIO
+clients only on T05–T08.
+
 ## Run procedure
+
+### Start the server and all clients with `run.sh`
+
+After the bootstrap helper has finished on T05–T08, start the local coordinator
+and all four remote clients from the server with:
+
+```bash
+experiments/60_t05_t08_zmq_gpio_arrival/server/run.sh
+```
+
+`run.sh` detects the local IPv4 address used by the server's default route and
+passes it to every client as `--server`.  If the tiles reach the server through a
+different interface, specify that address explicitly:
+
+```bash
+experiments/60_t05_t08_zmq_gpio_arrival/server/run.sh \
+  --server-ip 192.168.1.10
+```
+
+An optional repetition override is applied to both the server and all clients:
+
+```bash
+experiments/60_t05_t08_zmq_gpio_arrival/server/run.sh \
+  --server-ip 192.168.1.10 --repetitions 100
+```
+
+The helper creates `EXP60_SERVER` locally and `EXP60_T05` through `EXP60_T08`
+for the SSH clients.  It uses separate names from the bootstrap sessions and
+refuses to replace an existing session.  Use `screen -ls` to list them or, for
+example, `screen -r EXP60_SERVER` to watch the coordinator.  Verify the detected
+address printed by the script and arm the MSO64B before starting the run.
+
+The client Screen shells remain available after SSH exits so their final output
+can be inspected.  Close them after the run before invoking `run.sh` again:
+
+```bash
+for tile in {05..08}; do
+  screen -S "EXP60_T${tile}" -X quit
+done
+```
+
+### Manual startup
 
 1. On the server, start the coordinator.  It binds the PUB endpoint on port 55560
    and the acknowledgement endpoint on port 55561, then waits for all four tiles:
