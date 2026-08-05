@@ -100,16 +100,12 @@ if [[ -x "${REPOSITORY_DIR}/.venv/bin/python3" ]]; then
     server_python="${REPOSITORY_DIR}/.venv/bin/python3"
 fi
 
-printf -v quoted_repository_dir '%q' "${REPOSITORY_DIR}"
-printf -v quoted_server_python '%q' "${server_python}"
-server_command="cd ${quoted_repository_dir} && exec ${quoted_server_python} \
-${EXPERIMENT_PATH}/server/zmq_sync_server.py --host 0.0.0.0"
+server_args=("${SCRIPT_DIR}/zmq_sync_server.py" "--host" "0.0.0.0")
 if [[ -n "${repetitions}" ]]; then
-    server_command+=" --repetitions ${repetitions}"
+    server_args+=("--repetitions" "${repetitions}")
 fi
 
-screen -dmS "${SERVER_SESSION}" bash
-screen -S "${SERVER_SESSION}" -p 0 -X stuff "${server_command}"$'\r'
+screen -dmS "${SERVER_SESSION}" "${server_python}" "${server_args[@]}"
 echo "Started synchronization server in ${SERVER_SESSION} (advertised IP: ${server_ip})."
 
 for tile_number in {05..08}; do
@@ -127,11 +123,10 @@ python3 ${EXPERIMENT_PATH}/client/zmq_gpio_client.py \
         remote_command+=" --repetitions ${repetitions}"
     fi
 
-    # The client command is part of SSH, so an SSH failure cannot cause it to
-    # execute in the local Screen shell.
-    screen -dmS "${session}" bash
-    screen -S "${session}" -p 0 -X stuff "ssh -tt ${host} '${remote_command}'"$'\r'
+    # Pass the remote command directly to SSH so its variables are expanded only
+    # by the remote shell.
+    screen -dmS "${session}" ssh -tt "${host}" "${remote_command}"
     echo "Started ${tile} client in ${session}: ${host} -> ${server_ip}."
 done
 
-echo "Use 'screen -r ${SERVER_SESSION}' to watch the server and 'screen -ls' to list all sessions."
+echo "Use 'screen -r ${SERVER_SESSION}' to watch the server and 'screen -ls' to list active sessions."

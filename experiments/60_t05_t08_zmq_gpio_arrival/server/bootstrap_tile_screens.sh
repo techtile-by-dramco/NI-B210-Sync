@@ -34,10 +34,9 @@ python3 -m pip install -r \"${REQUIREMENTS_PATH}\"; \
 echo \"${tile} is ready in \${repo_dir}; virtual environment: \${VIRTUAL_ENV}\"; \
 exec bash -i"
 
-    # Keep a local shell in the screen session. The setup is part of the SSH
-    # command, so an SSH failure cannot make it run accidentally on this server.
-    screen -dmS "${tile}" bash
-    screen -S "${tile}" -p 0 -X stuff "ssh -tt ${host} '${remote_command}'"$'\r'
+    # Pass the remote command directly to SSH. Typing it into an intermediate
+    # local shell would expand its remote $HOME and $repo_dir variables locally.
+    screen -dmS "${tile}" ssh -tt "${host}" "${remote_command}"
     echo "Started ${tile}: ${host}"
 done
 

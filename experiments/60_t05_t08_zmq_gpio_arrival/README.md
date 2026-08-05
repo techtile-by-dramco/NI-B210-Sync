@@ -226,14 +226,9 @@ refuses to replace an existing session.  Use `screen -ls` to list them or, for
 example, `screen -r EXP60_SERVER` to watch the coordinator.  Verify the detected
 address printed by the script and arm the MSO64B before starting the run.
 
-The client Screen shells remain available after SSH exits so their final output
-can be inspected.  Close them after the run before invoking `run.sh` again:
-
-```bash
-for tile in {05..08}; do
-  screen -S "EXP60_T${tile}" -X quit
-done
-```
+Each run session closes automatically when its server or client process exits.
+While a process is running, attach to its session to inspect its output.  The
+server and client JSONL files remain available after the Screen sessions close.
 
 ### Manual startup
 
