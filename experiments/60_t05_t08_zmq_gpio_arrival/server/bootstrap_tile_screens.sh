@@ -6,6 +6,10 @@ set -euo pipefail
 readonly REPOSITORY_URL="https://github.com/techtile-by-dramco/NI-B210-Sync.git"
 readonly REMOTE_REPOSITORY_DIR='${HOME}/NI-B210-Sync'
 readonly REQUIREMENTS_PATH="experiments/60_t05_t08_zmq_gpio_arrival/requirements.txt"
+readonly SCREEN_COMMAND_WRAPPER='"$@"
+status=$?
+printf "\nProcess exited with status %d; this Screen session is being kept open for inspection.\n" "${status}"
+exec bash -i'
 
 if ! command -v screen >/dev/null 2>&1; then
     echo "GNU screen is required on the server." >&2
@@ -34,9 +38,11 @@ python3 -m pip install -r \"${REQUIREMENTS_PATH}\"; \
 echo \"${tile} is ready in \${repo_dir}; virtual environment: \${VIRTUAL_ENV}\"; \
 exec bash -i"
 
-    # Pass the remote command directly to SSH. Typing it into an intermediate
-    # local shell would expand its remote $HOME and $repo_dir variables locally.
-    screen -dmS "${tile}" ssh -tt "${host}" "${remote_command}"
+    # Pass SSH and its remote command as positional arguments to the wrapper.
+    # This avoids local expansion of remote variables and preserves failures for
+    # inspection after SSH exits.
+    screen -dmS "${tile}" bash -c "${SCREEN_COMMAND_WRAPPER}" bash \
+        ssh -tt "${host}" "${remote_command}"
     echo "Started ${tile}: ${host}"
 done
 

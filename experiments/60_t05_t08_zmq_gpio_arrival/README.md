@@ -180,7 +180,8 @@ authenticity prompt.  Existing named Screen sessions are preserved.  The
 fast-forward-only pull does not reset local changes or create a merge commit; it
 stops if the local branch and its upstream have diverged.  A non-Git file or
 directory at `~/NI-B210-Sync` causes setup for that tile to stop instead of
-overwriting it.
+overwriting it.  If SSH or setup exits, its Screen session remains open and shows
+the exit status so the failure can be inspected.
 
 Inspect or attach to the sessions with:
 
@@ -226,9 +227,18 @@ refuses to replace an existing session.  Use `screen -ls` to list them or, for
 example, `screen -r EXP60_SERVER` to watch the coordinator.  Verify the detected
 address printed by the script and arm the MSO64B before starting the run.
 
-Each run session closes automatically when its server or client process exits.
-While a process is running, attach to its session to inspect its output.  The
-server and client JSONL files remain available after the Screen sessions close.
+Each run session remains open after its process exits and prints the process exit
+status, so startup failures and final output can be inspected with `screen -r`.
+Close the five run sessions after inspection and before invoking `run.sh` again:
+
+```bash
+for session in EXP60_SERVER EXP60_T05 EXP60_T06 EXP60_T07 EXP60_T08; do
+  screen -S "${session}" -X quit
+done
+```
+
+The server and client JSONL files also remain available after the Screen sessions
+are closed.
 
 ### Manual startup
 

@@ -8,6 +8,10 @@ readonly REPOSITORY_DIR="$(cd -- "${SCRIPT_DIR}/../../.." && pwd)"
 readonly EXPERIMENT_PATH="experiments/60_t05_t08_zmq_gpio_arrival"
 readonly REMOTE_REPOSITORY_DIR='${HOME}/NI-B210-Sync'
 readonly SERVER_SESSION="EXP60_SERVER"
+readonly SCREEN_COMMAND_WRAPPER='"$@"
+status=$?
+printf "\nProcess exited with status %d; this Screen session is being kept open for inspection.\n" "${status}"
+exec bash -i'
 
 server_ip=""
 repetitions=""
@@ -105,7 +109,8 @@ if [[ -n "${repetitions}" ]]; then
     server_args+=("--repetitions" "${repetitions}")
 fi
 
-screen -dmS "${SERVER_SESSION}" "${server_python}" "${server_args[@]}"
+screen -dmS "${SERVER_SESSION}" bash -c "${SCREEN_COMMAND_WRAPPER}" bash \
+    "${server_python}" "${server_args[@]}"
 echo "Started synchronization server in ${SERVER_SESSION} (advertised IP: ${server_ip})."
 
 for tile_number in {05..08}; do
@@ -125,7 +130,8 @@ python3 ${EXPERIMENT_PATH}/client/zmq_gpio_client.py \
 
     # Pass the remote command directly to SSH so its variables are expanded only
     # by the remote shell.
-    screen -dmS "${session}" ssh -tt "${host}" "${remote_command}"
+    screen -dmS "${session}" bash -c "${SCREEN_COMMAND_WRAPPER}" bash \
+        ssh -tt "${host}" "${remote_command}"
     echo "Started ${tile} client in ${session}: ${host} -> ${server_ip}."
 done
 
