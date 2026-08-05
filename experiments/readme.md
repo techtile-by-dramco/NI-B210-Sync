@@ -9,8 +9,9 @@ This folder contains scripts and results investigating B210 phase stability and 
 | [50 — state characterization](50_t05_t08_state_characterization/README.md) | Which initialization and configuration events change the B210 phase state? | Ready to conduct |
 | [51 — coherent combining](51_t05_t08_coherent_combining/README.md) | Does calibrated received power approach coherent \(M^2\) scaling for 1–4 transmitters? | Ready to conduct |
 | [52 — stability and events](52_t05_t08_stability_events/README.md) | How fast does phase drift, and which events require recalibration? | Ready to conduct |
+| [60 — ZMQ GPIO-arrival timing](60_t05_t08_zmq_gpio_arrival/README.md) | What is the scope-measured spread of T05–T08 GPIO rises after one common ZMQ message? | Ready to conduct |
 
-T04 is the common RF source for all three experiments; T05–T08 are the devices under test. Shared, tested acquisition, source, and analysis code lives in `t05_t08_common/`. Runtime output goes into an ignored `runs/` directory. Hardware runs reject and separately log missing reference lock, late first-sample timestamps, RX overflow/timeout, and TX asynchronous errors.
+T04 is the common RF source for experiments 50–52; T05–T08 are the devices under test. Experiment 60 instead measures host/network notification timing with GPIO outputs and one shared scope timebase, so it has no RF wiring. Shared, tested acquisition, source, and analysis code for the RF work lives in `t05_t08_common/`. Runtime output goes into an ignored `runs/` directory. Hardware runs reject and separately log missing reference lock, late first-sample timestamps, RX overflow/timeout, and TX asynchronous errors.
 
 The full-ceiling experiment from the manuscript is intentionally deferred: this first pass is limited to the controlled T05–T08 bench.
 

@@ -1,0 +1,34 @@
+experiment: 60_t05_t08_zmq_gpio_arrival
+tiles: [T05, T06, T07, T08]
+
+# The server binds TCP ports; every client receives --server with its reachable
+# address. PUB is the common broadcast path, while PULL receives readiness and
+# GPIO-edge acknowledgements. The acknowledgement path is not used for timing.
+pub_port: 55560
+ack_port: 55561
+topic: zmq_gpio_sync
+ready_warmup_s: 3
+ack_timeout_s: 5
+inter_trial_s: 0.5
+repetitions: 100
+pulse_duration_s: 1.0
+receive_timeout_s: 15
+
+# Default BCM17 is physical header pin 11 on each separate Raspberry Pi.
+# Verify that it is unused on every tile before connecting probes. Do not use
+# these 3.3 V GPIO outputs with a 50 ohm scope input.
+gpio_bcm_pin:
+  T05: 17
+  T06: 17
+  T07: 17
+  T08: 17
+scope_channel:
+  T05: CH1
+  T06: CH2
+  T07: CH3
+  T08: CH4
+
+# Scope-processing defaults. Export one simultaneous four-channel CSV per
+# capture/segment with exactly these column names.
+scope_threshold_v: 1.65
+scope_min_edge_separation_s: 0.1

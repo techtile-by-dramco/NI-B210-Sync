@@ -1,6 +1,6 @@
 # Methods to synchronise NI B210s for MIMO operation
 
-This repository contains the B210 synchronization research code, hardware notes, and reproducible experiments. Start with the [experiment index](experiments/readme.md). The new work uses T04 as the common RF source and T05–T08 as the devices under test; it is split into state characterization (`50`), controlled coherent combining (`51`), and stability/recalibration events (`52`). Each directory has a connection-first README and a `--dry-run` mode.
+This repository contains the B210 synchronization research code, hardware notes, and reproducible experiments. Start with the [experiment index](experiments/readme.md). The new RF work uses T04 as the common source and T05–T08 as the devices under test; it is split into state characterization (`50`), controlled coherent combining (`51`), and stability/recalibration events (`52`). Experiment `60` separately measures the ZMQ-to-Raspberry-Pi GPIO-arrival spread on one shared scope timebase. Each directory has a connection-first README and a `--dry-run` mode.
 
 Repository layout:
 
