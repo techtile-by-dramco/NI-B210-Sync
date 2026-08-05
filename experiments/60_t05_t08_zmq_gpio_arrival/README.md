@@ -88,11 +88,12 @@ experiment.
 2. Trigger on CH1 rising.  Start with enough pre- and post-trigger span to capture
    the expected network jitter (for example, 50 ms before and after the first
    edge).  Use a sample rate that resolves the desired edge timing.
-3. For many repetitions, use a segmented acquisition if available, but every
-   segment must contain CH1–CH4 under the same timebase.  The configured 1 s high
-   pulse, server acknowledgement wait, and 0.5 s inter-trial delay keep events
-   distinct.  The record length need only cover the rising edges; it need not
-   contain the complete one-second high period.
+3. For many repetitions, use FastFrame/segmented acquisition and set the frame
+   count to the configured `repetitions` value (100 by default).  Every segment
+   must contain CH1–CH4 under the same timebase.  The configured 1 s high pulse,
+   server acknowledgement wait, and 0.5 s inter-trial delay keep events distinct.
+   The record length need only cover the rising edges; it need not contain the
+   complete one-second high period.
 4. Export a CSV with one time column and the four simultaneous voltage columns.
    Normalize the CSV header to exactly:
 
@@ -103,6 +104,51 @@ experiment.
    `time_s` must be strictly increasing inside each export.  The analyzer accepts
    several such exports and treats their complete rising-edge sets as consecutive
    trials.
+
+### Collecting the scope CSVs
+
+The measurement CSVs come from the MSO64B, not from the server or client JSONL
+logs.  Those logs use clocks local to different computers and cannot provide the
+cross-tile timing measurement.
+
+1. Enable CH1–CH4, select 1 MOhm input impedance and the correct 10x probe
+   attenuation on every channel, and configure the trigger and acquisition as
+   described above.
+2. Arm the scope before starting the clients.  For the default 100 trials, use a
+   100-frame FastFrame/segmented acquisition so that each CH1 rising edge produces
+   one frame.
+3. After the acquisition, select **File → Save As → Waveform** on the MSO64B.
+   Choose CSV/spreadsheet format, select **All waveforms** as the source, and save
+   to a USB drive or network location.  The Tektronix
+   [4/5/6 Series MSO help](https://download.tek.com/manual/4-5-6-Series-Mixed-Signal-Oscilloscopes-Printable-Help-EN-077130312.pdf)
+   documents this menu and the single/all-waveform source selection.
+4. Copy the exports to the analysis computer and prepare one normalized CSV per
+   frame or capture.  Each input to `analyze_scope.py` must look like:
+
+   ```csv
+   time_s,CH1,CH2,CH3,CH4
+   -0.050000,0.01,0.02,0.01,0.02
+   -0.049999,0.01,0.02,0.01,0.02
+   ```
+
+   Some scope configurations export one file per channel.  In that case, merge
+   the CH1–CH4 voltage columns by their common time samples; do not concatenate the
+   files.  Likewise, split a multi-frame export if its time column resets between
+   frames, because `time_s` must be strictly increasing within each analyzer
+   input.  Keep only samples from the same simultaneous acquisition together.
+
+5. Store the normalized files under a separate directory, for example
+   `scope_csv/normalized/run_001.csv`, and analyze them together:
+
+   ```bash
+   python3 experiments/60_t05_t08_zmq_gpio_arrival/processing/analyze_scope.py \
+     scope_csv/normalized/run_*.csv \
+     --output-prefix results/exp60_zmq_gpio
+   ```
+
+Experiment 60 currently has no automatic MSO64B collector or channel-merging
+utility.  Preserve the raw scope exports as well as the normalized CSVs and the
+server/client JSONL logs.
 
 ## Software setup
 
